@@ -13,19 +13,14 @@ u'''
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-
-import os
 import time
 
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _icommon import getElement,selectElement,frameElement,commonFun
 from _cnEncode import cnEncode
 from _log import log
 
-sys.path.append("/testIsomp/testData/")
-from _testDataPath import dataFileName
-
-sys.path.append("/testIsomp/webElement/ass_service/")
+sys.path.append("/testIsompSecret/webElement/ass_service/")
 from ntpElement import NtpService
 
 
@@ -51,7 +46,6 @@ class Syslog:
         self.driver = driver
         self.log = log()
         self.getElem = getElement(driver)
-        self.dataFile = dataFileName()
         self.select = selectElement(driver)
         self.frameElem = frameElement(driver)
         self.cmf = commonFun(driver)

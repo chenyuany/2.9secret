@@ -13,14 +13,14 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
-sys.path.append("/testIsomp/common")
+sys.path.append("/testIsompSecret/common")
 from _icommon import commonFun,frameElement
 from _log import log
-sys.path.append("/testIsomp/testCase/role/")
+sys.path.append("/testIsompSecret/testCase/role/")
 from test_role import testRole
-sys.path.append("/testIsomp/webElement/resource/")
+sys.path.append("/testIsompSecret/webElement/resource/")
 from test_resource_common import Resource
 from test_windows_ment import WindowsResource
 

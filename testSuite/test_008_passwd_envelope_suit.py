@@ -14,15 +14,16 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 # 导入驱动
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import initDriver
-sys.path.append("/testIsomp/testCase/passwd_envelope/")
+sys.path.append("/testIsompSecret/testCase/passwd_envelope/")
 from test_passwd_envelope import testEnvelope
-sys.path.append("/testIsomp/testSuite/common_suite_file/")
+sys.path.append("/testIsompSecret/testSuite/common_suite_file/")
 from common_suite_file import setDriver, CommonSuiteData
 import unittest
 
 class testPasswdEnvelopeSuit(unittest.TestCase):
+
     def setUp(self):
         self.browser = setDriver().set_driver()
         self.comsuit = CommonSuiteData(self.browser)
@@ -43,10 +44,9 @@ class testPasswdEnvelopeSuit(unittest.TestCase):
         #检验密码信封
         self.testenvelope.check_passwd_envelope_005()
 
-
     #后置条件
     def tearDown(self):
-        self.comsuit.passwd_envelope_module_post_condition()
+        self.comsuit.user_quit()
         initDriver().close_driver(self.browser)
 
 if __name__ == "__main__":

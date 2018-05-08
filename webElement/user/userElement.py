@@ -14,22 +14,21 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
 import time
 
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
 from _icommon import getElement,selectElement,frameElement,commonFun,tableElement
 from _cnEncode import cnEncode
 from _log import log
 
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
 
-sys.path.append("/testIsomp/webElement/login/")
+sys.path.append("/testIsompSecret/webElement/login/")
 from loginElement import loginPage
 
-sys.path.append("/testIsomp/webElement/role/")
+sys.path.append("/testIsompSecret/webElement/role/")
 from test_roledf import Role
 
 class UserPage():
@@ -290,9 +289,6 @@ class UserPage():
     def change_user_status_button(self,account,value):
         revalue = self.cnEnde.is_float(value)
         reaccount = self.cnEnde.is_float(account)
-#        self.frameElem.from_frame_to_otherFrame("topFrame")
-#        self.cmf.select_menu(u'运维管理')
-#        self.cmf.select_menu(u'运维管理',u'用户')
         self.frameElem.from_frame_to_otherFrame("mainFrame")
         
         #获取用户行号

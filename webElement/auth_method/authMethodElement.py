@@ -22,18 +22,18 @@ from selenium.webdriver.support.ui import Select
 
 
 #导入通用模块
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
 from _icommon import getElement,selectElement,frameElement,commonFun
 from _cnEncode import cnEncode
 from _log import log
 
 #导入文件操作模块
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
 
 #导入登录元素模块
-sys.path.append("/testIsomp/webElement/login/")
+sys.path.append("/testIsompSecret/webElement/login/")
 from loginElement import loginPage
 
 class AuthMethodPage():

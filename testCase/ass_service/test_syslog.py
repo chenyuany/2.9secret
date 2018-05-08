@@ -15,31 +15,23 @@ import time
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-sys.path.append("/testIsomp/common/")
-from _icommon import getElement,selectElement,frameElement,commonFun
+sys.path.append("/testIsompSecret/common/")
+from _icommon import frameElement,commonFun
 from _log import log
-from _initDriver import initDriver
-from _cnEncode import cnEncode
 
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
 
-sys.path.append("/testIsomp/webElement/ass_service/")
+sys.path.append("/testIsompSecret/webElement/ass_service/")
 from syslogElement import Syslog
-
-sys.path.append("/testIsomp/testSuite")
-from common_suite_file import CommonSuiteData,setDriver
 
 class SyslogService():
     def __init__(self,driver):
         self.driver = driver
-        self.getElem = getElement(driver)
         self.dataFile = dataFileName()
-        self.select = selectElement(driver)
         self.frameElem = frameElement(driver)
         self.cmf = commonFun(driver)
         self.log = log()
-        self.cnEnde = cnEncode()
         self.syslog = Syslog(driver)
         
     u'''获取测试数据
@@ -154,21 +146,3 @@ class SyslogService():
             except Exception as e:
                 print ("checkout syslog fail: ") + str(e)
         self.log.log_end("checkoutSyslog")
-    
-    
-
-
-
-
-#if __name__ == "__main__":
-#    setDriver = setDriver()
-#    browser = setDriver.set_local_driver()
-#    cmf = commonFun(browser)
-#    commonSuite = CommonSuiteData(browser)
-#    commonSuite.login_and_switch_to_sys()
-#    cmf.select_menu(u"系统配置", u"关联服务","SYSLOG")
-#    sys = SyslogService(browser)
-#    
-#    sys.mod_syslog_001()
-#    sys.test_syslog_002()
-#    sys.checkout_syslog_003()

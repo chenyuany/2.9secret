@@ -17,7 +17,7 @@ sys.setdefaultencoding('utf-8')
 import os
 import time
 
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
 from _icommon import getElement,selectElement,frameElement,commonFun,tableElement
 from _cnEncode import cnEncode

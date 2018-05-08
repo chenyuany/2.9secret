@@ -15,21 +15,21 @@ from selenium.webdriver.support.ui import Select
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _log import log
 from _icommon import getElement, selectElement, frameElement, commonFun
 from _cnEncode import cnEncode
 
-sys.path.append("/testIsomp/webElement/authorization")
+sys.path.append("/testIsompSecret/webElement/authorization")
 from authrizationElement import AuthorizationPage
 
-sys.path.append("/testIsomp/webElement/login/")
+sys.path.append("/testIsompSecret/webElement/login/")
 from loginElement import loginPage
 
-sys.path.append("/testIsomp/webElement/department/")
+sys.path.append("/testIsompSecret/webElement/department/")
 from test_dptm_ment import Department
 
-sys.path.append("/testIsomp/webElement/process/")
+sys.path.append("/testIsompSecret/webElement/process/")
 from test_access_approval_ment import Accapproval
 
 

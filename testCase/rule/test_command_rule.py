@@ -13,18 +13,18 @@ import sys,time
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
-sys.path.append("/testIsomp/common")
+sys.path.append("/testIsompSecret/common")
 from _icommon import commonFun,frameElement
 from _log import log
-sys.path.append("/testIsomp/testCase/role/")
+sys.path.append("/testIsompSecret/testCase/role/")
 from test_role import testRole
-sys.path.append("/testIsomp/webElement/rule")
+sys.path.append("/testIsompSecret/webElement/rule")
 from test_command_rule_ment import CommandRule
-sys.path.append("/testIsomp/testCase/sso/")
+sys.path.append("/testIsompSecret/testCase/sso/")
 from test_sso import testSso
-sys.path.append("/testIsomp/testSuite/common_suite_file/")
+sys.path.append("/testIsompSecret/testSuite/common_suite_file/")
 from common_suite_file import CommonSuiteData
 
 class testCommand(object):

@@ -15,33 +15,27 @@ import time
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-sys.path.append("/testIsomp/common/")
-from _icommon import getElement,selectElement,frameElement,commonFun
+sys.path.append("/testIsompSecret/common/")
+from _icommon import frameElement,commonFun
 from _log import log
-from _initDriver import initDriver
-from _cnEncode import cnEncode
 
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
 
-sys.path.append("/testIsomp/webElement/ass_service/")
-#from ntpElement import NtpService
+sys.path.append("/testIsompSecret/webElement/ass_service/")
 from ntpElement import NtpService
 
-sys.path.append("/testIsomp/testSuite")
-from common_suite_file import CommonSuiteData,setDriver
+sys.path.append("/testIsompSecret/testSuite")
+from common_suite_file import CommonSuiteData
 
 class ServiceNtp():
     def __init__(self,driver):
         self.driver = driver
-        self.getElem = getElement(driver)
         self.dataFile = dataFileName()
-        self.select = selectElement(driver)
         self.frameElem = frameElement(driver)
         self.cmf = commonFun(driver)
         self.log = log()
         self.ntp = NtpService(driver)
-        self.cnEnde = cnEncode()
         self.comm = CommonSuiteData(driver)
         
     u'''获取测试数据
@@ -136,10 +130,6 @@ class ServiceNtp():
         #获取更新时间的数据
         ntp_data = self.get_table_data("update_ntp")
         row_count = len(ntp_data)-1
-        #点击保存按钮弹出框
-        ntp_msg = self.ntp_msg()
-        #无检查点的测试项标识，如果为True说明通过
-        flag = False
         for dataRow in range(len(ntp_data)):
             data = ntp_data[dataRow]
             try:
@@ -160,31 +150,11 @@ class ServiceNtp():
                     self.ntp.updata_button()
                     #用户退出
                     self.comm.user_quit()
-                    #用户登录并切换至系统级角色
-                    self.comm.login_and_switch_to_sys()
+                    #用户登录
+                    self.comm.login_sysadmin()
                     self.cmf.select_menu(u"系统配置", u"关联服务")
                     #判断测试项是否通过
                     self.check_without_pop_up(data)
             except Exception as e:
                 print ("update ntp fail: ") + str(e)
         self.log.log_end("updateNtp")
-        
-
-
-        
-        
-        
-#if __name__ == "__main__":
-#    setDriver = setDriver()
-#    browser = setDriver.set_local_driver()
-#    commonSuite = CommonSuiteData(browser)
-#    commonSuite.login_and_switch_to_sys()
-#    commonSuite.switch_to_moudle(u"系统配置", u"关联服务")
-#    service = ServiceNtp(browser)
-#    
-#    
-#    service.edit_ntp_001()
-#    service.check_ntp_002()
-#    service.update_ntp_003()
-
-

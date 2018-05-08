@@ -13,13 +13,13 @@ import sys,time
 import  SendKeys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _fileRead import fileRead
 from _icommon import getElement,selectElement,frameElement,commonFun
 from _cnEncode import cnEncode
-sys.path.append("/testIsomp/webElement/process/")
+sys.path.append("/testIsompSecret/webElement/process/")
 from test_access_approval_ment import Accapproval
-sys.path.append("/testIsomp/webElement/sso")
+sys.path.append("/testIsompSecret/webElement/sso")
 from ssoElement import SsoPage
 
 class CommandRule(object):

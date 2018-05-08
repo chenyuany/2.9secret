@@ -13,25 +13,19 @@ import sys,time
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
-sys.path.append("/testIsomp/common")
+sys.path.append("/testIsompSecret/common")
 from _icommon import commonFun,frameElement
 from _log import log
-sys.path.append("/testIsomp/webElement/role/")
-from test_roledf import Role
-sys.path.append("/testIsomp/webElement/department/")
+sys.path.append("/testIsompSecret/webElement/department/")
 from test_dptm_ment import Department
-sys.path.append("/testIsomp/testCase/role/")
-from test_role import testRole
 
 class testDepartment(object):
 
 	def __init__(self, driver):
 		self.driver = driver
 		self.log = log()
-		self.role = Role(driver)
-		self.testrole = testRole(driver)
 		self.cmf = commonFun(driver)
 		self.frameElem = frameElement(driver)
 		self.dptment = Department(driver)
@@ -55,7 +49,7 @@ class testDepartment(object):
 		#获取添加部门测试数据
 		dptmData = self.get_dptmtable_data("add_edit_department")
 		#保存成功的弹出框
-		dptmMsg = self.testrole.popup()
+		dptmMsg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
 
 		self.dptment.click_left_department()
 
@@ -114,7 +108,7 @@ class testDepartment(object):
 
 		#日志开始记录
 		self.log.log_start("up_down_department_check")
-		dptmMsg = self.testrole.popup()
+		dptmMsg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
 		#获取上移部门测试数据
@@ -129,7 +123,7 @@ class testDepartment(object):
 				#如果不是第一行标题，则读取数据
 				if dataRow != 0:
 					self.dptment.click_up_button(data[2], int(data[3]))
-					self.role.frameElem.switch_to_content()
+					self.frameElem.switch_to_content()
 					self.cmf.test_win_check_point("xpath", dptmMsg, data, flag)
 			except Exception as e:
 				print ("up_down_department_check fail:" + str(e))
@@ -142,7 +136,7 @@ class testDepartment(object):
 		#日志开始记录
 		self.log.log_start("del_department")
 		#删除的弹出框
-		dptmMsg = self.testrole.popup()
+		dptmMsg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
 		#获取删除部门测试数据
 		dptmData = self.get_dptmtable_data("del_department")
 
@@ -158,9 +152,9 @@ class testDepartment(object):
 				#如果不是第一行标题，则读取数据
 				if dataRow != 0:
 					self.dptment.click_basic_operation(data[2], int(data[3]))
-					self.role.frameElem.switch_to_content()
+					self.frameElem.switch_to_content()
 					self.cmf.test_win_check_point("xpath", dptmMsg, data, flag)
-					self.role.frameElem.switch_to_content()
+					self.frameElem.switch_to_content()
 					self.cmf.click_msg_button(1)
 			except Exception as e:
 				print ("del_department fail:" + str(e))
@@ -175,7 +169,7 @@ class testDepartment(object):
 		#获取检验添加部门测试数据
 		dptmData = self.get_dptmtable_data("check_add_edit_department")
 		#保存成功的弹出框
-		dptmMsg = self.testrole.popup()
+		dptmMsg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
 
 		self.dptment.click_left_department()
 

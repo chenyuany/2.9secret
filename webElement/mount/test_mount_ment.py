@@ -14,7 +14,7 @@ import sys,time
 reload(sys)
 sys.setdefaultencoding('utf-8')
 #导入通用模块
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
 from _icommon import getElement,selectElement,commonFun,frameElement
 from _cnEncode import cnEncode

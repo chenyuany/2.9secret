@@ -48,7 +48,7 @@ class testAddUserSuite(unittest.TestCase):
 		u'''添加安全审计员角色'''
 		self.testseuser.set_sysAudit_role()
 		u'''添加涉密用户'''
-		self.testseuser.add_user()
+		self.testseuser.add_secret_user()
 
 	def tearDown(self):
 		self.comsuit.user_quit()

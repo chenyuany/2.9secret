@@ -12,12 +12,12 @@
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _cnEncode import cnEncode
 from _icommon import getElement,frameElement
-sys.path.append("/testIsomp/webElement/department/")
+sys.path.append("/testIsompSecret/webElement/department/")
 from test_dptm_ment import Department
-sys.path.append("/testIsomp/webElement/group/")
+sys.path.append("/testIsompSecret/webElement/group/")
 from test_regroup_ment import Regroup
 
 class Usergroup(object):
@@ -33,7 +33,7 @@ class Usergroup(object):
 	u'''左边框点击用户组'''
 	def click_left_usergroup(self):
 		self.frameElem.from_frame_to_otherFrame("leftFrame")
-		self.getElem.find_element_wait_and_click_EC("id", "url1")
+		self.getElem.find_element_wait_and_click_EC("id", "url2")
 
 	u'''点击用户组展开按钮'''
 	def click_usergroup_switch(self):

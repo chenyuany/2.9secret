@@ -54,6 +54,8 @@ class fileWrite(object):
     
     u'''写入文本文件'''
     def file_write(self,message):
+        #实例化chiEncode
+        cnEcod = cnEncode()
         
         #打开文件
         fileWriteObj = open("/testIsompSecret/log/isomp.log","a")

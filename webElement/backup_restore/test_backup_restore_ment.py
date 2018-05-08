@@ -14,17 +14,17 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 from datetime import datetime
 from xlrd import xldate_as_tuple
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _icommon import getElement,selectElement,frameElement,commonFun,tableElement
 from _cnEncode import cnEncode
 from _log import log
-sys.path.append("/testIsomp/testSuite/common_suite_file/")
+sys.path.append("/testIsompSecret/testSuite/common_suite_file/")
 from common_suite_file import CommonSuiteData
 sys.path.append("/testIsomp/webElement/rule")
 from test_command_rule_ment import CommandRule
-sys.path.append("/testIsomp/webElement/user/")
+sys.path.append("/testIsompSecret/webElement/user/")
 from userElement import UserPage
-sys.path.append("/testIsomp/webElement/role/")
+sys.path.append("/testIsompSecret/webElement/role/")
 from test_roledf import Role
 
 class Backuprestore(object):

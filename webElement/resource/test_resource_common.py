@@ -13,7 +13,7 @@
 import sys,time
 reload(sys)
 sys.setdefaultencoding('utf-8')
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _icommon import getElement,selectElement,frameElement,commonFun
 from _cnEncode import cnEncode
 

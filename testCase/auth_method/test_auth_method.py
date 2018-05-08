@@ -18,17 +18,17 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
-sys.path.append("/testIsomp/common")
+sys.path.append("/testIsompSecret/common")
 from _icommon import commonFun,getElement,selectElement,frameElement
 from _cnEncode import cnEncode
 from _log import log
 from _initDriver import *
-sys.path.append("/testIsomp/webElement/auth_method/")
+sys.path.append("/testIsompSecret/webElement/auth_method/")
 from authMethodElement import AuthMethodPage
 #导入登录
-sys.path.append("/testIsomp/webElement/login/")
+sys.path.append("/testIsompSecret/webElement/login/")
 from loginElement import loginPage
 
 

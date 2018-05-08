@@ -18,19 +18,19 @@ import os
 import time
 
 #导入通用方法类
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _icommon import getElement,selectElement,frameElement,commonFun,tableElement
 from _cnEncode import cnEncode
 from _log import log
 
 #导入文件操作类
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
 
-sys.path.append("/testIsomp/webElement/alarm_configuration/")
+sys.path.append("/testIsompSecret/webElement/alarm_configuration/")
 from alarmElement import AlarmPage
 
-sys.path.append("/testIsomp/testSuite")
+sys.path.append("/testIsompSecret/testSuite")
 from common_suite_file import CommonSuiteData,setDriver
 
 class AlarmConfig():

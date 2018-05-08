@@ -18,16 +18,16 @@ import os
 import time
 
 #导入文件
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
 from _icommon import getElement,selectElement,frameElement,commonFun
 from _cnEncode import cnEncode
 from _log import log
 
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
 
-sys.path.append("/testIsomp/webElement/session_configuration/")
+sys.path.append("/testIsompSecret/webElement/session_configuration/")
 from sessionElement import sessionConfig
 
 class PwdStrategy(object):

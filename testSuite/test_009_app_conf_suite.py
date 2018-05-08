@@ -3,13 +3,13 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import initDriver
 
-sys.path.append("/testIsomp/testCase/application")
-from test_app_conf import *
+sys.path.append("/testIsompSecret/testCase/application")
+from test_app_conf import testApp
 
-sys.path.append("/testIsomp/testSuite")
+sys.path.append("/testIsompSecret/testSuite")
 from common_suite_file import CommonSuiteData,setDriver
 
 import unittest

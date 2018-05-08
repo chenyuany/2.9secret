@@ -13,12 +13,12 @@ import sys,time
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
-sys.path.append("/testIsomp/common")
+sys.path.append("/testIsompSecret/common")
 from _icommon import commonFun,frameElement
 from _log import log
-sys.path.append("/testIsomp/webElement/mail/")
+sys.path.append("/testIsompSecret/webElement/mail/")
 from test_mail_ment import MailPage
 
 

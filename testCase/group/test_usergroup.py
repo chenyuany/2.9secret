@@ -13,25 +13,22 @@ import sys,time
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
-sys.path.append("/testIsomp/common")
+sys.path.append("/testIsompSecret/common")
 from _icommon import commonFun,frameElement
 from _log import log
-sys.path.append("/testIsomp/webElement/department/")
+sys.path.append("/testIsompSecret/webElement/department/")
 from test_dptm_ment import Department
-sys.path.append("/testIsomp/webElement/group/")
+sys.path.append("/testIsompSecret/webElement/group/")
 from test_regroup_ment import Regroup
 from test_usergroup_ment import Usergroup
-sys.path.append("/testIsomp/testCase/role/")
-from test_role import testRole
 
 class testUsergroup(object):
 
 	def __init__(self, driver):
 		self.driver = driver
 		self.log = log()
-		self.testrole = testRole(driver)
 		self.cmf = commonFun(driver)
 		self.frameElem = frameElement(driver)
 		self.regroup = Regroup(driver)
@@ -57,7 +54,7 @@ class testUsergroup(object):
 		#获取添加用户组测试数据
 		usergrData = self.get_usergroup_data("add_edit_usergroup")
 		#保存成功的弹出框
-		usergrMsg = self.testrole.popup()
+		usergrMsg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
 
 		self.usergroup.click_left_usergroup()
 
@@ -123,7 +120,7 @@ class testUsergroup(object):
 		usergrData = self.get_usergroup_data("up_down_usergroup")
 
 		#保存成功的弹出框
-		usergrMsg = self.testrole.popup()
+		usergrMsg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
 
 		self.usergroup.click_left_usergroup()
 
@@ -151,7 +148,7 @@ class testUsergroup(object):
 		#获取检验添加用户组测试数据
 		usergrData = self.get_usergroup_data("check_add_edit_usergroup")
 		#保存成功的弹出框
-		usergrMsg = self.testrole.popup()
+		usergrMsg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
 
 		#页面弹出框的文本信息
 		pagetext = u"警告"
@@ -192,7 +189,7 @@ class testUsergroup(object):
 		#日志开始记录
 		self.log.log_start("del_usergroup")
 		#删除的弹出框
-		usergrMsg = self.testrole.popup()
+		usergrMsg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
 		#获取删除用户组测试数据
 		usergrData = self.get_usergroup_data("del_usergroup")
 
@@ -226,7 +223,7 @@ class testUsergroup(object):
 		#获取添加用户组测试数据
 		usergrData = self.get_usergroup_data("usergroup_add_user")
 		#保存成功的弹出框
-		usergrMsg = self.testrole.popup()
+		usergrMsg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
 
 		self.usergroup.click_left_usergroup()
 		#无检查点的测试项标识，如果为True说明通过
@@ -273,7 +270,7 @@ class testUsergroup(object):
 				if dataRow != 0:
 					if dataRow == 1:
 						#选中用户组
-					 	self.dptment.click_basic_operation_public_method(data[2], "user_group_", "_span")
+						self.dptment.click_basic_operation_public_method(data[2], "user_group_", "_span")
 						self.regroup.click_regroup_reset()
 					else:
 						self.usergroup.set_username(data[3])
@@ -292,7 +289,7 @@ class testUsergroup(object):
 		#日志开始记录
 		self.log.log_start("usergroup_del_user")
 		#删除的弹出框
-		usergrMsg = self.testrole.popup()
+		usergrMsg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
 		#获取删除用户组测试数据
 		usergrData = self.get_usergroup_data("usergroup_del_user")
 
@@ -323,7 +320,7 @@ class testUsergroup(object):
 		#日志开始记录
 		self.log.log_start("usergroup_bulk_user")
 		#删除的弹出框
-		usergrMsg = self.testrole.popup()
+		usergrMsg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
 		#获取删除用户组测试数据
 		usergrData = self.get_usergroup_data("usergroup_bulk_user")
 		self.usergroup.click_left_usergroup()

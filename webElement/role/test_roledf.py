@@ -100,11 +100,9 @@ class Role(object):
 
 	u'''添加用户'''
 	def add_sercret_user(self,account,name,pwd,roleText):
-		self.frameElem.from_frame_to_otherFrame("topFrame")
-		self.cmf.select_menu(u"运维管理", u"用户")
 		time.sleep(1)
 		#点击添加按钮
-		self.frameElem.switch_to_main()
+		self.frameElem.from_frame_to_otherFrame("mainFrame")
 		self.getElem.find_element_wait_and_click_EC('classname','btn_tj')
 		#输入账号，名称，密码
 		self.getElem.find_element_wait_and_clear_EC('id','fortUserAccount')
@@ -116,10 +114,14 @@ class Role(object):
 		self.getElem.find_element_wait_and_clear_EC('id','fortUserPasswordAgain')
 		self.getElem.find_element_sendkyes_EC('id','fortUserPasswordAgain',pwd)
 		#切换到角色页面
-		self.getElem.find_element_with_wait_EC('id','userMessage')
+		self.getElem.find_element_wait_and_click_EC('id','userMessage')
 		#为用户赋予角色
 		selem = self.getElem.find_element_with_wait_EC('id','Roles')
 		self.selectElem.select_element_by_visible_text(selem,roleText)
 		self.getElem.find_element_wait_and_click_EC('id','add_roles')
 		#保存用户
-		self.frameElem.find_element_wait_and_click_EC('id','save_user')
+		self.getElem.find_element_wait_and_click_EC('id','save_user')
+		self.cmf.click_login_msg_button()
+		#点击返回
+		self.frameElem.switch_to_main()
+		self.getElem.find_element_wait_and_click_EC('id','history_skip')

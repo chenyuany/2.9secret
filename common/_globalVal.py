@@ -4,7 +4,7 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _transCoding import jsonTranscoding
 from _initDriver import initDriver
 

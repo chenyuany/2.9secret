@@ -23,12 +23,12 @@ import win32gui
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
 from _icommon import getElement,selectElement,frameElement,commonFun,tableElement
 from _cnEncode import cnEncode
 from _log import log
-sys.path.append("/testIsomp/webElement/department/")
+sys.path.append("/testIsompSecret/webElement/department/")
 from test_dptm_ment import Department
 
 class AppPage():

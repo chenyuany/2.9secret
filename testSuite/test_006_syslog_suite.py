@@ -1,9 +1,9 @@
 #coding=utf-8
 u''' 
 #文件名：
-#被测软件版本号：V2.8.1
-#作成人：李择优
-#生成日期：2018/1/24
+#被测软件版本号：V2.9涉密
+#修改人：陈圆圆
+#生成日期：2018/5/8
 #模块描述：SYSLOG
 #历史修改记录
 #修改人：
@@ -15,18 +15,13 @@ import time
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-sys.path.append("/testIsomp/common/")
-from _icommon import getElement,selectElement,frameElement,commonFun
-from _log import log
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import initDriver
 
-sys.path.append("/testIsomp/testData/")
-from _testDataPath import dataFileName
-
-sys.path.append("/testIsomp/testCase/ass_service/")
+sys.path.append("/testIsompSecret/testCase/ass_service/")
 from test_syslog import SyslogService
 
-sys.path.append("/testIsomp/testSuite")
+sys.path.append("/testIsompSecret/testSuite")
 from common_suite_file import CommonSuiteData,setDriver
 
 import unittest
@@ -51,15 +46,10 @@ class SyslogSuite(unittest.TestCase):
         self.sys.checkout_syslog_003()
         
     def tearDown(self):
-        #后置条件
-        self.commonSuite.syslog_module_post_condition()
+        #退出用户
+        self.commonSuite.user_quit()
         #关闭浏览器
         self.initDriver.close_driver(self.browser)
         
 if __name__ == "__main__":
     unittest.main()
-
-        
-        
-
-    

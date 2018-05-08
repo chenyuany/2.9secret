@@ -8,7 +8,7 @@ import HTMLTestRunner
 import time
 import os
 
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _mail import sendMail
 from _transCoding import jsonTranscoding
 from _initDriver import initDriver
@@ -25,9 +25,9 @@ class testSuite(unittest.TestCase):
         timeFormat = '%Y-%m-%d %X'
         isTitle = time.strftime(timeFormat, time.localtime())
         #用例存放路径
-        dir = "\\testIsomp\\testSuite"
+        dir = "\\testIsompSecret\\testSuite"
         #报表存放路径
-        report_dir = "\\testIsomp\\report\\"
+        report_dir = "\\testIsompSecret\\report\\"
         #判断report文件夹是否存在
         if not os.path.exists(report_dir):
             os.makedirs(report_dir)

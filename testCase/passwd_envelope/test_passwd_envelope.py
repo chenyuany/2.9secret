@@ -13,12 +13,12 @@ import sys,time
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
-sys.path.append("/testIsomp/common")
+sys.path.append("/testIsompSecret/common")
 from _icommon import commonFun,frameElement
 from _log import log
-sys.path.append("/testIsomp/webElement/passwd_envelope/")
+sys.path.append("/testIsompSecret/webElement/passwd_envelope/")
 from test_passwd_envelope_ment import EnvelopePage
 
 class testEnvelope(object):
@@ -145,7 +145,6 @@ class testEnvelope(object):
             except Exception as e:
                 print("mode passwd envelope fail" + str(e))
         self.log.log_end("mode passwd envelope")
-
 
     u'''校验密码信封'''
     def check_passwd_envelope_005(self):

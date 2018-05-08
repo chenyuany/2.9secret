@@ -15,7 +15,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
 from _cnEncode import cnEncode
 from _log import log

@@ -564,26 +564,30 @@ class CommonSuiteData():
         roleList = logindata[9].split(',')
         return roleList
 
-    u'''使用添加的用户登录并切换至系统级角色'''
-    def login_and_switch_to_sys(self):
-        roleList = self.login_and_switch_to_common()
-        self.cmf.select_role_by_text(roleList[0])
-    
-    u'''使用添加的用户登录并切换至部门级角色'''
-    def login_and_switch_to_dep(self):
-        roleList = self.login_and_switch_to_common()
-        self.cmf.select_role_by_text(roleList[1])
-    
-    u'''切换至部门级'''    
-    def sys_switch_to_dep(self):
-        roleList = self.login_and_switch_to_common("login")
-        self.cmf.select_role_by_text(roleList[1])
-    
-    u'''切换至系统级'''    
-    def dep_switch_to_sys(self):
-        roleList = self.login_and_switch_to_common("login")
-        self.cmf.select_role_by_text(roleList[0]) 
-    
+    u'''使用系统管理员登录系统'''
+    def login_sysadmin(self):
+        login_data = self.get_table_data('add_user')
+        logindata = login_data[1]
+        self.loginElem.login(logindata)
+
+    u'''使用安全保密管理员登录系统'''
+    def login_secadmin(self):
+        login_data = self.get_table_data('add_user')
+        logindata = login_data[2]
+        self.loginElem.login(logindata)
+
+    u'''使用安全审计员登录系统'''
+    def login_sysaudit(self):
+        login_data = self.get_table_data('add_user')
+        logindata = login_data[3]
+        self.loginElem.login(logindata)
+
+    u'''用户登录系统'''
+    def login_user(self, row):
+        login_data = self.get_table_data('add_user')
+        logindata = login_data[int(row)]
+        self.loginElem.login(logindata)
+
     u'''切换至运维操作员'''
     def switch_to_operation(self):
         self.cmf.select_role_by_text(u"运维操作员")
@@ -882,11 +886,97 @@ class CommonSuiteData():
         self.isomper_login()
         self.switch_to_moudle(u'角色管理',u'角色定义')
 
+#------------------------------部门前置条件-----------------------------------
+    def depart_module_prefix_condition(self):
+        #使用系统管理员登录
+        self.login_sysadmin()
+        #切换到组织定义
+        self.switch_to_moudle(u"运维管理", u"组织定义")
+
+#------------------------------资源组前置条件-----------------------------------
+    def regroup_module_prefix_condition(self):
+        #使用安全保密管理员登录
+        self.login_secadmin()
+        #切换到资源
+        self.switch_to_moudle(u"运维管理", u"资源")
+        #添加资源
+        self.add_resource_modele([9,6])
+        self.user_quit()
+        #使用系统管理员登录
+        self.login_sysadmin()
+        #切换到组织定义
+        self.switch_to_moudle(u"运维管理", u"组织定义")
+
+    def regroup_module_post_condition(self):
+        self.user_quit()
+        #使用安全保密管理员登录
+        self.login_secadmin()
+        #删除资源
+        self.del_resource_modele([9,6])
+        self.user_quit()
+
+#------------------------------用户组前置条件-----------------------------------
+    def usergroup_module_prefix_condition(self):
+        #使用系统管理员登录
+        self.login_sysadmin()
+        #添加用户
+        self.add_user_data_module([5,6,7,8])
+        #切换到组织定义
+        self.switch_to_moudle(u"运维管理", u"组织定义")
+
+    def usergroup_module_post_condition(self):
+        self.del_user_data_module([5,6,7,8])
+        self.user_quit()
+
+#------------------------------NTP服务前置条件---------------------------------
+    def ntp_module_prefix_condition(self):
+        #使用系统管理员登录
+        self.login_sysadmin()
+        #切换到NTP服务
+        self.switch_to_moudle(u'系统配置', u'关联服务')
+        self.ntp.click_left_moudle(0)
+
+#-------------------------------SYSLOG前置条件---------------------------------
+    def syslog_module_prefix_condition(self):
+        #使用系统管理员登录
+        self.login_sysadmin()
+        #切换到NTP服务
+        self.switch_to_moudle(u'系统配置', u'关联服务')
+        self.ntp.click_left_moudle(1)
+
+#------------------------------邮件前置条件---------------------------------
+    def mail_module_prefix_condition(self):
+        #使用系统管理员登录
+        self.login_sysadmin()
+        #切换到邮件服务
+        self.switch_to_moudle(u'系统配置', u'关联服务')
+        self.mail.click_left_moudle_test()
+
+#------------------------------密码信封前置条件---------------------------------
+    def passwd_envelope_module_prefix_condition(self):
+        #使用系统管理员登录
+        self.login_sysadmin()
+        #切换到邮件服务
+        self.switch_to_moudle(u'系统配置', u'关联服务')
+        self.passwdenvelope.click_left_moudle_envelope()
+
+#-------------------------------应用发布后置条件-------------------------------
+    def application_module_prefix_condition(self):
+        #使用系统管理员登录
+        self.login_sysadmin()
+        self.add_user_data_module([41,42])
+        self.switch_to_moudle(u"系统配置", u"关联服务")
+
+    def application_module_post_condition(self):
+        self.del_user_data_module([41,42])
+        self.user_quit()
+
 #------------------------------用户模块前置条件--------------------------------
     u'''用户模块前置条件'''
     def user_module_prefix_condition(self):
-        self.isomper_login()
-        self.switch_to_moudle(u'运维管理',u'用户')
+        #使用系统管理员登录
+        self.login_sysadmin()
+        self.switch_to_moudle(u'运维管理', u'用户')
     
     u'''用户模块后置条件'''
     def user_module_post_condition(self):
@@ -1044,16 +1134,6 @@ class CommonSuiteData():
         self.del_user_data_module([43])
         self.user_quit()
 
-#-------------------------------应用发布后置条件-------------------------------
-    def application_module_prefix_condition(self):
-        self.login_and_switch_to_sys()
-        self.add_user_data_module([38])
-        self.switch_to_moudle(u"系统配置", u"关联服务")
-    
-    def application_module_post_condition(self):
-        self.del_user_data_module([38])
-        self.user_quit()
-
 #-----------------------------数据库前置条件----------------------------------
     def database_resource_prefix_condition(self):
         self.login_and_switch_to_sys()
@@ -1157,12 +1237,6 @@ class CommonSuiteData():
         #用户退出
         self.user_quit()
 
-#------------------------------部门前置条件-----------------------------------
-    def depart_module_prefix_condition(self):
-        #使用公共的用户登录并切换至系统级角色
-        self.login_and_switch_to_sys()
-        #切换到组织定义
-        self.switch_to_moudle(u"运维管理", u"组织定义")
 
 #------------------------------linux资源前置条件-----------------------------------
     def linuxre_module_prefix_condition(self):
@@ -1206,37 +1280,6 @@ class CommonSuiteData():
         self.login_and_switch_to_dep()
         #切换到资源
         self.switch_to_moudle(u"运维管理", u"资源")
-
-#------------------------------资源组前置条件-----------------------------------
-    def regroup_module_prefix_condition(self):
-        #使用添加的用户登录并切换至部门级角色
-        self.login_and_switch_to_dep()
-        #切换到资源
-        self.switch_to_moudle(u"运维管理", u"资源")
-        #添加资源
-        self.add_resource_modele([9,6])
-        #切换到组织定义
-        self.switch_to_moudle(u"运维管理", u"组织定义")
-
-    def regroup_module_post_condition(self):
-        #删除资源
-        self.del_resource_modele([9,6])
-        self.user_quit()
-
-#------------------------------用户组前置条件-----------------------------------
-    def usergroup_module_prefix_condition(self):
-        #使用公共的用户登录并切换至系统级角色
-        self.login_and_switch_to_sys()
-        #添加用户
-        self.add_user_data_module([3,4,5,6])
-        #切换至部门级角色
-        self.sys_switch_to_dep()
-        #切换到组织定义
-        self.switch_to_moudle(u"运维管理", u"组织定义")
-
-    def usergroup_module_post_condition(self):
-        self.del_user_data_module([3,4,5,6])
-        self.user_quit()
 
 #------------------------------流程前置条件-----------------------------------
     def process_module_prefix_condition(self):
@@ -1387,15 +1430,7 @@ class CommonSuiteData():
         self.del_resource_modele([4, 5, 10])
         self.user_quit()
 
-#------------------------------NTP服务前置条件---------------------------------
-    def ntp_module_prefix_condition(self):
-        self.login_and_switch_to_sys()
-        #切换到NTP服务
-        self.switch_to_moudle(u'系统配置', u'关联服务')
-        self.ntp.click_left_moudle(0)
-        
-    def ntp_module_post_condition(self):
-        self.user_quit()
+
         
 #------------------------------会话配置前置条件--------------------------------
     def session_module_prefix_condition(self):
@@ -1444,15 +1479,7 @@ class CommonSuiteData():
     def routing_module_post_condition(self):
         self.user_quit()
         
-#-------------------------------SYSLOG前置条件---------------------------------
-    def syslog_module_prefix_condition(self):
-        self.login_and_switch_to_sys()
-        #切换到NTP服务
-        self.switch_to_moudle(u'系统配置', u'关联服务')
-        self.ntp.click_left_moudle(1)
-        
-    def syslog_module_post_condition(self):
-        self.user_quit()
+
 
 #------------------------------密码策略前置条件--------------------------------	
     def pwdstr_module_prefix_condition(self):
@@ -1479,17 +1506,6 @@ class CommonSuiteData():
         self.switch_to_moudle(u"运维管理", u"用户") 
         self.del_user_data_module([26])
         self.user_quit()
-
-#------------------------------邮件前置条件---------------------------------
-    def mail_module_prefix_condition(self):
-        #使用添加的用户登录并切换至系统级角色
-        self.login_and_switch_to_sys()
-        #切换到邮件服务
-        self.switch_to_moudle(u'系统配置', u'关联服务')
-        self.mail.click_left_moudle_test()
-
-    def mail_module_post_condition(self):
-        self.user_quit()
         
 #------------------------------告警策略前置条件---------------------------------
     def alarm_strategy_module_prefix_condition(self):
@@ -1511,15 +1527,6 @@ class CommonSuiteData():
     def use_auth_module_post_condition(self):
         self.user_quit()
 
-    #------------------------------密码信封前置条件---------------------------------
-    def passwd_envelope_module_prefix_condition(self):
-        self.login_and_switch_to_sys()
-        #切换到邮件服务
-        self.switch_to_moudle(u'系统配置', u'关联服务')
-        self.passwdenvelope.click_left_moudle_envelope()
-
-    def passwd_envelope_module_post_condition(self):
-        self.user_quit()
 
 #if __name__ == "__main__":
 #    driver = setDriver().set_local_driver()

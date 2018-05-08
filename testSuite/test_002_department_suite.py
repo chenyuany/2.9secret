@@ -14,11 +14,11 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 #导入驱动
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import initDriver
-sys.path.append("/testIsomp/testCase/department/")
+sys.path.append("/testIsompSecret/testCase/department/")
 from test_department import testDepartment
-sys.path.append("/testIsomp/testSuite/common_suite_file/")
+sys.path.append("/testIsompSecret/testSuite/common_suite_file/")
 from common_suite_file import setDriver,CommonSuiteData
 import unittest
 

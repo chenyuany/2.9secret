@@ -16,15 +16,15 @@ sys.setdefaultencoding('utf-8')
 from datetime import datetime
 from xlrd import xldate_as_tuple
 
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _log import log
 from _icommon import getElement, selectElement, frameElement, commonFun
 from _cnEncode import cnEncode
 
-sys.path.append("/testIsomp/webElement/authorization")
+sys.path.append("/testIsompSecret/webElement/authorization")
 from authrizationElement import AuthorizationPage
 
-sys.path.append("/testIsomp/webElement/login/")
+sys.path.append("/testIsompSecret/webElement/login/")
 from loginElement import loginPage
 
 class Accapproval(object):

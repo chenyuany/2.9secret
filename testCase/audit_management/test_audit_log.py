@@ -6,23 +6,23 @@ sys.setdefaultencoding('utf-8')
 import os
 import time
 
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
 from _icommon import getElement,selectElement,frameElement,commonFun,tableElement
 from _cnEncode import cnEncode
 from _log import log
 
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
 
-sys.path.append("/testIsomp/webElement/audit_management")
+sys.path.append("/testIsompSecret/webElement/audit_management")
 from auditLogElement import AuditLogPage
-sys.path.append("/testIsomp/webElement/audit_management")
+sys.path.append("/testIsompSecret/webElement/audit_management")
 from systemLogElement import SystemLogPage
 
-sys.path.append("/testIsomp/webElement/user")
+sys.path.append("/testIsompSecret/webElement/user")
 from userElement import UserPage
-sys.path.append("/testIsomp/webElement/resource/")
+sys.path.append("/testIsompSecret/webElement/resource/")
 from test_resource_common import Resource
 
 sys.path.append("/testIsomp/testSuite")

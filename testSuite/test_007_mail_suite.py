@@ -14,11 +14,11 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 # 导入驱动
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import initDriver
-sys.path.append("/testIsomp/testCase/mail/")
+sys.path.append("/testIsompSecret/testCase/mail/")
 from test_mail import testMail
-sys.path.append("/testIsomp/testSuite/common_suite_file/")
+sys.path.append("/testIsompSecret/testSuite/common_suite_file/")
 from common_suite_file import setDriver, CommonSuiteData
 import unittest
 
@@ -43,11 +43,10 @@ class testMailSuit(unittest.TestCase):
         #测试开关
         self.testmail.onoff_mail_005()
 
-
     #后置条件
     def tearDown(self):
-        self.comsuit.mail_module_post_condition()
+        self.comsuit.user_quit()
         initDriver().close_driver(self.browser)
 
 if __name__ == "__main__":
-	unittest.main()
+    unittest.main()

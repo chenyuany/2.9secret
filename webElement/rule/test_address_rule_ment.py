@@ -12,13 +12,13 @@
 import sys,time
 reload(sys)
 sys.setdefaultencoding('utf-8')
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _icommon import getElement,selectElement,frameElement,commonFun
 from _cnEncode import cnEncode
-sys.path.append("/testIsomp/webElement/process/")
+sys.path.append("/testIsompSecret/webElement/process/")
 from test_access_approval_ment import Accapproval
 #导入用户元素类
-sys.path.append("/testIsomp/webElement/user/")
+sys.path.append("/testIsompSecret/webElement/user/")
 from userElement import UserPage
 
 class AddressRule(object):

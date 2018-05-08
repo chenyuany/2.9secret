@@ -14,7 +14,7 @@ import sys,time
 reload(sys)
 sys.setdefaultencoding('utf-8')
 #导入通用模块
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
 from _icommon import getElement,selectElement,commonFun,frameElement
 from _cnEncode import cnEncode
@@ -65,8 +65,8 @@ class EnvelopePage(object):
             self.getElem.find_element_wait_and_sendkeys("id", self.LOGOIMAGE, fileurl)
             time.sleep(2)
             self.getElem.find_element_wait_and_click_EC("id", self.SAVE_IMAGES_BUTTON)
-            self.frameElem.switch_to_content()
-            self.cmf.click_msg_button(1)
+            time.sleep(2)
+
         except Exception:
             print("upload passwd envelope image is error")
 

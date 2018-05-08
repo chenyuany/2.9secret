@@ -12,10 +12,10 @@
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _cnEncode import cnEncode
 from _icommon import getElement,frameElement
-sys.path.append("/testIsomp/webElement/department/")
+sys.path.append("/testIsompSecret/webElement/department/")
 from test_dptm_ment import Department
 
 class Regroup(object):
@@ -30,7 +30,7 @@ class Regroup(object):
 	u'''左边框点击资源组'''
 	def click_left_regroup(self):
 		self.frameElem.from_frame_to_otherFrame("leftFrame")
-		self.getElem.find_element_wait_and_click_EC("id", "url0")
+		self.getElem.find_element_wait_and_click_EC("id", "url1")
 
 	u'''点击资源组展开按钮'''
 	def click_regroup_switch(self):

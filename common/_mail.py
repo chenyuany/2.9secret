@@ -13,7 +13,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.image import MIMEImage  
 from email.mime.application import MIMEApplication
 
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _log import log
 
 u'''发送邮件'''
@@ -39,7 +39,7 @@ class sendMail:
 		msg['From'] = sender
 		msg['To'] = ','.join(toList)
 		#遍历报表名称
-		rootdir = "\\testIsomp\\report\\"
+		rootdir = "\\testIsompSecret\\report\\"
 		try:
 			for filename in os.listdir(rootdir):
 				fp = open(rootdir+filename,'rb')

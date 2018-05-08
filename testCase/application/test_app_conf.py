@@ -3,23 +3,17 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
-import time
-
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
 from _icommon import getElement,selectElement,frameElement,commonFun,tableElement
 from _cnEncode import cnEncode
 from _log import log
 
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
 
-sys.path.append("/testIsomp/webElement/application")
+sys.path.append("/testIsompSecret/webElement/application")
 from appConfElement import AppPage
-
-sys.path.append("/testIsomp/testSuite")
-from common_suite_file import CommonSuiteData,setDriver
 
 class testApp():
 	def __init__(self,driver):
@@ -184,7 +178,7 @@ class testApp():
 				if dataRow != 0 :
 					self.frameElem.from_frame_to_otherFrame("rigthFrame")
 					self.appElem.set_app_query_name(data[2])
-					self.appElem.click_query_button
+					self.appElem.click_query_button()
 					
 					#判断测试项是否通过
 					self.log.log_detail(data[0], True)
@@ -193,8 +187,7 @@ class testApp():
 			except Exception as e:
 				print ("Query client fail: ") + str(e)
 		self.log.log_end("QueryClient")
-	
-		
+
 	u'''删除应用发布'''
 	def del_app_005(self):	
 		#日志开始记录
@@ -266,7 +259,6 @@ class testApp():
 		self.log.log_start("Editaccount")
 		#获取编辑账号的数据
 		client_data = self.get_table_data("edit_account")
-		#self.appElem.app_module_button()
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
 		for dataRow in range(len(client_data)):
@@ -275,7 +267,6 @@ class testApp():
 				#如果不是第一行标题，则读取数据
 				if dataRow != 0 :
 					self.frameElem.from_frame_to_otherFrame("rigthFrame")
-					#self.appElem.operate_account_manage(data[2])
 					self.appElem.operate_account_edit(data[3])
 					self.appElem.set_account(data[4])
 					if data[5] != "":
@@ -299,7 +290,6 @@ class testApp():
 		self.log.log_start("Delaccount")
 		#获取删除账号的数据
 		client_data = self.get_table_data("del_account")
-		#self.appElem.app_module_button()
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
 		for dataRow in range(len(client_data)):
@@ -308,7 +298,6 @@ class testApp():
 				#如果不是第一行标题，则读取数据
 				if dataRow != 0 :
 					self.frameElem.from_frame_to_otherFrame("rigthFrame")
-					#self.appElem.operate_account_manage(data[2])
 					self.appElem.operate_account_del(data[3])
 					self.cmf.click_login_msg_button()
 					#判断测试项是否通过
@@ -320,18 +309,3 @@ class testApp():
 			except Exception as e:
 				print ("Del account fail: ") + str(e)
 		self.log.log_end("Delaccount")
-
-if __name__ == "__main__":
-	browser = setDriver().set_local_driver()
-	commonSuite = CommonSuiteData(browser)
-	appTest = testApp(browser)
-	commonSuite.login_and_switch_to_sys()
-	commonSuite.switch_to_moudle(u"系统配置", u"关联服务")
-#	appTest.add_app_001()
-#	appTest.edit_app_002()
-#	appTest.check_app_003()
-#	appTest.query_app_004()
-#	appTest.add_account_006()
-#	appTest.edit_account_007()
-#	appTest.del_account_008()
-#	appTest.del_app_005()

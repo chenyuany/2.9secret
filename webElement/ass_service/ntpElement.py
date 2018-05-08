@@ -13,17 +13,12 @@ u'''
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-
-import os
 import time
 
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _icommon import getElement,selectElement,frameElement,commonFun
 from _cnEncode import cnEncode
 from _log import log
-
-sys.path.append("/testIsomp/testData/")
-from _testDataPath import dataFileName
 
 class NtpService:
     #服务器IP
@@ -45,7 +40,6 @@ class NtpService:
         self.driver = driver
         self.log = log()
         self.getElem = getElement(driver)
-        self.dataFile = dataFileName()
         self.select = selectElement(driver)
         self.frameElem = frameElement(driver)
         self.cmf = commonFun(driver)

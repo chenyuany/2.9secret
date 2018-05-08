@@ -14,25 +14,19 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
-import time
-
 #导入通用方法类
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _icommon import getElement,selectElement,frameElement,commonFun,tableElement
 from _cnEncode import cnEncode
 from _log import log
 
 #导入文件操作类
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
 
 #导入用户元素类
-sys.path.append("/testIsomp/webElement/user/")
+sys.path.append("/testIsompSecret/webElement/user/")
 from userElement import UserPage
-
-sys.path.append("/testIsomp/testSuite")
-from common_suite_file import CommonSuiteData,setDriver
 
 class User():
 	def __init__(self,driver):
@@ -131,8 +125,6 @@ class User():
 					
 					#清空标识状态
 					flag = False
-#					self.switch_to_user_module()
-#					self.cmf.back()
 					self.user.click_back_button()
 					if self.cmf.is_namevalue_exsit(data[2],"fortUserAccount"):
 						print ("add user success")
@@ -171,8 +163,6 @@ class User():
 					#清空标识状态
 					flag = False
 					self.switch_to_user_module()
-#					self.cmf.back()
-#					self.user.click_back_button()
 					if self.cmf.is_namevalue_exsit(data[2],"fortUserAccount"):
 						print ("edit user success")
 			except Exception as e:
@@ -204,7 +194,6 @@ class User():
 					#清空标识状态
 					flag = False
 					self.switch_to_user_module()
-#					self.cmf.back()
 			except Exception as e:
 				print ("Create user cert fail: ") + str(e)
 		self.log.log_end("CreateUserCert")
@@ -238,12 +227,8 @@ class User():
 						self.cmf.test_win_check_point("","",data,True)
 					else:
 						self.cmf.test_win_check_point("","",data,False)
-					
 
-					#清空标识状态
-					flag = False
 					self.switch_to_user_module()
-#					self.cmf.back()
 			except Exception as e:
 				print ("ReCreate user cert fail: ") + str(e)
 		self.log.log_end("ReCreateUserCert")
@@ -275,7 +260,6 @@ class User():
 					#清空标识状态
 					flag = False
 					self.frameElem.from_frame_to_otherFrame("mainFrame")
-#					self.switch_to_user_module()
 					self.cmf.back()
 			except Exception as e:
 				print ("Delete user cert fail: ") + str(e)
@@ -380,7 +364,6 @@ class User():
 				print ("search user by username fail: ") + str(e)
 		
 		self.log.log_end("Search user by username")
-	
 
 	u'''检索条件:部门'''
 	def search_user_by_dep_006(self):
@@ -446,7 +429,6 @@ class User():
 				print ("search user by role fail: ") + str(e)
 		
 		self.log.log_end("SearchUserByRole")
-	
 
 	u'''删除单个用户'''
 	def del_user_007(self):
@@ -478,8 +460,6 @@ class User():
 			except Exception as e:
 				print ("DelOneUser fail: ") + str(e)
 		self.log.log_end("DelOneUser")
-	
-	
 
 	u'''删除全部用户'''
 	def del_all_user_008(self):
@@ -495,11 +475,8 @@ class User():
 			try:
 				#如果不是第一行标题，则读取数据
 				if dataRow != 0:
-#					self.frameElem.from_frame_to_otherFrame("mainFrame")
-#					self.user.page_select_all()
 					self.frameElem.from_frame_to_otherFrame("mainFrame")
 					self.user.del_specified_user(data[2])
-					#self.user.select_all_button()
 					self.user.del_button()
 					self.cmf.click_login_msg_button()
 					
@@ -512,31 +489,3 @@ class User():
 			except Exception as e:
 				print ("del all fail: ") + str(e)
 		self.log.log_end("DelAllUser")
-	
-
-#if __name__ == "__main__":#internet explorer
-#	browser = setDriver().set_local_driver()
-#	commonSuite = CommonSuiteData(browser)
-#	userCase = User(browser)
-#	commonSuite.isomper_login()
-#	cmf = commonFun(browser)
-#
-#	#添加角色
-#	commonSuite.add_sys_role()
-##	commonSuite.add_dep_role()
-#	cmf.select_menu(u'运维管理')
-#	cmf.select_menu(u'运维管理','用户')
-	
-#	userCase.add_user_001()
-#	userCase.edit_user_002()
-#	userCase.create_user_cert_003()
-#	userCase.create_user_cert_again_003()
-#	userCase.delete_user_cert_004()
-#
-#	userCase.checkout_user_005()
-#	userCase.search_user_by_username_006()
-#	userCase.search_user_by_status_006()
-#	userCase.search_user_by_dep_006()
-#	userCase.search_user_by_role_006()
-#	userCase.del_user_007()
-#	userCase.del_all_user_008()

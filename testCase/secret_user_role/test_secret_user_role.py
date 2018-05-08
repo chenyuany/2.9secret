@@ -48,10 +48,10 @@ class testSecretUserRole(object):
 	def edit_operation_role(self):
 		#日志开始记录
 		self.log.log_start("edit_operation_role")
-		self.frameElem.switch_to_main()
+		self.frameElem.from_frame_to_otherFrame("mainFrame")
 		time.sleep(1)
 		#点击编辑按钮
-		editXpath = "//table[@id='content_table']/tbody/tr[2]/td[6]/input[1]"
+		editXpath = "html/body/form/div/div[6]/div[2]/div/table/tbody/tr[2]/td[6]/input"
 		self.getElem.find_element_wait_and_click_EC('xpath',editXpath)
 		self.role.set_tree_demo_switch('treeDemo_1_switch')
 		time.sleep(1)
@@ -238,24 +238,17 @@ class testSecretUserRole(object):
 		self.log.log_start("add_secret_user")
 		#获取用户测试数据
 		secretData = self.get_table_data("add_user")
-		#保存成功的弹出框
-		userMsg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
-
-		#无检查点的测试项标识，如果为True说明通过
-		flag = False
+		self.frameElem.from_frame_to_otherFrame("topFrame")
+		self.cmf.select_menu(u"运维管理", u"用户")
 
 		for dataRow in range(len(secretData)):
 			data = secretData[dataRow]
 			try:
 				#如果不是第一行标题，则读取数据
 				if dataRow != 0 and dataRow < 4:
-					self.role.add_sercret_user(data[1], data[3], data[4], data[5])
-					self.frameElem.switch_to_content()
-					self.cmf.test_win_check_point("xpath", userMsg, data, flag)
-					time.sleep(1)
-					#点击返回
-					self.frameElem.switch_to_main()
-					self.getElem.find_element_wait_and_click_EC('id','history_skip')
+					self.role.add_sercret_user(data[1], data[3], data[4], data[9])
+					self.log.log_detail(data[0], True)
+
 			except Exception as e:
 				print ("add_secret_user fail:" + str(e))
 
