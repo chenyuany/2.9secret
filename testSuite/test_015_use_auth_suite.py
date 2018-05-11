@@ -11,22 +11,16 @@ u'''
 #修改内容：
 '''
 import sys
-import time
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-sys.path.append("/testIsomp/common/")
-from _icommon import getElement,selectElement,frameElement,commonFun
-from _log import log
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import initDriver
 
-sys.path.append("/testIsomp/testData/")
-from _testDataPath import dataFileName
-
-sys.path.append("/testIsomp/testCase/use_auth/")
+sys.path.append("/testIsompSecret/testCase/use_auth/")
 from test_use_auth import UseAuthorization
 
-sys.path.append("/testIsomp/testSuite")
+sys.path.append("/testIsompSecret/testSuite")
 from common_suite_file import CommonSuiteData,setDriver
 
 import unittest
@@ -52,14 +46,13 @@ class UseAuthSuite(unittest.TestCase):
         #logo包校验
         self.useAuthCase.check_logo_upgrade_004()
         #上传授权码
-        self.useAuthCase.add_product_information_005()
+        # self.useAuthCase.add_product_information_005()
         #上传授权码校验
         self.useAuthCase.check_updata_auth_006()
         
     def tearDown(self):
-        self.commonSuite.use_auth_module_post_condition()
+        self.commonSuite.user_quit()
         self.initDriver.close_driver(self.browser)
-
 
 if __name__ == "__main__":
     unittest.main()

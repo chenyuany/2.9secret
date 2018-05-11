@@ -15,18 +15,13 @@ import time
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-sys.path.append("/testIsomp/common/")
-from _icommon import getElement,selectElement,frameElement,commonFun
-from _log import log
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import initDriver
 
-sys.path.append("/testIsomp/testData/")
-from _testDataPath import dataFileName
-
-sys.path.append("/testIsomp/testCase/network/")
+sys.path.append("/testIsompSecret/testCase/network/")
 from test_routing import RoutingConfiguration
 
-sys.path.append("/testIsomp/testSuite")
+sys.path.append("/testIsompSecret/testSuite")
 from common_suite_file import CommonSuiteData,setDriver
 
 import unittest
@@ -52,7 +47,7 @@ class RoutingSuite(unittest.TestCase):
        
     def tearDown(self):
         #后置条件
-        self.commonSuite.routing_module_post_condition()
+        self.commonSuite.user_quit()
         #关闭浏览器
         self.initDriver.close_driver(self.browser)
         

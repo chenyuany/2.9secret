@@ -3,13 +3,13 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import initDriver
 
-sys.path.append("/testIsomp/testCase/ad_extract")
-from test_ad_extracte import *
+sys.path.append("/testIsompSecret/testCase/ad_extract")
+from test_ad_extracte import testAdEx
 
-sys.path.append("/testIsomp/testSuite")
+sys.path.append("/testIsompSecret/testSuite")
 from common_suite_file import CommonSuiteData,setDriver
 
 import unittest
@@ -39,7 +39,7 @@ class testAdSuite(unittest.TestCase):
 
     def tearDown(self):
         #AD域后置条件
-        self.commonSuite.ad_module_post_condition()
+        self.commonSuite.user_quit()
         initDriver().close_driver(self.browser)
 
 if __name__ == "__main__":

@@ -14,11 +14,11 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 #导入驱动
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import initDriver
-sys.path.append("/testIsomp/testCase/backup_restore/")
+sys.path.append("/testIsompSecret/testCase/backup_restore/")
 from test_backup_restore import testBackupRestore
-sys.path.append("/testIsomp/testSuite/common_suite_file/")
+sys.path.append("/testIsompSecret/testSuite/common_suite_file/")
 from common_suite_file import setDriver,CommonSuiteData
 import unittest
 
@@ -44,7 +44,7 @@ class testBackupSuite(unittest.TestCase):
 
 	def tearDown(self):
 		#备份还原后置条件
-		self.comsuit.backup_restore_module_post_condition()
+		self.comsuit.user_quit()
 		initDriver().close_driver(self.browser)
 
 if __name__ == "__main__":

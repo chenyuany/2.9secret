@@ -37,7 +37,7 @@ class testUserSuite(unittest.TestCase):
         self.userCase.create_user_cert_again_003()
         #删除证书
         self.userCase.delete_user_cert_004()
-        #用户校验    
+        #用户校验
         self.userCase.checkout_user_005()
         #用户检索
         self.userCase.search_user_by_username_006()
@@ -50,7 +50,7 @@ class testUserSuite(unittest.TestCase):
         self.userCase.del_all_user_008()
     
     def tearDown(self):
-        self.commonSuite.user_module_post_condition()  
+        self.commonSuite.user_quit()
         initDriver().close_driver(self.browser)
 
 if __name__ == "__main__":

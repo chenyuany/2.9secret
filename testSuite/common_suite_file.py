@@ -63,8 +63,6 @@ sys.path.append("/testIsompSecret/webElement/authorization")
 from authrizationElement import AuthorizationPage
 sys.path.append("/testIsompSecret/testCase/authorization/")
 from test_authorization import testAuthorization
-sys.path.append("/testIsompSecret/webElement/mount")
-from test_mount_ment import MountPage
 sys.path.append("/testIsompSecret/webElement/ass_service/")
 from syslogElement import Syslog
 sys.path.append("/testIsompSecret/webElement/password_strategy/")
@@ -120,7 +118,6 @@ class CommonSuiteData():
         self.testAutho = testAuthorization(self.driver)
         self.clientElem = ClientPage(self.driver)
         self.command = CommandRule(self.driver)
-        self.mount = MountPage(self.driver)
         self.ntp = NtpService(self.driver)
         self.mail = MailPage(self.driver)
         self.syslog = Syslog(driver)
@@ -971,16 +968,49 @@ class CommonSuiteData():
         self.del_user_data_module([41,42])
         self.user_quit()
 
+#-------------------------------网卡配置前置条件-------------------------------
+    def network_card_module_prefix_condition(self):
+        #使用系统管理员登录
+        self.login_sysadmin()
+        #切换到网卡配置
+        self.switch_to_moudle(u'系统配置', u'网络配置')
+
+#-------------------------------路由配置前置条件-------------------------------
+    def routing_module_prefix_condition(self):
+        #使用系统管理员登录
+        self.login_sysadmin()
+        #切换到路由配置
+        self.cmf.select_menu(u'系统配置', u'网络配置',u'路由配置')
+
+#------------------------------备份还原前置条件-----------------------------------
+    def backup_restore_module_prefix_condition(self):
+        #使用系统管理员登录
+        self.login_sysadmin()
+
+#-----------------------------客户端配置前置条件------------------------------
+    def client_module_prefix_condition(self):
+        #使用系统管理员登录
+        self.login_sysadmin()
+        self.switch_to_moudle(u"系统配置", u"客户端配置")
+
+#-----------------------------AD域抽取前置条件------------------------------
+    def ad_module_prefix_condition(self):
+        #使用系统管理员登录
+        self.login_sysadmin()
+        self.switch_to_moudle(u"系统配置", u"AD定时抽取")
+
+#------------------------------使用授权前置条件---------------------------------
+    def use_auth_module_prefix_condition(self):
+        #使用系统管理员登录
+        self.login_sysadmin()
+        self.switch_to_moudle(u'系统配置', u'使用授权')
+
 #------------------------------用户模块前置条件--------------------------------
     u'''用户模块前置条件'''
     def user_module_prefix_condition(self):
         #使用系统管理员登录
         self.login_sysadmin()
         self.switch_to_moudle(u'运维管理', u'用户')
-    
-    u'''用户模块后置条件'''
-    def user_module_post_condition(self):
-        self.user_quit()
 
 #--------------------------认证方式前置条件------------------------------------
     u'''认证方式前置条件'''
@@ -1075,21 +1105,9 @@ class CommonSuiteData():
         self.del_res_group([2])
         self.del_user_group([2])
 
-#-----------------------------客户端配置前置条件------------------------------
-    def client_module_prefix_condition(self):
-        self.login_and_switch_to_sys()
-        self.switch_to_moudle(u"系统配置", u"客户端配置")
-    
-    def client_module_post_condition(self):
-        self.user_quit()
 
-#-----------------------------AD域抽取前置条件------------------------------
-    def ad_module_prefix_condition(self):
-        self.login_and_switch_to_sys()
-        self.switch_to_moudle(u"系统配置", u"AD定时抽取")
-    
-    def ad_module_post_condition(self):
-        self.user_quit()
+
+
     
 #-----------------------------配置审计前置条件------------------------------
     def system_log_prefix_condition(self):
@@ -1441,45 +1459,6 @@ class CommonSuiteData():
     def session_module_post_condition(self):
         self.user_quit()
 
-#------------------------------审计存储扩展前置条件-----------------------------------
-    def audit_mount_module_prefix_condition(self):
-        #使用添加的用户登录并切换至系统级角色
-        self.login_and_switch_to_sys()
-        #切换到维护配置
-        self.switch_to_moudle(u'系统配置', u'维护配置')
-        self.mount.click_right_button()
-
-    def audit_mount_module_post_condition(self):
-        self.user_quit()
-
-
-#------------------------------备份还原前置条件-----------------------------------
-    def backup_restore_module_prefix_condition(self):
-        #使用添加的用户登录并切换至系统级角色
-        self.login_and_switch_to_sys()
-
-    def backup_restore_module_post_condition(self):
-        self.user_quit()
-        
-#-------------------------------网卡配置前置条件-------------------------------
-    def network_card_module_prefix_condition(self):
-        self.login_and_switch_to_sys()
-        #切换到网卡配置
-        self.switch_to_moudle(u'系统配置', u'网络配置')
-        
-    def network_card_module_post_condition(self):
-        self.user_quit()
-        
-#-------------------------------路由配置前置条件-------------------------------
-    def routing_module_prefix_condition(self):
-        self.login_and_switch_to_sys()
-        #切换到路由配置
-        self.cmf.select_menu(u'系统配置', u'网络配置',u'路由配置')
-        
-    def routing_module_post_condition(self):
-        self.user_quit()
-        
-
 
 #------------------------------密码策略前置条件--------------------------------	
     def pwdstr_module_prefix_condition(self):
@@ -1516,15 +1495,6 @@ class CommonSuiteData():
         self.alarm.del_command_config()
         self.alarm.del_default_config()
         self.alarm.del_auth_config()
-        self.user_quit()
-
-#------------------------------使用授权前置条件---------------------------------
-    def use_auth_module_prefix_condition(self):
-        #使用添加的用户登录并切换至系统级角色
-        self.login_and_switch_to_sys()
-        self.switch_to_moudle(u'系统配置', u'使用授权')
-
-    def use_auth_module_post_condition(self):
         self.user_quit()
 
 

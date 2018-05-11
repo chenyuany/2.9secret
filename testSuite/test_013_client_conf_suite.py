@@ -3,13 +3,13 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import initDriver
 
-sys.path.append("/testIsomp/testCase/client_conf")
-from test_client_conf import *
+sys.path.append("/testIsompSecret/testCase/client_conf")
+from test_client_conf import testClient
 
-sys.path.append("/testIsomp/testSuite")
+sys.path.append("/testIsompSecret/testSuite")
 from common_suite_file import CommonSuiteData,setDriver
 
 import unittest
@@ -35,7 +35,7 @@ class testClientSuite(unittest.TestCase):
 
     def tearDown(self):
         #客户端后置条件
-        self.commonSuite.client_module_post_condition()
+        self.commonSuite.user_quit()
         initDriver().close_driver(self.browser)
 
 if __name__ == "__main__":

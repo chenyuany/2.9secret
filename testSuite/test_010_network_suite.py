@@ -3,10 +3,10 @@ u'''
 #文件名：
 #被测软件版本号：V2.8.1
 #作成人：李择优
-#生成日期：2018/1/31
+#生成日期：2018/5/11
 #模块描述：网卡配置
 #历史修改记录
-#修改人：
+#修改人：陈圆圆
 #修改日期：
 #修改内容：
 '''
@@ -15,18 +15,13 @@ import time
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-sys.path.append("/testIsomp/common/")
-from _icommon import getElement,selectElement,frameElement,commonFun
-from _log import log
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import initDriver
 
-sys.path.append("/testIsomp/testData/")
-from _testDataPath import dataFileName
-
-sys.path.append("/testIsomp/testCase/network/")
+sys.path.append("/testIsompSecret/testCase/network/")
 from test_network import NetworkCard
 
-sys.path.append("/testIsomp/testSuite")
+sys.path.append("/testIsompSecret/testSuite")
 from common_suite_file import CommonSuiteData,setDriver
 
 import unittest
@@ -52,7 +47,7 @@ class NetworkCardSuite(unittest.TestCase):
        
     def tearDown(self):
         #后置条件
-        self.commonSuite.network_card_module_post_condition()
+        self.commonSuite.user_quit()
         #关闭浏览器
         self.initDriver.close_driver(self.browser)
         
