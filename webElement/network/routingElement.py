@@ -13,8 +13,6 @@ u'''
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-
-import os
 import time
 
 sys.path.append("/testIsompSecret/common/")
@@ -156,10 +154,3 @@ class Routing:
             self.getElem.find_element_wait_and_click_EC('xpath',box_xpath)
         except Exception as e:
             print ("click box error: ") + str(e)
-        
-    
-    
-    
-    
-    
-    

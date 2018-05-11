@@ -14,9 +14,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
 import time
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
 sys.path.append("/testIsompSecret/common/")

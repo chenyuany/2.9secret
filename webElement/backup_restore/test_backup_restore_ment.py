@@ -24,8 +24,6 @@ sys.path.append("/testIsomp/webElement/rule")
 from test_command_rule_ment import CommandRule
 sys.path.append("/testIsompSecret/webElement/user/")
 from userElement import UserPage
-sys.path.append("/testIsompSecret/webElement/role/")
-from test_roledf import Role
 
 class Backuprestore(object):
 	def __init__(self, driver):
@@ -40,7 +38,6 @@ class Backuprestore(object):
 		self.tableElem = tableElement(driver)
 		self.log = log()
 		self.userElem = UserPage(self.driver)
-		self.role = Role(driver)
 
 	u'''点击自动备份开关'''
 	def auto_backup_switch(self):
@@ -403,17 +400,6 @@ class Backuprestore(object):
 		time.sleep(1)
 		self.log.log_detail(loginfo, True)
 
-	u'''点击角色操作列对应的删除按钮
-		parameters:
-			- rolename : 角色名称
-	'''
-	def del_role_info(self, rolename):
-		self.comsuit.switch_to_moudle(u"角色管理", u"角色定义")
-		self.frameElem.from_frame_to_otherFrame("mainFrame")
-		self.role.delete(rolename)
-		self.frameElem.switch_to_content()
-		self.cmf.click_msg_button(1)
-
 	u'''执行还原操作
 		parameters:
 			- filename :执行还原的文件名称
@@ -428,10 +414,10 @@ class Backuprestore(object):
 			self.click_operat_file(filename, 3)
 		elif stauts == 2:
 			self.upload_click_operat_file(filename, 3)
-		time.sleep(5)
+		time.sleep(8)
 		self.frameElem.switch_to_content()
 		self.getElem.find_element_with_wait_EC("classname", "aui_state_highlight")
-		time.sleep(3)
+		time.sleep(5)
 		self.cmf.click_msg_button(1)
 		self.log.log_detail(loginfo, True)
 
@@ -458,22 +444,6 @@ class Backuprestore(object):
 		self.cmf.click_msg_button(1)
 		self.log.log_detail(data[9], True)
 		self.select_backup_menu(1)
-
-	u'''填写角色信息
-		Parameters:
-			- rolename :角色名称
-			- shortname :名称简写
-	'''
-	def set_role_info(self, rolename, shortname):
-		self.comsuit.switch_to_moudle(u"角色管理", u"角色定义")
-		self.frameElem.from_frame_to_otherFrame("mainFrame")
-		self.role.add()
-		self.role.edit_rolename(rolename)
-		self.role.edit_shortname(shortname)
-		self.role.select_sysrole()
-		self.role.save_button()
-		self.frameElem.switch_to_content()
-		self.cmf.click_msg_button(1)
 
 	u'''执行日期
 		Parameters:

@@ -14,9 +14,6 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
-import time
-
 sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
 from _icommon import getElement,frameElement,commonFun
@@ -25,9 +22,6 @@ from _log import log
 
 sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
-
-sys.path.append("/testIsompSecret/testSuite")
-from common_suite_file import CommonSuiteData,setDriver
 
 sys.path.append("/testIsompSecret/webElement/use_of_authorization/")
 from useAuthElement import UseAuth
@@ -209,21 +203,3 @@ class UseAuthorization():
             except Exception as e:
                 print ("check updat auth error: ") + str(e)
         self.log.log_end("checkUpdatAuth")
-    
-if __name__ == "__main__":
-    browser = setDriver().set_local_driver()
-    commonSuite = CommonSuiteData(browser)
-    useAuth = UseAuthorization(browser)
-    commonSuite.use_auth_module_prefix_condition()
-    #填写产品信息
-    useAuth.add_product_information_001()
-    #上传logo
-    useAuth.upload_logo_upgrade_002()
-    #产品信息校验
-    useAuth.check_product_information_003()
-    #logo包校验
-    useAuth.check_logo_upgrade_004()
-    #上传授权码
-    useAuth.add_product_information_005()
-    #上传授权码校验
-    useAuth.check_updata_auth_006()

@@ -11,24 +11,19 @@ u'''
 #修改内容：
 '''
 import sys
-import time
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _icommon import getElement,selectElement,frameElement,commonFun
 from _log import log
-from _initDriver import initDriver
 from _cnEncode import cnEncode
 
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
 
-sys.path.append("/testIsomp/webElement/network/")
+sys.path.append("/testIsompSecret/webElement/network/")
 from routingElement import Routing
-
-sys.path.append("/testIsomp/testSuite")
-from common_suite_file import CommonSuiteData,setDriver
 
 class RoutingConfiguration():
     def __init__(self,driver):
@@ -154,20 +149,3 @@ class RoutingConfiguration():
             except Exception as e:
                 print ("check routing fail: ") + str(e)
         self.log.log_end("checkRouting")
-    
-    
-    
-    
-
-#if __name__ == "__main__":
-#    setDriver = setDriver()
-#    browser = setDriver.set_local_driver()
-#    cmf = commonFun(browser)
-#    commonSuite = CommonSuiteData(browser)
-#    commonSuite.login_and_switch_to_sys()
-#    cmf.select_menu(u"系统配置", u"网络配置",u"路由配置")
-#    
-#    rout = RoutingConfiguration(browser)
-#    rout.add_routing_001()
-#    rout.check_routing_002()
-#    rout.del_routing_003()

@@ -3,9 +3,6 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
-import time
-
 sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
 from _icommon import getElement,selectElement,frameElement,commonFun,tableElement
@@ -17,9 +14,6 @@ from _testDataPath import dataFileName
 
 sys.path.append("/testIsompSecret/webElement/client_conf")
 from clientConfElement import ClientPage
-
-sys.path.append("/testIsompSecret/testSuite")
-from common_suite_file import CommonSuiteData,setDriver
 
 class testClient():
 	def __init__(self,driver):
@@ -137,7 +131,6 @@ class testClient():
 						#判断测试项是否通过
 						self.check_without_pop_up(data[4],data)
 						
-						
 					#清空标识状态
 					flag = False
 	
@@ -205,18 +198,4 @@ class testClient():
 	
 			except Exception as e:
 				print ("Add client fail: ") + str(e)
-		self.log.log_end("AddClient")	
-	
-
-
-#if __name__ == "__main__":
-#	browser = setDriver().set_local_driver()
-#	commonSuite = CommonSuiteData(browser)
-#	clientTest = testClient(browser)
-#	clientElem = ClientPage(browser)
-#	commonSuite.login_and_switch_to_sys()
-#	commonSuite.switch_to_moudle(u"系统配置", u"客户端配置")
-#	clientTest.add_client_001()
-#	clientTest.edit_client_002()
-#	clientTest.check_client_003()
-#	clientTest.del_client_004()
+		self.log.log_end("AddClient")

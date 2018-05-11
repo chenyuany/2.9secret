@@ -14,10 +14,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
 import time
-import win32api
-import win32con
 
 sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
@@ -383,7 +380,6 @@ class AdExtractPage():
         #获取ul中的所有li
         li_elems = ul_elem.find_elements_by_tag_name("li")
         return len(li_elems)
-        print len(li_elems)
 
     u'''已选账号列表和过滤列表中账号数目:
         parameters:
@@ -403,9 +399,7 @@ class AdExtractPage():
     '''
     def select_ul_li(self,value,accountText):
         accountList = accountText.split(',')
-#        reAccount = self.cnEnde.is_float(account)
         row = 0
-#        self.command.peration_key("shift")
         try:
             elem = self.getElem.find_element_with_wait_EC("id",value)
             elem_list = elem.find_elements_by_tag_name("li")
@@ -510,5 +504,3 @@ class AdExtractPage():
             self.getElem.find_element_with_wait_clickable_and_click("id",self.QUARTZ_OFF)
         except Exception as e:
             print ("Click quartz off button error: ") + str(e)
-    
-    

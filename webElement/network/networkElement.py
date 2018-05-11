@@ -13,8 +13,6 @@ u'''
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-
-import os
 import time
 
 sys.path.append("/testIsompSecret/common/")
@@ -204,46 +202,3 @@ class Network:
             self.getElem.find_element_wait_and_click_EC("id",self.ETH3_DEL_BUTTON)
         except Exception as e:
             print ("del eth3 card fail: ") + str(e)
-        
-            
-        
-        
-    u'''添加网卡eth1'''
-    def add_network_card_eth1(self):
-        if dataRow == 1:
-            self.network.set_eth1_ip(data[2])
-            self.network.set_eth1_mask(data[3])
-            self.network.click_eth1_set_button()
-        self.network.click_login_msg_button()
-        
-    u'''添加网卡eth2'''
-    def add_network_card_eth2(self):
-        if dataRow == 2:
-            self.network.set_eth2_ip(data[2])
-            self.network.set_eth2_mask(data[3])
-            self.network.click_eth2_set_button()
-        self.network.click_login_msg_button()
-            
-    u'''添加网卡eth3'''
-    def add_network_card_eth3(self):
-        if dataRow == 3:
-            self.network.set_eth3_ip(data[2])
-            self.network.set_eth3_mask(data[3])
-            self.network.click_eth3_set_button()
-        self.network.click_login_msg_button()
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        
-    
-    
-    
-    

@@ -18,8 +18,6 @@ from _testDataPath import dataFileName
 sys.path.append("/testIsompSecret/common")
 from _icommon import commonFun
 from _log import log
-sys.path.append("/testIsompSecret/testCase/role/")
-from test_role import testRole
 sys.path.append("/testIsompSecret/webElement/backup_restore/")
 from test_backup_restore_ment import Backuprestore
 
@@ -29,7 +27,6 @@ class testBackupRestore(object):
 		self.driver = driver
 		self.log = log()
 		self.cmf = commonFun(driver)
-		self.testrole = testRole(driver)
 		self.backup = Backuprestore(driver)
 		self.data = dataFileName()
 
@@ -52,7 +49,7 @@ class testBackupRestore(object):
 		#获取备份系统配置测试数据
 		backupData = self.get_table_data("backup_sys_config")
 		#保存成功的弹出框
-		backMsg = self.testrole.popup()
+		backMsg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -85,7 +82,7 @@ class testBackupRestore(object):
 		#获取备份实体配置测试数据
 		backupData = self.get_table_data("backup_entity_config")
 		#保存成功的弹出框
-		backMsg = self.testrole.popup()
+		backMsg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -121,7 +118,7 @@ class testBackupRestore(object):
 		#获取备份系统实体配置测试数据
 		backupData = self.get_table_data(" backup_sys_entity")
 		#保存成功的弹出框
-		backMsg = self.testrole.popup()
+		backMsg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -133,31 +130,22 @@ class testBackupRestore(object):
 				if dataRow != 0:
 					#编写syslog
 					self.backup.set_syslog(data[3], data[2])
-					#编写角色信息
-					self.backup.set_role_info(data[13], data[14])
 					#配置系统配置内容
 					self.backup.config_backup(data, backMsg, flag)
 					filename = self.backup.get_file_name()
 					#进行下载操作
 					self.backup.click_operat_file(filename, 1)
-					self.log.log_detail(data[17], True)
+					self.log.log_detail(data[13], True)
 					#进行删除操作
-					self.backup.del_backup_file(filename, data[18])
+					self.backup.del_backup_file(filename, data[14])
 					#进行上传操作
-					self.backup.backup_file_upload(filename, data[19])
+					self.backup.backup_file_upload(filename, data[15])
 					#更改syslog内容
 					self.backup.set_syslog(data[8])
-					#删除角色信息
-					self.backup.del_role_info(data[15])
 					#进行还原操作
 					self.backup.execute_restore(filename, data[10], 2)
 					#进行校验文本信息是否为原来的端口
 					self.backup.check_syslog_content(data[3], data[11])
-					#进行角色信息是否存在
-					self.cmf.select_menu(u"角色管理", u"角色定义")
-					self.backup.check_content(data[13], "fortRoleName", data[16])
-					#删除角色信息
-					self.backup.del_role_info(data[15])
 			except Exception as e:
 				print (" backup_sys_entity fail:" + str(e))
 		self.log.log_end(" backup_sys_entity")

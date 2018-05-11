@@ -16,20 +16,17 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 from selenium import webdriver
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _icommon import getElement,selectElement,frameElement,commonFun
 from _log import log
 from _initDriver import initDriver
 from _cnEncode import cnEncode
 
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
 
-sys.path.append("/testIsomp/webElement/network/")
+sys.path.append("/testIsompSecret/webElement/network/")
 from networkElement import Network
-
-sys.path.append("/testIsomp/testSuite")
-from common_suite_file import CommonSuiteData,setDriver
 
 class NetworkCard:
     
@@ -108,11 +105,7 @@ class NetworkCard:
                     self.frameElem.switch_to_content()
                     #判断测试项是否通过
                     self.cmf.test_win_check_point("xpath", network_msg, data, flag)
-                    if dataRow == 1:
-                        self.open_driver(data[2])
-                    elif dataRow == 2:
-                        self.open_driver(data[2])
-                    elif dataRow == 3:
+                    if dataRow != 4:
                         self.open_driver(data[2])
             except Exception as e:
                 print ("set network card fail: ") + str(e)
@@ -180,20 +173,3 @@ class NetworkCard:
             except Exception as e:
                 print ("check network card fail: ") + str(e)
         self.log.log_end("checkNetworkCard")
-    
-
-    
-    
-    
-#if __name__ == "__main__":
-#    setDriver = setDriver()
-#    browser = setDriver.set_local_driver()
-#    cmf = commonFun(browser)
-#    commonSuite = CommonSuiteData(browser)
-#    commonSuite.login_and_switch_to_sys()
-#    cmf.select_menu(u"系统配置", u"网络配置")
-#    
-#    net = NetworkCard(browser)
-#    net.set_network_card_001()
-#    net.del_network_card_002()
-#    net.check_network_card_003()

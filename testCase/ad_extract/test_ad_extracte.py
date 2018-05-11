@@ -3,9 +3,6 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
-import time
-
 sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
 from _icommon import getElement,selectElement,frameElement,commonFun,tableElement
@@ -88,7 +85,6 @@ class testAdEx():
 			self.log.log_detail(data[0], True)
 		else:
 			self.log.log_detail(data[0], False)
-	
 
 	def base_on_dataRow(self,dataRow,data,flag):
 		#AD发现账号列表移动到已选账号列表
@@ -328,21 +324,5 @@ class testAdEx():
 					flag = False
 			except Exception as e:
 				print ("Clear History fail: ") + str(e)
-		self.log.log_end("ClearHistory_006")	
-
-#if __name__ == "__main__":
-#	browser = setDriver().set_local_driver()
-#	commonSuite = CommonSuiteData(browser)
-#	adTest = testAdEx(browser)
-#	commonSuite.login_and_switch_to_sys()
-#	commonSuite.switch_to_moudle(u"系统配置", u"AD定时抽取")
-#	
-#	adTest.ad_extract_001()
-#	adTest.ad_discover_002()
-#	adTest.move_user_check_003()
-#	adTest.ad_pwd_checkout_004()
-#	adTest.cycle_005()
-#	adTest.clear_history_006()
-	
-
+		self.log.log_end("ClearHistory_006")
 

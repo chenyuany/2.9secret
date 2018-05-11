@@ -144,10 +144,9 @@ class testApp():
 					self.appElem.set_app_account(data[5])
 					self.appElem.set_pwd(data[6])
 					self.appElem.set_repwd(data[7])
-					# if data[3] != "":
-					# 	time.sleep(2)
-					self.appElem.ip_is_succ()
-					if data[3] =="":
+					if dataRow != 3:
+						self.appElem.ip_is_succ()
+					if data[3] == "":
 						self.cmf.click_login_msg_button()
 					self.appElem.click_save_button()
 					#判断测试项是否通过

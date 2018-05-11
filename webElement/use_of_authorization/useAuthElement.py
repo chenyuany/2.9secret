@@ -13,9 +13,6 @@ u'''
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-import os
-import time
-
 sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
 from _icommon import getElement,frameElement,commonFun
@@ -44,6 +41,7 @@ class UseAuth():
     UPDATAAUTH = "updateAuth"
     #授权码
     AUTHCODE = "authCode"
+
     def __init__(self,driver):
         self.driver = driver
         self.log = log()
@@ -99,10 +97,9 @@ class UseAuth():
         try:
             self.frameElem.from_frame_to_otherFrame("mainFrame")
             if index == 1:
-                value = "H://testIsomp/testData/envelope_image.png"
+                value = "E://testIsompSecret/testData/envelope_image.png"
             elif index == 2:
-                value = "H://testIsomp/testData/use_of_authorization.xlsx"
+                value = "E://testIsompSecret/testData/use_of_authorization.xlsx"
             self.getElem.find_element_wait_and_sendkeys('id',self.LOGO_IMAGE,value)
         except Exception as e:
             print ("click  and check up logo button error: ") + str(e)
-    

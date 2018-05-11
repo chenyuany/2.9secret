@@ -15,9 +15,6 @@ LOGIN_TEST_DATA_URL = r"/testIsompSecret/testData/login_test_data.xlsx"
 #用户excel数据位置
 USER_TEST_DATA_URL = r"/testIsompSecret/testData/user_test_data.xlsx"
 
-#角色定义数据文件
-ROLE_TEST_DATA_URL = r"/testIsompSecret/testData/role_test_data.xlsx"
-
 #组织定义数据文件
 DEPARTMENT_TEST_DATA_URL = r"/testIsompSecret/testData/department_test_data.xlsx"
 
@@ -93,8 +90,6 @@ ADDRESS_RULE_TEST_DATA_URL = r"/testIsompSecret/testData/address_rule_test_data.
 #资源时间规则数据文件
 RETIME_RULE_TEST_DATA_URL = r"/testIsompSecret/testData/resource_time_rule_test_data.xlsx"
 
-#审计存储扩展数据文件
-AUDIT_MOUNT_TEST_DATE = r"/testIsompSecret/testData/audit_mount_test_data.xlsx"
 #密码策略数据文件
 PASSWORD_STRATRGY_TEST_DATA_URL = r"/testIsompSecret/testData/password_strategy_test_data.xlsx"
 
@@ -175,11 +170,7 @@ class dataFileName(object):
     
     #运维审计检索数据
     def get_audit_log_test_url(self):
-        return AUDIT_LOG_DATA_URL   
-
-    u"""获取角色定义数据文件的数据"""
-    def get_role_test_data_url(self):
-        return ROLE_TEST_DATA_URL
+        return AUDIT_LOG_DATA_URL
 
     u"""获取组织定义部门文件的数据"""
     def get_depart_test_data_url(self):
@@ -237,10 +228,6 @@ class dataFileName(object):
     def get_ntp_test_data_url(self):
         return EDIT_NTP_TEST_DATA_URL
 
-    u'''获取审计存储扩展数据'''
-    def audit_mount_test_date_url(self):
-        return AUDIT_MOUNT_TEST_DATE
-    
     u"""获取syslog服务数据"""
     def get_syslog_test_data_url(self):
         return SYSLOG_TEST_DATA_URL
