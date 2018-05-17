@@ -3,9 +3,6 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
-import time
-
 #导入通用方法类
 sys.path.append("/testIsompSecret/common/")
 from _icommon import getElement,selectElement,frameElement,commonFun,tableElement
@@ -18,9 +15,6 @@ from _testDataPath import dataFileName
 
 sys.path.append("/testIsompSecret/webElement/session_configuration/")
 from sessionElement import sessionConfig
-
-sys.path.append("/testIsompSecret/testSuite")
-from common_suite_file import CommonSuiteData,setDriver
 
 sys.path.append("/testIsompSecret/webElement/password_strategy/")
 from pwdStrategyElement import PwdStrategy
@@ -153,19 +147,5 @@ class conversationStrategy():
             except Exception as e:
                 print ("Single user login failure: " + str(e))
         self.log.log_end("checkUserLoginEnd")
-        
-
-
-if __name__ == "__main__":
-    browser = setDriver().set_local_driver()
-    commonSuite = CommonSuiteData(browser)
-    sessionCase = conversationStrategy(browser)
-    commonSuite.session_module_prefix_condition()
-    sessionCase.add_session_config_001()
-#    sessionCase.check_session_config_002()
-#    sessionCase.sing_user_login_and_session_003()
-#    sessionCase.check_sing_user_login_004()
-    #commonSuite.session_module_post_condition()
-
 
 

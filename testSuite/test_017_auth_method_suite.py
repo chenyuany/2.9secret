@@ -2,12 +2,14 @@
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
+sys.path.append("/testIsompSecret/common/")
+from _initDriver import initDriver
 
 #导入认证
-sys.path.append("/testIsomp/testCase/auth_method")
-from test_auth_method import *
+sys.path.append("/testIsompSecret/testCase/auth_method")
+from test_auth_method import testAuthMethod
 
-sys.path.append("/testIsomp/testSuite")
+sys.path.append("/testIsompSecret/testSuite")
 from common_suite_file import CommonSuiteData,setDriver
 
 import unittest

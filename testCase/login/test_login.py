@@ -3,24 +3,14 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-from threading import Thread
-
-sys.path.append("/testIsomp/common/")
-from _excelRead import excelRead
-from _cnEncode import cnEncode
-from _transCoding import jsonTranscoding
-
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
 
-sys.path.append("/testIsomp/webElement/login/")
-from loginElement import *
+sys.path.append("/testIsompSecret/webElement/login/")
+from loginElement import loginPage
 
-sys.path.append("/testIsomp/common")
+sys.path.append("/testIsompSecret/common")
 from _icommon import commonFun
-from _icommon import log
-from _fileRead import fileRead
-from _initDriver import initDriver
 from _log import log
 
 class testLogin(object):
@@ -38,14 +28,14 @@ class testLogin(object):
     		return：表格数据
     '''
     def get_table_data(self,sheetname):
-    	filePath = self.dataFile.get_login_test_data_url()
-    	loginData = self.dataFile.get_data(filePath,sheetname)
-    	return loginData
-    	
+        filePath = self.dataFile.get_login_test_data_url()
+        loginData = self.dataFile.get_data(filePath,sheetname)
+        return loginData
+
     u'''登陆的div弹窗的xpath'''
     def login_msg(self):
-    	login_msg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
-    	return login_msg
+        login_msg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
+        return login_msg
     
     u'''根据访问方式类型登录测试
             parameters:
@@ -65,8 +55,6 @@ class testLogin(object):
                 if dataRow != 0:
                     if sheetname == 'default':
                         self.loginFun.login(data)
-#                           if dataRow == 1:
-#                               loginFun.set_max_login_count()
                     elif sheetname == 'ad':
                         self.loginFun.ad_login(data)
                     elif sheetname == 'pwd_ad':
@@ -87,45 +75,12 @@ class testLogin(object):
                     
             except Exception as e: 
                 print ("User login fail: ") + str(e)
-                #self.log.print_detail("login type error",e)
 
     #登陆测试
     def login(self):
         self.log.log_start("login")
         u'''可以循环设定数据测试系统登录'''
-        sheets_name = ['default','ad','pwd_ad','radius']#'default','ad','pwd_ad','radius'
+        sheets_name = ['default','ad','pwd_ad','radius']
         for sheetname in sheets_name:
             self.login_type(sheetname)
         self.log.log_end("login")
-        
-        
-#if __name__ == "__main__":#internet explorer
-#    browser = setDriver().set_driver()
-#    testLogin = testLogin(browser)
-#    testLogin.login()
-
-    
-    '''
-    lists = jsonTranscoding().set_brower()
-    threads = []
-    
-    def execute_case(host,brower):
-        driver = initDriver().remote_open_driver(host,brower)
-        testLogin(driver).login()
-        initDriver().close_driver(driver)
-        
-    for host,brower in lists.items():
-        th = Thread(target=execute_case,args=(host,brower))
-        th.start()
-        threads.append(th)
-            
-    for th in threads:
-        th.join()
-    '''
-        
-
-    
-    
-
-        
-        

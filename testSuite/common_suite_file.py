@@ -151,11 +151,12 @@ class CommonSuiteData():
                 data[8] : AD域账号
                 roleText : 用户角色
     '''
-    def set_user_basic_info(self,data,roleText):
-        
-#        self.cmf.select_menu(u"运维管理",u"用户")
+    def set_user_basic_info(self,data,roleText,status='no'):
         self.frameElem.from_frame_to_otherFrame("mainFrame")
-        self.userElem.add_button()
+        if status != 'no':
+            self.userElem.add_role_button()
+        else:
+            self.userElem.add_button()
         self.userElem.set_user_account(data[3])
         self.userElem.set_user_name(data[1])
         self.userElem.set_user_pwd(data[4])
@@ -178,7 +179,6 @@ class CommonSuiteData():
             self.userElem.click_role_add_button()
         self.userElem.save_button()
         self.cmf.click_login_msg_button()
-        
 
     u'''删除用户'''
     def del_user(self):
@@ -369,23 +369,6 @@ class CommonSuiteData():
         self.cmf.click_login_msg_button()
         time.sleep(3)
         self.cmf.back()
-    
-    u'''删除单一资源'''
-    def del_one_resource(self,resName):
-        self.switch_to_moudle(u"运维管理", u"资源")
-        self.frameElem.from_frame_to_otherFrame("mainFrame")
-        self.resource.click_del_button(resName)
-        self.cmf.click_login_msg_button()
-        self.cmf.click_login_msg_button()        
-    
-    u'''删除全部资源'''
-    def del_resource(self):
-        self.switch_to_moudle(u"运维管理", u"资源")
-        self.frameElem.from_frame_to_otherFrame("mainFrame")
-        self.cmf.check_all()
-        self.cmf.bulkdel("delete_resource")
-        self.cmf.click_login_msg_button()
-        self.cmf.click_login_msg_button()
         
     u'''填写资源账号基本信息
             parameters: 
@@ -539,7 +522,7 @@ class CommonSuiteData():
         for dataRow in rowList:
             data = user_data[dataRow]
             if dataRow != 0:
-                self.set_user_basic_info(data,data[9])
+                self.set_user_basic_info(data,data[9],data[13])
                 self.userElem.click_back_button()
         
     u'''添加系统管理员和部门管理员的用户'''
@@ -803,13 +786,13 @@ class CommonSuiteData():
 
     u'''删除用户数据模板'''
     def del_user_data_module(self,rowList):
-        self.switch_to_moudle(u"运维管理",u"用户")
+        self.switch_to_moudle(u"运维管理", u"用户")
         self.frameElem.from_frame_to_otherFrame("mainFrame")
         user_data = self.get_table_data("add_user")
         for dataRow in rowList:
             data = user_data[dataRow]
             if dataRow != 0:
-                self.switch_to_moudle(u"运维管理",u"用户")
+                self.switch_to_moudle(u"运维管理", u"用户")
                 self.userElem.operate_delete(data[1])
                 self.frameElem.switch_to_content()
                 self.cmf.click_login_msg_button()
@@ -894,8 +877,6 @@ class CommonSuiteData():
     def regroup_module_prefix_condition(self):
         #使用安全保密管理员登录
         self.login_secadmin()
-        #切换到资源
-        self.switch_to_moudle(u"运维管理", u"资源")
         #添加资源
         self.add_resource_modele([9,6])
         self.user_quit()
@@ -961,11 +942,11 @@ class CommonSuiteData():
     def application_module_prefix_condition(self):
         #使用系统管理员登录
         self.login_sysadmin()
-        self.add_user_data_module([41,42])
+        self.add_user_data_module([9,10])
         self.switch_to_moudle(u"系统配置", u"关联服务")
 
     def application_module_post_condition(self):
-        self.del_user_data_module([41,42])
+        self.del_user_data_module([9,10])
         self.user_quit()
 
 #-------------------------------网卡配置前置条件-------------------------------
@@ -997,7 +978,13 @@ class CommonSuiteData():
     def ad_module_prefix_condition(self):
         #使用系统管理员登录
         self.login_sysadmin()
+        self.add_user_data_module([18])
         self.switch_to_moudle(u"系统配置", u"AD定时抽取")
+
+    u'''AD域抽取后置条件'''
+    def ad_module_post_condition(self):
+        self.del_user_data_module([18])
+        self.user_quit()
 
 #------------------------------使用授权前置条件---------------------------------
     def use_auth_module_prefix_condition(self):
@@ -1015,38 +1002,72 @@ class CommonSuiteData():
 #--------------------------认证方式前置条件------------------------------------
     u'''认证方式前置条件'''
     def auth_method_prefix_condition(self):
-        #使用添加的用户登录并切换至系统管理员角色
-        self.login_and_switch_to_sys()
+        #使用安全保密管理员登录
+        self.login_secadmin()
+        self.add_user_data_module([11])
         self.switch_to_moudle(u"策略配置",u"认证强度")
         self.frameElem.from_frame_to_otherFrame("mainFrame")
-        
+
     u'''认证方式后置条件'''
     def auth_method_post_condition(self):
-        #系统管理员退出
+        self.del_user_data_module([11])
         self.user_quit()
-        
+
 #---------------------------------登录模块前置条件-----------------------------
     u'''登录模块前置条件'''
     def login_module_prefix_condition(self):
-        #使用添加的用户登录并切换至系统管理员角色
-        self.login_and_switch_to_sys()
+        #使用安全保密管理员登录
+        self.login_secadmin()
         #配置认证方式
         self.add_meth_method()
-        self.user_quit()
-        self.login_and_switch_to_sys()
         #配置最大登录数
         self.set_login_max_num()
         #添加登录用户数据
-        self.add_user_data_module([27,28,29,30,31,32])
+        self.add_user_data_module([12,13,14,15,16,17])
         #改变a的状态为关
         self.userElem.change_user_status_off("gyrlogin2")
         #系统管理员退出
         self.user_quit()
-    
+
     u'''登录模块后置条件'''
     def login_module_post_condition(self):
-        self.isomper_login()
-        self.del_user_data_module([27,28,29,30,31,32])
+        #使用安全保密管理员登录
+        self.login_secadmin()
+        #删除认证方式
+        self.authElem.del_auth_method()
+        self.del_user_data_module([12,13,14,15,16,17])
+        self.user_quit()
+
+#------------------------------告警策略前置条件---------------------------------
+    def alarm_strategy_module_prefix_condition(self):
+        #使用安全保密管理员登录
+        self.login_secadmin()
+
+    def alarm_strategy_module_post_condition(self):
+        self.alarm.del_command_config()
+        self.alarm.del_default_config()
+        self.alarm.del_auth_config()
+        self.user_quit()
+
+#------------------------------会话配置前置条件--------------------------------
+    def session_module_prefix_condition(self):
+        #使用安全保密管理员登录
+        self.login_secadmin()
+        self.switch_to_moudle(u"策略配置", u"会话配置")
+
+#------------------------------密码策略前置条件--------------------------------
+    def pwdstr_module_prefix_condition(self):
+        #使用安全保密管理员登录
+        self.login_secadmin()
+        #添加资源
+        self.add_resource_modele([14])
+        self.add_user_data_module([19])
+        self.switch_to_moudle(u"策略配置", u"密码策略")
+
+    def pwdstr_module_post_condition(self):
+        self.del_resource_modele([14])
+        self.del_user_data_module([19])
+        self.user_quit()
     
 #------------------------------授权前置条件-----------------------------------
     def authori_module_prefix_condition(self):
@@ -1447,82 +1468,3 @@ class CommonSuiteData():
         #删除资源
         self.del_resource_modele([4, 5, 10])
         self.user_quit()
-
-
-        
-#------------------------------会话配置前置条件--------------------------------
-    def session_module_prefix_condition(self):
-        #使用新用户登录并切换到系统级
-        self.login_and_switch_to_sys()
-        self.switch_to_moudle(u"策略配置", u"会话配置")
-
-    def session_module_post_condition(self):
-        self.user_quit()
-
-
-#------------------------------密码策略前置条件--------------------------------	
-    def pwdstr_module_prefix_condition(self):
-        #使用新用户登录并切换到系统级
-        self.login_and_switch_to_dep()
-        #添加资源
-        self.switch_to_moudle(u"运维管理", u"资源")
-        self.add_resource_modele([14])
-        #添加用户
-        self.dep_switch_to_sys()
-        self.switch_to_moudle(u"运维管理", u"用户") 
-        self.add_user_data_module([26])
-        #切换到系统级
-        self.dep_switch_to_sys()
-        self.switch_to_moudle(u"策略配置", u"密码策略")
-
-    def pwdstr_module_post_condition(self):
-        #删除添加的资源
-        self.sys_switch_to_dep() 
-        self.switch_to_moudle(u"运维管理", u"资源")
-        self.del_one_resource("测试密码策略")
-        #删除添加的用户
-        self.dep_switch_to_sys()
-        self.switch_to_moudle(u"运维管理", u"用户") 
-        self.del_user_data_module([26])
-        self.user_quit()
-        
-#------------------------------告警策略前置条件---------------------------------
-    def alarm_strategy_module_prefix_condition(self):
-        #使用添加的用户登录并切换至系统级角色
-        self.login_and_switch_to_sys()
-
-    def alarm_strategy_module_post_condition(self):
-        self.alarm.del_command_config()
-        self.alarm.del_default_config()
-        self.alarm.del_auth_config()
-        self.user_quit()
-
-
-#if __name__ == "__main__":
-#    driver = setDriver().set_local_driver()
-#    commonDataElem =  CommonSuiteData(driver)
-#    commonDataElem.authori_module_prefix_condition()
-#    commonDataElem.authori_module_post_condition()
-#    commonDataElem.isomper_login()
-#    commonDataElem.add_sys_role()
-#    commonDataElem.add_dep_role()
-#    commonDataElem.add_login_data()
-#    commonDataElem.add_user_with_role()
-#    commonDataElem.user_quit()
-#    commonDataElem.login_and_switch_to_sys()
-#    commonDataElem.add_login_data()
-#    commonDataElem.login_and_switch_to_dep()
-#    commonDataElem.add_res_group()
-#    commonDataElem.del_res_group()
-#    
-#    commonDataElem.add_user_group()
-#    commonDataElem.del_user_group()
-
-#
-#    commonDataElem.login_and_switch_to_dep()
-#    commonDataElem.add_resource()
-#    commonDataElem.del_resource()
-#    commonDataElem.add_dep()
-#    commonDataElem.del_dep()
-#    commonDataElem.add_meth_method()
-#    commonDataElem.set_login_max_num()

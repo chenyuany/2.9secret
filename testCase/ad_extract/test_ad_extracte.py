@@ -18,7 +18,7 @@ from adExtractElement import AdExtractPage
 sys.path.append("/testIsompSecret/testSuite")
 from common_suite_file import CommonSuiteData,setDriver
 sys.path.append("/testIsompSecret/webElement/login/")
-from loginElement import *
+from loginElement import loginPage
 
 class testAdEx():
 	def __init__(self,driver):
@@ -102,7 +102,7 @@ class testAdEx():
 			
 		#从已选账号列表移动到AD发现账号列表
 			if dataRow == 2:
-				self.commonSuite.login_and_switch_to_sys()
+				self.commonSuite.login_sysadmin()
 				self.commonSuite.switch_to_moudle(u"系统配置", u"AD定时抽取")
 				self.adExElem.discover_tab()
 				self.adExElem.set_selected_account(data[3])
@@ -123,7 +123,7 @@ class testAdEx():
 			
 		#AD发现账号列表移动到过滤账号列表
 		if dataRow == 3:
-			self.commonSuite.login_and_switch_to_sys()
+			self.commonSuite.login_sysadmin()
 			self.commonSuite.switch_to_moudle(u"系统配置", u"AD定时抽取")
 			self.frameElem.from_frame_to_otherFrame("mainFrame")
 			self.adExElem.discover_tab()

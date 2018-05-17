@@ -76,8 +76,6 @@ class User():
 				status : 0,代表判断条件为相等
 	'''
 	def check_without_pop_up(self,var1,var2,data):
-		#点击保存按钮弹出框
-		user_msg = self.user_msg()
 		if var1 == var2:
 			self.cmf.test_win_check_point("","",data,True)
 		else:
@@ -116,8 +114,6 @@ class User():
 						self.user.set_dep(data[6])
 					self.user.set_user_pwd(data[7])
 					self.user.set_user_enquire_pwd(data[8])
-					self.user.set_user_role(data[15])
-					self.user.click_role_add_button()
 					self.user.save_button()
 					
 					#判断测试项是否通过
@@ -126,8 +122,6 @@ class User():
 					#清空标识状态
 					flag = False
 					self.user.click_back_button()
-					if self.cmf.is_namevalue_exsit(data[2],"fortUserAccount"):
-						print ("add user success")
 			except Exception as e:
 				print ("user add fail: ") + str(e)
 		self.log.log_end("addUser")
@@ -163,8 +157,6 @@ class User():
 					#清空标识状态
 					flag = False
 					self.switch_to_user_module()
-					if self.cmf.is_namevalue_exsit(data[2],"fortUserAccount"):
-						print ("edit user success")
 			except Exception as e:
 				print ("edit user fail: ") + str(e)
 		self.log.log_end("editUser")	
@@ -176,8 +168,7 @@ class User():
 		self.log.log_start("CreateUserCert")
 		#获取生成证书用户的数据
 		user_data = self.get_table_data("create_cert")
-		#无检查点的测试项标识，如果为True说明通过
-		flag = False
+
 		for dataRow in range(len(user_data)):
 			data = user_data[dataRow]
 			try:
@@ -190,9 +181,7 @@ class User():
 					
 					#判断生成的证书名字和指定的名字是否相等
 					self.check_without_pop_up(cert_name,data[2],data)
-						
-					#清空标识状态
-					flag = False
+
 					self.switch_to_user_module()
 			except Exception as e:
 				print ("Create user cert fail: ") + str(e)
@@ -253,10 +242,6 @@ class User():
 
 					#判断测试项是否通过
 					self.check_with_pop_up(data,flag)
-
-					self.frameElem.from_frame_to_otherFrame("mainFrame")
-					if self.user.get_init_cert_name() == data[2]:
-						print ("Delete cert success!")						
 					#清空标识状态
 					flag = False
 					self.frameElem.from_frame_to_otherFrame("mainFrame")
@@ -267,8 +252,6 @@ class User():
 
 	u'''校验用户'''
 	def checkout_user_005(self):
-		#保存成功的弹出框
-		user_msg = self.user_msg()
 		#日志开始记录
 		self.log.log_start("checkoutUser")
 		#获取用户校验的数据
@@ -311,8 +294,7 @@ class User():
 		self.log.log_start("Search user by status")
 		#获取按照用户状态检索的数据
 		user_data = self.get_table_data("search_by_status")#user_check
-		#无检查点的测试项标识，如果为True说明通过
-		flag = False
+
 		for dataRow in range(len(user_data)):
 			data = user_data[dataRow]
 			try:
@@ -327,8 +309,6 @@ class User():
 					#判断测试项是否通过
 					self.check_without_pop_up(row,search_row,data)
 					self.reset()
-					#清空标识状态
-					flag = False			
 			except Exception as e:
 				print ("search user by status fail: ") + str(e)
 		
@@ -341,8 +321,7 @@ class User():
 		self.log.log_start("Search user by username")
 		#获取按照账号或名称检索的数据
 		user_data = self.get_table_data("search_by_name")#user_check
-		#无检查点的测试项标识，如果为True说明通过
-		flag = False
+
 		for dataRow in range(len(user_data)):
 			data = user_data[dataRow]
 			try:
@@ -357,9 +336,6 @@ class User():
 					#判断测试项是否通过
 					self.check_without_pop_up(row,search_row,data)
 					self.reset()
-
-					#清空标识状态
-					flag = False			
 			except Exception as e:
 				print ("search user by username fail: ") + str(e)
 		
@@ -372,8 +348,6 @@ class User():
 		self.log.log_start("Search user by department")
 		#获取按部门检索的数据
 		user_data = self.get_table_data("search_by_dep")#user_check
-		#无检查点的测试项标识，如果为True说明通过
-		flag = False
 		for dataRow in range(len(user_data)):
 			data = user_data[dataRow]
 			try:
@@ -394,41 +368,10 @@ class User():
 					#判断测试项是否通过
 					self.check_without_pop_up(row,search_row,data)
 					self.reset()
-					#清空标识状态
-					flag = False		
 			except Exception as e:
 				print ("search user by department fail: ") + str(e)
 		
 		self.log.log_end("Search user by department")
-
-	u'''检索条件:角色'''
-	def search_user_by_role_006(self):
-
-		#日志开始记录
-		self.log.log_start("SearchUserByRole")
-		#获取按角色检索的数据
-		user_data = self.get_table_data("search_by_role")#user_check
-		#无检查点的测试项标识，如果为True说明通过
-		flag = False
-		for dataRow in range(len(user_data)):
-			data = user_data[dataRow]
-			try:
-				#如果不是第一行标题，则读取数据
-				if dataRow != 0:
-					self.frameElem.from_frame_to_otherFrame("mainFrame")
-					row = self.user.search_direct_by_role(data[3])
-					self.user.search_user_role(data[3])
-					self.user.click_search_button()
-					search_row = self.user.get_rows()
-					#判断测试项是否通过
-					self.check_without_pop_up(row,search_row,data)
-					self.reset()
-					#清空标识状态
-					flag = False	
-			except Exception as e:
-				print ("search user by role fail: ") + str(e)
-		
-		self.log.log_end("SearchUserByRole")
 
 	u'''删除单个用户'''
 	def del_user_007(self):
@@ -453,10 +396,7 @@ class User():
 					
 					#清空标识状态
 					flag = False
-					
-					#判断删除的账号是否存在
-					if not self.cmf.is_namevalue_exsit(data[2],"fortUserAccount"):
-						print ("del user success")					
+
 			except Exception as e:
 				print ("DelOneUser fail: ") + str(e)
 		self.log.log_end("DelOneUser")

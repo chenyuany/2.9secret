@@ -14,9 +14,6 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
-import time
-
 #导入通用方法类
 sys.path.append("/testIsompSecret/common/")
 from _icommon import getElement,selectElement,frameElement,commonFun,tableElement
@@ -29,9 +26,6 @@ from _testDataPath import dataFileName
 
 sys.path.append("/testIsompSecret/webElement/alarm_configuration/")
 from alarmElement import AlarmPage
-
-sys.path.append("/testIsompSecret/testSuite")
-from common_suite_file import CommonSuiteData,setDriver
 
 class AlarmConfig():
     def __init__(self,driver):
@@ -294,17 +288,3 @@ class AlarmConfig():
         self.log.log_start("delConfig")
         flag = False
         self.frameElem.from_frame_to_otherFrame("mainFrame")
-
-if __name__ == "__main__":
-    browser = setDriver().set_local_driver()
-    commonSuite = CommonSuiteData(browser)
-    alarmCase = AlarmConfig(browser)
-    commonSuite.alarm_strategy_module_prefix_condition()
-    alarmCase.mod_user_mail_008()
-    alarmCase.command_alarm_level_config_001()
-    alarmCase.default_alarm_level_checkout_003()
-    alarmCase.default_alarm_level_config_002()
-    alarmCase.auth_alarm_level_config_004()
-    alarmCase.search_by_type_005()
-    alarmCase.search_by_level_006()
-    commonSuite.alarm_strategy_module_post_condition()

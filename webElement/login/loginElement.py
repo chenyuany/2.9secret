@@ -14,8 +14,6 @@ u'''
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-
-import os
 import time
 
 sys.path.append("/testIsompSecret/common/")
@@ -25,7 +23,6 @@ from _log import log
 
 sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
-
 
 
 class loginPage(object):
@@ -91,14 +88,13 @@ class loginPage(object):
             locator : 定位方式对应的属性值
     '''       
     def set_common_var_text(self,var_text,value):
-    	try:
-    	    revar_text = self.cnEnde.is_float(var_text)
-    	    var_elem = self.getElem.find_element_with_wait_EC('id',value)
-    	    var_elem.clear()
-    	    var_elem.send_keys(revar_text)
-    	except Exception as e:
-    	    print ("set login var text error: ") + str(revar_text) + str(e)
-    
+        try:
+            revar_text = self.cnEnde.is_float(var_text)
+            var_elem = self.getElem.find_element_with_wait_EC('id',value)
+            var_elem.clear()
+            var_elem.send_keys(revar_text)
+        except Exception as e:
+            print ("set login var text error: ") + str(revar_text) + str(e)
         
     u'''填写用户账号
         parameters:
@@ -113,7 +109,6 @@ class loginPage(object):
     '''
     def set_ad_login_username(self,adUsername):
         return self.set_common_var_text(adUsername,self.LOGIN_LDAP_USERNAME)
-           
         
     u'''填写口令
         parameters:
@@ -155,7 +150,7 @@ class loginPage(object):
     def login(self,list):
         self.frameElem.switch_to_content()
         self.set_login_method(list[2])
-        self.set_login_username(list[1])
+        self.set_login_username(list[3])
         self.set_login_pwd(list[4])
         self.click_login_button()
     
@@ -163,10 +158,8 @@ class loginPage(object):
     def is_login_success(self):
         success = False
         try:
-            #self.frameElem.switch_to_top()
             self.frameElem.from_frame_to_otherFrame('topFrame')
             text = self.getElem.find_element_wait_and_get_text("id","message",10)
-#            print text
         except Exception as e:
             text = ""
         
@@ -194,7 +187,7 @@ class loginPage(object):
         self.frameElem.switch_to_content()
         self.set_login_method(int(list[2]))
         self.set_login_username(list[3])
-        self.set_login_pwd(int(list[4]))
+        self.set_login_pwd(list[4])
         self.set_ad_login_pwd(list[5])
         self.click_login_button()
     
@@ -213,7 +206,6 @@ class loginPage(object):
     #证书认证登录
     def cert_login(self,list):
         brower_name = self.driver.capabilities['browserName']
-    
         
     u'''设置访问失败最大次数
             parameters:
@@ -222,16 +214,14 @@ class loginPage(object):
     def set_max_login_count(self):
         
         self.frameElem.from_frame_to_otherFrame('topFrame')
-        
 
-        self.commElem.select_menu(u"策略配置")
         self.commElem.select_menu(u"策略配置",u"会话配置")
         
         self.frameElem.from_frame_to_otherFrame('mainFrame')
 
         #选择密码策略默认配置
         strategy_option = self.getElem.find_element_with_wait_EC('id','fortPasswordStrategyId')
-        self.selectElem.select_element_by_visible_text(strategy_option,u'请选择')
+        self.selectElem.select_element_by_value(strategy_option, "1000000000001")
         
         #设置最大登录数
         self.set_common_var_text(3,self.ACCESS_MAX_ACCOUNT)

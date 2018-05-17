@@ -43,7 +43,6 @@ class testUserSuite(unittest.TestCase):
         self.userCase.search_user_by_username_006()
         self.userCase.search_user_by_status_006()
         self.userCase.search_user_by_dep_006()
-        self.userCase.search_user_by_role_006()
         #删除单一用户
         self.userCase.del_user_007()
         #删除全部用户

@@ -15,7 +15,6 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
 import time
 
 sys.path.append("/testIsompSecret/common/")
@@ -287,8 +286,7 @@ class AlarmPage():
             self.getElem.find_element_with_wait_clickable_and_click('link',"运行状态告警")
         except Exception as e:
             print ("default alarm menu error: ") + str(e)
-    
-    
+
     u'''内存设置百分比
             parameter:
                 memoryValue : mem百分比option的value值(5代表50%)
@@ -455,6 +453,7 @@ class AlarmPage():
         except Exception as e:
             print ("search level select error:") + str(e)
 #---------------------------------填写邮箱--------------------------------------------------
+
     #点击个人维护
     def click_user_message_menu(self):
         self.frameElem.from_frame_to_otherFrame("topFrame")

@@ -155,21 +155,20 @@ class AuthMethodPage():
 	'''    	
 	def set_common_var_text(self,var_text,value):
 		try:
-		    self.frameElem.from_frame_to_otherFrame("mainFrame")
-		    revar_text = self.cnEnde.is_float(var_text)
-		    var_elem = self.getElem.find_element_with_wait_EC('id',value)
-		    var_elem.clear()
-		    var_elem.send_keys(revar_text)
+			self.frameElem.from_frame_to_otherFrame("mainFrame")
+			revar_text = self.cnEnde.is_float(var_text)
+			var_elem = self.getElem.find_element_with_wait_EC('id',value)
+			var_elem.clear()
+			var_elem.send_keys(revar_text)
 		except Exception as e:
-			
-		    print ("set meth method var text error: ") + revar_text + str(e)		
+			print ("set meth method var text error: ") + revar_text + str(e)
 			
 	u'''填写AD域1认证IP
 		parameters:
 			ip_ : AD域1认证IP
 	'''  		
 	def set_ad_auth_ip(self,ip_):
-		 return self.set_common_var_text(ip_,self.AD_AUTH_IP)
+		return self.set_common_var_text(ip_,self.AD_AUTH_IP)
 
 	u'''填写AD域2认证IP
 		parameters:
@@ -344,6 +343,7 @@ class AuthMethodPage():
 				data : 查找的用户账号
 	'''
 	def get_user_select_auth_text(self,data):
+		time.sleep(5)
 		self.frameElem.from_frame_to_otherFrame("topFrame")
 		
 		self.cmf.select_menu(u"运维管理")
@@ -373,8 +373,6 @@ class AuthMethodPage():
 
 		self.frameElem.from_frame_to_otherFrame("topFrame")
 
-		#切换角色
-		self.cmf.select_role_by_text(logindata[5])
 		self.cmf.select_menu(u"策略配置")
 		self.cmf.select_menu(u"策略配置",u"认证强度")
 		self.frameElem.from_frame_to_otherFrame("mainFrame")
@@ -400,6 +398,16 @@ class AuthMethodPage():
 			self.set_radius_auth_key(methdata[3])
 			self.save_button()
 			self.cmf.click_login_msg_button()
-#			self.getElem.find_element_with_wait_EC('classname','radiusIp0')
 			time.sleep(3)
-	
+
+	u'''删除其他认证方式'''
+	def del_auth_method(self):
+		self.frameElem.from_frame_to_otherFrame('topFrame')
+		self.cmf.select_menu(u"策略配置")
+		self.cmf.select_menu(u"策略配置",u"认证强度")
+		self.frameElem.from_frame_to_otherFrame('mainFrame')
+		selem = self.getElem.find_element_with_wait("id", "select_globalAuthMethod")
+		self.selectd_all_method(selem, '2', '1')
+		self.auth_del_button()
+		self.save_button()
+		self.cmf.click_login_msg_button()

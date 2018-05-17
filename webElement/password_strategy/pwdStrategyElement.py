@@ -14,7 +14,6 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
 import time
 
 #导入文件
@@ -256,7 +255,6 @@ class PwdStrategy(object):
             self.selectElem.select_element_by_visible_text(pwd_strategy, pwdtext)
         except Exception as e:
             print ("Pwd strategy  resource select error:") + str(e)
-        
     
     u'''选择密码策略
             parameter:
@@ -273,6 +271,7 @@ class PwdStrategy(object):
     #设置用户密码
     def set_pwd(self,pwd):
         return self.set_common_func(pwd,self.USER_PWD)
+
     #设置用户密码
     def set_pwd_agin(self,pwdagin):
         return self.set_common_func(pwdagin,self.USER_PWD_ADIN)
@@ -317,7 +316,7 @@ class PwdStrategy(object):
     def edit(self,name):
         try:
             row = self.cmF.find_row_by_name(name,"fortStrategyPasswordName")
-            update_xpath = "//table[@id='content_table']/tbody/tr[" + str(row) + "]/td[8]/input[1]"
+            update_xpath = "html/body/div[1]/div[6]/div[2]/div/table/tbody/tr[" + str(row) + "]/td[7]/input[1]"
             self.getElem.find_element_wait_and_click_EC("xpath",update_xpath)
         except Exception:
             print("Click the Edit button to fail")
@@ -358,7 +357,7 @@ class PwdStrategy(object):
     def del_sing_strategy(self,name):
         try:
             row = self.cmF.find_row_by_name(name,"fortStrategyPasswordName")
-            update_xpath = "//table[@id='content_table']/tbody/tr[" + str(row) + "]/td[8]/input[2]"
+            update_xpath = "html/body/div[1]/div[6]/div[2]/div/table/tbody/tr[" + str(row) + "]/td[7]/input[2]"
             self.getElem.find_element_wait_and_click_EC("xpath",update_xpath)
         except Exception:
             print("Delete failure")

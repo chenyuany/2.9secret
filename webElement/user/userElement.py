@@ -28,9 +28,6 @@ from _testDataPath import dataFileName
 sys.path.append("/testIsompSecret/webElement/login/")
 from loginElement import loginPage
 
-sys.path.append("/testIsompSecret/webElement/role/")
-from test_roledf import Role
-
 class UserPage():
     #添加按钮class
     ADD_BUTTON = "btn_tj"
@@ -121,7 +118,6 @@ class UserPage():
     def __init__(self,driver):
         self.driver = driver
         self.log = log()
-        self.role = Role(driver)
         self.cmf = commonFun(driver)
         self.getElem = getElement(driver)
         self.cnEnde = cnEncode()
@@ -135,6 +131,13 @@ class UserPage():
     def add_button(self):
         try:
             self.getElem.find_element_with_wait_clickable_and_click('classname',self.ADD_BUTTON)
+        except Exception as e:
+            print ("user add button error: ") + str(e)
+
+    u'''点击添加本角色成员按钮'''
+    def add_role_button(self):
+        try:
+            self.getElem.find_element_with_wait_clickable_and_click('classname',"btn_tjl")
         except Exception as e:
             print ("user add button error: ") + str(e)
 
@@ -175,7 +178,6 @@ class UserPage():
     u'''获取行数'''
     def get_rows(self):
         try:
-#            self.page_select_all()
             table_xpath = "//table[@id='content_table']"
             rows = self.tableElem.get_table_rows_count(table_xpath)
             return rows
@@ -195,7 +197,7 @@ class UserPage():
             self.getElem.find_element_with_wait_clickable_and_click('id',self.SELECT_ALL_BUTTON)
         except Exception as e:
             print ("select all button error: ") + str(e)
-    
+
     u'''点击角色信息'''
     def click_role_msg(self):
         try:
@@ -205,14 +207,13 @@ class UserPage():
                 role.click()
         except Exception as e:
             print ("user role message button error: ") + str(e)
-    
+
     u'''角色添加按钮'''
     def click_role_add_button(self):
         try:
             self.getElem.find_element_with_wait_clickable_and_click('id',self.ROLE_ADD_BUTTON)
         except Exception as e:
             print ("role add button error: ") + str(e)
-
 
     u'''点击用户操作列对应的按钮
         parameters:
@@ -243,7 +244,6 @@ class UserPage():
         except Exception:
             print("Click user operation edit button fail")
 
-
     u'''点击用户操作列对应的角色按钮
         parameters:
             account : 用户账号
@@ -260,7 +260,7 @@ class UserPage():
     '''     
     def operate_cert(self,account):
         try:
-            self.user_operate_list(account,"3")
+            self.user_operate_list(account,"2")
         except Exception:
             print("Click user operation cert button fail")
 
@@ -367,7 +367,6 @@ class UserPage():
             self.set_common_func(endTime,self.USER_END_TIME)       
         except Exception as e:
             print ("set endTime error: ") + str(e)
-        
 
     u'''设置用户状态
         parameters:
@@ -486,7 +485,6 @@ class UserPage():
     '''        
     def set_user_address(self,address):
         return self.set_common_func(address,self.USER_ADDRESS)
-    
 
     u'''勾选checkbox
             parameters :
@@ -499,17 +497,14 @@ class UserPage():
                 checkbox.click()
         except Exception as e:
             print ("checkbox selected error: ") + str(checkbox) + str(e)
-            
     
     u'''勾选登录时修改'''
     def set_login_selectd(self):
         self.click_checkbox(self.LOGIN_MODEY)
-    
 
     u'''勾选审计查看审批管理员'''
     def set_audit_admin_selectd(self):
         self.click_checkbox(self.IS_APPROVAL)
-
 
     u'''点击高级选项'''
     def click_advanced_option(self):
@@ -543,11 +538,11 @@ class UserPage():
             self.selectElem.select_element_by_visible_text(select_elem,str(var_text))
         except Exception as e:
             print ("selected select element option  by visible text error: ") + str(revar_text) + str(e)
-    
+
     u'''设置用户角色'''
     def set_user_role(self,roleText):
         self.frameElem.from_frame_to_otherFrame("mainFrame")
-        self.click_role_msg()        
+        self.click_role_msg()
         roleList = roleText.split(',')
         try:
             #判断角色是否为空
@@ -556,17 +551,6 @@ class UserPage():
                     self.set_common_select_elem_by_text(roleName,self.ROLE_SELECTD_ELEM)
         except Exception as e:
             print ("Set user role error: ") + str(e)
-
-    '''用户角色检索框
-        parameters:
-            roleText : 用户角色
-    '''
-    def search_user_role(self,roleText):
-        select_elem = self.getElem.find_element_with_wait_EC('id',self.SEARCH_ROLE)
-        options_text = self.selectElem.get_all_option_text(select_elem)
-        if roleText in options_text:
-            self.set_common_select_elem_by_text(roleText,self.SEARCH_ROLE)
-        
 
     '''用户状态检索
         parameters:
@@ -609,7 +593,6 @@ class UserPage():
     '''        
     def set_radius_name(self,radiusUser):
         return self.set_common_func(radiusUser,self.USER_RADIUS)
-    
 
     u'''通过用户状态获取行数
             parameters:
@@ -620,7 +603,6 @@ class UserPage():
         
         row = 0
         try:
-#            self.page_select_all()
             
             #获取所有行的用户开关状态
             switchs = self.driver.find_elements_by_id("btn_qh")
@@ -641,15 +623,13 @@ class UserPage():
         row = 0
         reName = self.cnEnde.is_float(accountName)
         try:
-#            self.page_select_all()
 
             #查找name属性为fortUserAccount的所有元素
             account_elems = self.driver.find_elements_by_name("fortUserAccount")
             
             #查找name属性为fortUserName的所有元素
             username_elems = self.driver.find_elements_by_name("fortUserName")
-            
-#            list1 = list(set(account_elems).union(set(username_elems)))
+
             for index in range(len(account_elems)):
                 accountValue_text = account_elems[index].text
                 nameValue_text = username_elems[index].text
@@ -670,7 +650,6 @@ class UserPage():
         row = 0
         redep = self.cnEnde.cnCode(dep)
         try:
-#            self.page_select_all()
             text_list = self.driver.find_elements_by_name("fortDepartmentName")
             for fortDepValue in text_list:
                 fortDepValue_text = fortDepValue.text
@@ -680,26 +659,6 @@ class UserPage():
             print redep + "is not exsit."
         return row
 
-    u'''通过角色名称获取行数
-            parameters:
-                roleName :角色名称
-    '''          
-    def search_direct_by_role(self,roleName):
-        self.frameElem.from_frame_to_otherFrame("mainFrame")
-        
-        row = 0
-        reRole = self.cnEnde.cnCode(roleName)
-        try:
-#            self.page_select_all()
-            
-            #获取classname为js_k的所有元素
-            role_list = self.driver.find_elements_by_class_name("js_k")
-            for role in role_list:
-                if roleName == role.get_attribute('title'):
-                    row = row + 1
-            return row
-        except Exception as e:
-            print ("NO users role is ") + str(reRole) + str(e)
 
 #----------------------------------证书相关------------------------------------
     u'''生成证书'''
@@ -785,12 +744,12 @@ class UserPage():
             
             #访问方式不是默认方式
             if int(data[13]) != 2:
-                self.userElem.set_ad_name(data[14])
+                self.set_ad_name(data[14])
         if data[15] != "":
             self.set_user_role(roleText)
             self.click_role_add_button()
 
-        self.userElem.save_button()
+        self.save_button()
         self.cmf.click_login_msg_button()
         self.click_back_button()
 

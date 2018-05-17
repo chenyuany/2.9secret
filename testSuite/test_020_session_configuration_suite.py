@@ -3,20 +3,14 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
-import time
-
 #导入驱动
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import initDriver
 
-sys.path.append("/testIsomp/testCase/session_configuration/")
+sys.path.append("/testIsompSecret/testCase/session_configuration/")
 from test_session_configuration import conversationStrategy
 
-sys.path.append("/testIsomp/testData/")
-from _testDataPath import dataFileName
-
-sys.path.append("/testIsomp/testSuite")
+sys.path.append("/testIsompSecret/testSuite")
 from common_suite_file import CommonSuiteData,setDriver
 
 import unittest
@@ -44,7 +38,7 @@ class testSessionConfigSuite(unittest.TestCase):
         
     def tearDown(self):
         #后置条件
-        self.commonSuite.session_module_post_condition()
+        self.commonSuite.user_quit()
         #关闭浏览器
         self.initDriver.close_driver(self.browser)
         

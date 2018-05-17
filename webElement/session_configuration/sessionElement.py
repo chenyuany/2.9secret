@@ -15,19 +15,11 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
-import time
-
 #导入通用方法
 sys.path.append("/testIsompSecret/common/")
-from _initDriver import initDriver
 from _icommon import getElement,selectElement,frameElement,commonFun,tableElement
 from _cnEncode import cnEncode
 from _log import log
-
-#导入文件
-sys.path.append("/testIsomp/testData/")
-from _testDataPath import dataFileName
 
 class sessionConfig(object):
     #访问失败次数

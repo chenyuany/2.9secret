@@ -39,7 +39,7 @@ class testAdSuite(unittest.TestCase):
 
     def tearDown(self):
         #AD域后置条件
-        self.commonSuite.user_quit()
+        self.commonSuite.ad_module_post_condition()
         initDriver().close_driver(self.browser)
 
 if __name__ == "__main__":

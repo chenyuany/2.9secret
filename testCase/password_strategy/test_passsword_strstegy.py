@@ -14,44 +14,37 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
-import time
-
 #导入通用方法类
-sys.path.append("/testIsomp/common/")
-from _icommon import getElement,frameElement,commonFun
-from _cnEncode import cnEncode
+sys.path.append("/testIsompSecret/common/")
+from _icommon import frameElement,commonFun
 from _log import log
 
 #导入文件操作类
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
 
-sys.path.append("/testIsomp/testSuite/")
-from common_suite_file import CommonSuiteData,setDriver
+sys.path.append("/testIsompSecret/testSuite/")
+from common_suite_file import CommonSuiteData
 
-sys.path.append("/testIsomp/webElement/password_strategy/")
+sys.path.append("/testIsompSecret/webElement/password_strategy/")
 from pwdStrategyElement import PwdStrategy
 
 #导入与密码策略相关的用户模块
-sys.path.append("/testIsomp/webElement/user/")
+sys.path.append("/testIsompSecret/webElement/user/")
 from userElement import UserPage
 
-sys.path.append("/testIsomp/testCase/user/")
+sys.path.append("/testIsompSecret/testCase/user/")
 from test_user import User
 
 #导入与密码策略相关的会话模块
-sys.path.append("/testIsomp/webElement/session_configuration/")
+sys.path.append("/testIsompSecret/webElement/session_configuration/")
 from sessionElement import sessionConfig
 
-sys.path.append("/testIsomp/testCase/session_configuration/")
-from test_session_configuration import conversationStrategy
-
 #带入与密码策略相关的资源模块
-sys.path.append("/testIsomp/webElement/resource/")
+sys.path.append("/testIsompSecret/webElement/resource/")
 from test_resource_common import Resource
 
-sys.path.append("/testIsomp/webElement/resource/")
+sys.path.append("/testIsompSecret/webElement/resource/")
 from test_resource_accountmgr_ment import Accountmgr
 
 class PasswordStr():
@@ -60,14 +53,11 @@ class PasswordStr():
         self.log = log()
         self.PwdStr = PwdStrategy(self.driver)
         self.cmf = commonFun(driver)
-        self.getElem = getElement(driver)
-        self.cnEnde = cnEncode()
         self.dataFile = dataFileName()
         self.frameElem = frameElement(self.driver)
         self.commonsuite = CommonSuiteData(driver)
         self.user = UserPage(self.driver)
         self.session = sessionConfig(self.driver)
-        self.conStr = conversationStrategy(driver)
         self.conuser = User(driver)
         self.resource = Resource(driver)
         self.account = Accountmgr(driver)
@@ -87,28 +77,6 @@ class PasswordStr():
         filePath = dataFile.get_password_stratrgy_test_data_url()
         authFileData = dataFile.get_data(filePath,sheetname)
         return authFileData
-
-
-    u'''切换至会话配置模块'''
-    def switch_to_session_module(self):
-        self.frameElem.switch_to_content()
-        self.frameElem.switch_to_top()
-        self.cmf.select_menu(u"策略配置")
-        self.cmf.select_menu(u"策略配置",u"会话配置")
-    
-    u'''切换至资源模块'''
-    def switch_to_resource_module(self):
-        self.frameElem.switch_to_content()
-        self.frameElem.switch_to_top()
-        self.cmf.select_menu(u"运维管理")
-        self.cmf.select_menu(u"运维管理",u"资源")
-        
-    u'''切换至密码策略'''
-    def switch_to_pwdStr_module(self):
-        self.frameElem.switch_to_content()
-        self.frameElem.switch_to_top()
-        self.cmf.select_menu(u"策略配置")
-        self.cmf.select_menu(u"策略配置",u"密码策略")
 
     #添加策略
     def add_strategy_001(self):
@@ -190,6 +158,7 @@ class PasswordStr():
         saveMsg = self.save_msg()
         #无检查点的测试项标识，如果为True说明通过
         flag = False
+
         for dataRow in range(len(strategy_data)):
             data = strategy_data[dataRow]
             try:
@@ -281,7 +250,7 @@ class PasswordStr():
             try:
             #如果不是第一行标题，则读取数据
                 if dataRow != 0:
-                    self.switch_to_session_module()
+                    self.commonsuite.switch_to_moudle(u"策略配置", u"会话配置")
                     self.frameElem.from_frame_to_otherFrame("mainFrame")
                     self.PwdStr.set_pwd_strategy(data[4])
                     self.session.add_session(data[2])
@@ -336,8 +305,7 @@ class PasswordStr():
             try:
                 #如果不是第一行标题，则读取数据
                 if dataRow != 0:
-                    self.commonsuite.sys_switch_to_dep()
-                    self.switch_to_resource_module()
+                    self.commonsuite.switch_to_moudle(u"运维管理", u"资源")
                     self.frameElem.from_frame_to_otherFrame("mainFrame")
                     self.PwdStr.resource_edit(data[2])
                     self.PwdStr.set_resource_strategy(data[8])
@@ -380,7 +348,6 @@ class PasswordStr():
                 print ("resour aceccount association error: ") + str(e)
         self.log.log_end("resourAceccountAssociation")
 
-                
     #删除全部策略
     def del_all_policy_006(self):
         #日志开始记录
@@ -396,8 +363,7 @@ class PasswordStr():
             try:
             #如果不是第一行标题，则读取数据
                 if dataRow != 0:
-                    self.commonsuite.dep_switch_to_sys()
-                    self.switch_to_pwdStr_module()
+                    self.commonsuite.switch_to_moudle(u"策略配置",u"密码策略")
                     self.frameElem.from_frame_to_otherFrame("mainFrame")
                     self.PwdStr.select_all_button()
                     self.PwdStr.del_button()
@@ -410,20 +376,3 @@ class PasswordStr():
             except Exception as e:
                 print ("Policy delAll error: ") + str(e)
         self.log.log_end("delAllPwdStrategy")
-    
-#if __name__ == "__main__":
-#    browser = setDriver().set_local_driver()
-#    commonSuite = CommonSuiteData(browser)
-#    pwdCase = PasswordStr(browser)
-#    commonSuite.pwdstr_module_prefix_condition()
-#    pwdCase.add_strategy_001()
-#    pwdCase.edit_strategy_002()
-#    pwdCase.check_strategy_003()
-#    pwdCase.search_strategy_004()
-#    pwdCase.del_sing_policy_005()
-#    pwdCase.session_association_007()
-#    pwdCase.user_association_008()
-#    pwdCase.resource_association_009()
-#    pwdCase.resource_account_association_010()
-#    pwdCase.del_all_policy_006()
-#    commonSuite.pwdstr_module_post_condition()

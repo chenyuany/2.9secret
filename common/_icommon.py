@@ -16,13 +16,11 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 sys.path.append("/testIsompSecret/common/")
-from _initDriver import *
 from _cnEncode import cnEncode
 from _log import log
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
@@ -108,7 +106,6 @@ class getElement(object):
                 return WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.LINK_TEXT, value)))
             elif type == "plt":
                 return WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, value)))
-
     
     u'''等待元素出现后再定位元素并发送键值
         parameter:
@@ -161,7 +158,6 @@ class getElement(object):
             WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.LINK_TEXT, value))).send_keys(key)
         elif type == "plt":
             WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, value))).send_keys(key)
-
     
     u'''等待元素出现后再定位元素并点击
         parameter:
@@ -248,26 +244,25 @@ class getElement(object):
     '''
 
     def find_element_wait_and_compare_text(self, type, value, data, timeout=5):
-	   #如果比较不到文本相同
-		try:
-			if type == "xpath":
-				return WebDriverWait(self.driver, timeout).until(EC.text_to_be_present_in_element((By.XPATH, value), data[1]))
-			elif type == "id":
-				return WebDriverWait(self.driver, timeout).until(EC.text_to_be_present_in_element((By.ID, value), data[1]))
-			elif type == "name":
-				return WebDriverWait(self.driver, timeout).until(EC.text_to_be_present_in_element((By.NAME, value), data[1]))
-			elif type == "tagname":
-				return WebDriverWait(self.driver, timeout).until(EC.text_to_be_present_in_element((By.TAG_NAME, value), data[1]))
-			elif type == "classname":
-				return WebDriverWait(self.driver, timeout).until(EC.text_to_be_present_in_element((By.CLASS_NAME, value), data[1]))
-			elif type == "css":
-				return WebDriverWait(self.driver, timeout).until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, value), data[1]))
-			elif type == "link":
-				return WebDriverWait(self.driver, timeout).until(EC.text_to_be_present_in_element((By.LINK_TEXT, value), data[1]))
-			elif type == "plt":
-				return WebDriverWait(self.driver, timeout).until(EC.text_to_be_present_in_element((By.PARTIAL_LINK_TEXT, value), data[1]))
-		except Exception:
-			return False
+        try:
+            if type == "xpath":
+                return WebDriverWait(self.driver, timeout).until(EC.text_to_be_present_in_element((By.XPATH, value), data[1]))
+            elif type == "id":
+                return WebDriverWait(self.driver, timeout).until(EC.text_to_be_present_in_element((By.ID, value), data[1]))
+            elif type == "name":
+                return WebDriverWait(self.driver, timeout).until(EC.text_to_be_present_in_element((By.NAME, value), data[1]))
+            elif type == "tagname":
+                return WebDriverWait(self.driver, timeout).until(EC.text_to_be_present_in_element((By.TAG_NAME, value), data[1]))
+            elif type == "classname":
+                return WebDriverWait(self.driver, timeout).until(EC.text_to_be_present_in_element((By.CLASS_NAME, value), data[1]))
+            elif type == "css":
+                return WebDriverWait(self.driver, timeout).until(EC.text_to_be_present_in_element((By.CSS_SELECTOR, value), data[1]))
+            elif type == "link":
+                return WebDriverWait(self.driver, timeout).until(EC.text_to_be_present_in_element((By.LINK_TEXT, value), data[1]))
+            elif type == "plt":
+                return WebDriverWait(self.driver, timeout).until(EC.text_to_be_present_in_element((By.PARTIAL_LINK_TEXT, value), data[1]))
+        except Exception:
+            return False
 
     u'''清空文本框的内容
         parameter:
@@ -277,30 +272,30 @@ class getElement(object):
     '''
     def find_element_wait_and_clear(self, type, value, timeout=5):
 
-		if type == "id":
-			WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.ID, value))).click()
-			WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.ID, value))).clear()
-		elif type == "xpath":
-			WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.XPATH, value))).click()
-			WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.XPATH, value))).clear()
-		elif type == "name":
-			WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.NAME, value))).click()
-			WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.NAME, value))).clear()
-		elif type == "tagname":
-			WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.TAG_NAME, value))).click()
-			WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.TAG_NAME, value))).clear()
-		elif type == "classname":
-			WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.CLASS_NAME, value))).click()
-			WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.CLASS_NAME, value))).clear()
-		elif type == "css":
-			WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.CSS_SELECTOR, value))).click()
-			WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.CSS_SELECTOR, value))).clear()
-		elif type == "link":
-			WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.LINK_TEXT, value))).click()
-			WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.LINK_TEXT, value))).clear()
-		elif type == "plt":
-			WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, value))).click()
-			WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, value))).clear()
+        if type == "id":
+            WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.ID, value))).click()
+            WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.ID, value))).clear()
+        elif type == "xpath":
+            WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.XPATH, value))).click()
+            WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.XPATH, value))).clear()
+        elif type == "name":
+            WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.NAME, value))).click()
+            WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.NAME, value))).clear()
+        elif type == "tagname":
+            WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.TAG_NAME, value))).click()
+            WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.TAG_NAME, value))).clear()
+        elif type == "classname":
+            WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.CLASS_NAME, value))).click()
+            WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.CLASS_NAME, value))).clear()
+        elif type == "css   ":
+            WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.CSS_SELECTOR, value))).click()
+            WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.CSS_SELECTOR, value))).clear()
+        elif type == "link":
+            WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.LINK_TEXT, value))).click()
+            WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.LINK_TEXT, value))).clear()
+        elif type == "plt":
+            WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, value))).click()
+            WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT, value))).clear()
     
     u'''清空文本框的内容
         parameter:
@@ -344,11 +339,11 @@ class getElement(object):
                 isExsit = True
         except Exception as e:
             self.log.error_detail("element is not exsit:",value)
-#            print(value + " element is not exsit.")
         return isExsit
 
 #select元素
 class selectElement(object):
+
     def __init__(self,driver):
         #selenium驱动
         self.driver = driver
@@ -413,8 +408,6 @@ class selectElement(object):
         except Exception:
             return False
 
-
-
     u'''根据value选择
         Parameters:
             - selem:定位带的Select元素
@@ -431,7 +424,6 @@ class selectElement(object):
     
     def select_element_by_visible_text(self,selem,text):
         return Select(selem).select_by_visible_text(text)
-        
     
     u'''获取select中的option数量
         Parameters:
@@ -468,8 +460,7 @@ class selectElement(object):
         options_list = selem.find_elements_by_tag_name("option")
         
         return [option_text_list.text for option_text_list in options_list]
-    
-    
+
     u'''获取select选中的option的value
         Parameters:
             - selem:定位到的select元素
@@ -500,7 +491,6 @@ class selectElement(object):
             - selem:定位到的select元素
     '''    
     def select_all_option(self,selem):
-        #selem = getElem.find_element_with_wait("id","Roles")
         options = selem.find_elements_by_tag_name("option")
         for option in options:
             Select(selem)._setSelected(option)
@@ -517,6 +507,7 @@ class selectElement(object):
 
 #frame元素
 class frameElement(object):
+
     def __init__(self,driver):
         #selenium驱动
         self.driver = driver
@@ -556,7 +547,6 @@ class frameElement(object):
         self.switch_to_main()
         if self.getElem.is_element_exsit("id","rigthFrame"):
             self.driver.switch_to_frame("rigthFrame")
-    
         
     u'''定位到bottomFrame'''
     def switch_to_bottom(self):
@@ -574,7 +564,6 @@ class frameElement(object):
         self.switch_to_content()
         if self.getElem.is_element_exsit("id","artIframe"):
             self.driver.switch_to_frame("artIframe")
-        
     
     u'''从一个frame跳转到其他frame
         Parameters:
@@ -651,7 +640,6 @@ class tableElement(object):
             
         return col_elems[col].text,col_elems[col]
 
-        
     u'''获取表格中的行数
         Parameters:
             - table_xpath:定位table的xpath
@@ -666,7 +654,6 @@ class tableElement(object):
 
         return len(row_elems)
 
-
     u'''定位表格中的某一列的select对象
         Parameters:
             - row:表格的行
@@ -676,10 +663,6 @@ class tableElement(object):
     def get_table_td_select(self,row,col,index):
         
         frameElem = frameElement(self.driver)
-        #定位到mainFrame上
-        #frameElem.from_frame_to_otherFrame("mainFrame")
-        #frameElem.switch_to_main()
-        #frameElem.from_frame_to_otherFrame("rigthFrame")
         
         tx = "html/body/div[1]/div[7]/div[2]/div[1]/table"
         
@@ -693,8 +676,6 @@ class tableElement(object):
         selectElem = selectElement(self.driver)
         #选择账号
         selectElem.select_element_by_index(seElem[0],index)
-        
-
 
 #通用函数
 class commonFun(object):
@@ -954,7 +935,6 @@ class commonFun(object):
         #检查点不为空
         else:
             #判断文本内容是否一致
-#            self.driver.switch_to_default_content()
             elemText = self.getElem.find_element_wait_and_compare_text(type,elem,data)
             self.click_msg_button(1)
             if elemText:
@@ -963,7 +943,6 @@ class commonFun(object):
             else:
                 #页面抓取到的内容与检查点不一致，测试点不通过
                 self.log.log_detail(data[0],False)
-
         
     u'''表格内容存在类检查点
         Parameters:
@@ -974,7 +953,6 @@ class commonFun(object):
     '''
     def table_check_point(self,type,elem,data,flag):
         pass
-    
     
     u'''
     勾选页面上所有checkbox
@@ -989,8 +967,6 @@ class commonFun(object):
                     checkbox.click()
         except Exception as e:
             self.log.error_detail("checkbox is not visible",e)
-#            print "checkbox is not visible:" + str(e)
-
 
     u'''点击返回按钮'''
     def back(self):
@@ -1053,7 +1029,6 @@ class commonFun(object):
             self.getElem.find_element_wait_and_click_EC("id", "checkbox")
         except Exception:
             print("Select the check box failure")
-                        
 
     u'''判断名称是否存在
        Parameters:
