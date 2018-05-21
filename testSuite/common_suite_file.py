@@ -132,7 +132,7 @@ class CommonSuiteData():
                 levelText2 : 二级模块名称
     '''     
     def switch_to_moudle(self,levelText1,levelText2):
-        time.sleep(1)
+        time.sleep(2)
         self.frameElem.from_frame_to_otherFrame("topFrame")
         
         self.cmf.select_menu(levelText1)
@@ -266,13 +266,12 @@ class CommonSuiteData():
 #-----------------------------资源组------------------------------------------    
     u'''添加资源到资源组'''
     def set_res_to_group(self,data):
-#        self.regroup.click_left_regroup()
-#        self.regroup.click_regroup_switch()
         self.regroup.click_regroup_add_resouce(data[3], data[4])
         self.regroup.check_depart(data[5])
         self.regroup.click_regroup_add_resouce_query()
         self.regroup.check_all_resource()
         self.regroup.click_resource_okbutton()
+        time.sleep(1)
         self.cmf.click_login_msg_button()
     
     u'''填写资源组信息
@@ -1068,72 +1067,264 @@ class CommonSuiteData():
         self.del_resource_modele([14])
         self.del_user_data_module([19])
         self.user_quit()
-    
+
+#------------------------------linux资源前置条件-----------------------------------
+    def linuxre_module_prefix_condition(self):
+        #使用安全保密管理员登录
+        self.login_secadmin()
+        #添加密码策略
+        self.add_strategy_data_module([1])
+        #切换到资源
+        self.switch_to_moudle(u"运维管理", u"资源")
+
+    def linuxre_module_post_condition(self):
+        #删除密码策略
+        self.del_strategy_data_module([1])
+        self.user_quit()
+
+#------------------------------network资源前置条件-----------------------------------
+    def networkre_module_prefix_condition(self):
+        #使用安全保密管理员登录
+        self.login_secadmin()
+        #切换到资源
+        self.switch_to_moudle(u"运维管理", u"资源")
+
+#------------------------------windows资源前置条件-----------------------------------
+    def windowre_module_prefix_condition(self):
+        #使用安全保密管理员登录
+        self.login_secadmin()
+        #添加密码策略
+        self.add_strategy_data_module([2])
+        #切换到资源
+        self.switch_to_moudle(u"运维管理", u"资源")
+
+    def windowre_module_post_condition(self):
+        #删除密码策略
+        self.del_strategy_data_module([2])
+        self.user_quit()
+
+#-----------------------------数据库前置条件----------------------------------
+    def database_resource_prefix_condition(self):
+        self.login_sysadmin()
+        #添加应用发布
+        self.add_application([1])
+        self.user_quit()
+        #使用安全保密管理员登录
+        self.login_secadmin()
+        self.add_resource_modele([17])
+        self.switch_to_moudle(u"运维管理", u"资源")
+
+    def database_resource_post_condition(self):
+        self.del_resource_modele([17])
+        self.user_quit()
+        self.login_sysadmin()
+        self.del_application([1])
+        self.user_quit()
+
 #------------------------------授权前置条件-----------------------------------
     def authori_module_prefix_condition(self):
-#        self.module_common_prefix_condition()
-#        self.add_user_with_role()
-#        self.user_quit()
 
-        self.login_and_switch_to_dep()
+        #使用安全保密管理员登录
+        self.login_secadmin()
         self.add_resource_modele([15,16])
         self.add_res_account_module([18,19])
+        self.user_quit()
+        self.login_sysadmin()
         #添加授权用户
-        self.add_user_data_module([33,34,35,36,37])
-
-        #self.add_authorization_user()
-
+        self.add_user_data_module([20,21,22,23,24])
         self.add_res_group([1])
         self.add_user_group([1])
+        self.user_quit()
+        self.login_secadmin()
+        self.switch_to_moudle(u'运维管理', u'授权')
 
-        self.switch_to_moudle(u'运维管理',u'授权')
-        
     def authori_module_post_condition(self):
-        self.del_user_data_module([33,34,35,36,37])
+
         self.del_resource_modele([15,16])
+        self.user_quit()
+        self.login_sysadmin()
         self.del_res_group([1])
         self.del_user_group([1])
+        self.del_user_data_module([20,21,22,23,24])
+        self.user_quit()
+
+#------------------------------命令规则前置条件-----------------------------------
+    def commandrule_module_prefix_condition(self):
+        self.login_sysadmin()
+        #添加用户
+        self.add_user_data_module([25])
+        self.user_quit()
+        self.login_secadmin()
+        #添加资源
+        self.add_resource_modele([3])
+        #添加资源账号
+        self.add_res_account_module([4])
+        #添加授权
+        self.add_authorization_module([2])
+        #切换到规则定义
+        self.switch_to_moudle(u'运维管理', u'规则定义')
+        self.command.click_left_rule(0)
+
+    def commandrule_module_post_condition(self):
+        #删除授权
+        self.del_authorization_module([2])
+        #删除资源
+        self.del_resource_modele([3])
+        self.user_quit()
+        self.login_sysadmin()
+        #删除用户
+        self.del_user_data_module([25])
+        self.user_quit()
+
+#------------------------------时间规则前置条件-----------------------------------
+    def timerule_module_prefix_condition(self):
+        self.login_secadmin()
+        #添加用户
+        self.add_user_data_module([26,27,28,29,30])
+        #切换到规则定义
+        self.switch_to_moudle(u'运维管理', u'规则定义')
+        self.command.click_left_rule(1)
+
+    def timerule_module_post_condition(self):
+        #删除用户
+        self.del_user_data_module([26,27,28,29,30])
+        self.user_quit()
+
+#------------------------------地址规则前置条件-----------------------------------
+    def addressrule_module_prefix_condition(self):
+        self.login_secadmin()
+        #添加用户
+        self.add_user_data_module([31,32,33,34,35,36,37,38])
+        #切换到规则定义
+        self.switch_to_moudle(u'运维管理', u'规则定义')
+        self.command.click_left_rule(2)
+
+    def addressrule_module_post_condition(self):
+        self.del_user_data_module([31,32,33,34,35,36,37,38])
+        self.user_quit()
+
+#------------------------------资源时间规则前置条件-----------------------------------
+    def retimerule_module_prefix_condition(self):
+        self.login_sysadmin()
+        #添加用户
+        self.add_user_data_module([39])
+        self.user_quit()
+        self.login_secadmin()
+        #添加资源
+        self.add_resource_modele([4, 5, 10])
+        #添加资源账号
+        self.add_res_account_module([5, 6, 14])
+        self.add_authorization_module([6])
+        #切换到规则定义
+        self.switch_to_moudle(u'运维管理', u'规则定义')
+        self.command.click_left_rule(3)
+
+    def retimerule_module_post_condition(self):
+        self.user_quit()
+        self.login_sysadmin()
+        #删除用户
+        self.del_user_data_module([39])
+        self.user_quit()
+        self.login_secadmin()
+        #删除资源
+        self.del_resource_modele([4, 5, 10])
+        #删除授权
+        self.del_authorization_module([6])
+        self.user_quit()
+
+#------------------------------流程前置条件-----------------------------------
+    def process_module_prefix_condition(self):
+        self.login_sysadmin()
+        #添加用户
+        self.add_user_data_module([40,41,42,43,44])
+        self.user_quit()
+        self.login_secadmin()
+        #添加资源
+        self.add_resource_modele([11,12])
+        #添加资源账号
+        self.add_res_account_module([15,16])
+        self.add_authrization([1])
+
+    def process_module_post_condition(self):
+        #删除授权
+        self.del_authorization_module([7])
+        #删除资源
+        self.del_resource_modele([11,12])
+        self.user_quit()
+        self.login_sysadmin()
+        #删除用户
+        self.del_user_data_module([40,41,42,43,44])
+        self.user_quit()
+
+#------------------------------双人授权前置条件-----------------------------------
+    def dualmandate_module_prefix_condition(self):
+        self.login_sysadmin()
+        #添加用户
+        self.add_user_data_module([45, 46])
+        self.user_quit()
+        self.login_secadmin()
+        #添加资源
+        self.add_resource_modele([13])
+        #添加资源账号
+        self.add_res_account_module([17])
+        #添加授权
+        self.add_authrization([4])
+
+    def dualmandate_module_post_condition(self):
+        #删除授权
+        self.del_authorization_module([8])
+        #删除资源
+        self.del_resource_modele([13])
+        self.user_quit()
+        self.login_sysadmin()
+        #删除用户
+        self.del_user_data_module([45, 46])
+        self.user_quit()
+
+#-----------------------------行为报表前置条件---------------------------------
+    def opt_report_module_prefix_condition(self):
+        self.login_secadmin()
+        self.add_resource_modele([18])
+        self.user_quit()
+        self.login_sysadmin()
+        self.add_user_data_module([47])
+        self.add_res_group([2])
+        self.add_user_group([2])
+        self.user_quit()
+        self.login_sysaudit()
+        self.switch_to_moudle(u"报表管理", u"审计报表")
+
+    def opt_report_module_post_condition(self):
+        self.user_quit()
+        self.login_secadmin()
+        self.del_resource_modele([18])
+        self.user_quit()
+        self.login_sysadmin()
+        self.del_user_data_module([47])
+        self.del_res_group([2])
+        self.del_user_group([2])
+        self.user_quit()
 
 #-----------------------------配置报表前置条件---------------------------------
     def conf_report_module_prefix_condition(self):
-        self.login_and_switch_to_dep()
-        self.add_user_data_module([40])
+        self.login_sysadmin()
+        self.add_user_data_module([48])
         self.add_user_group([3])
         self.user_quit()
-        self.login_and_switch_to_sys()
+        self.login_sysaudit()
         self.switch_to_moudle(u"报表管理", u"审计报表")
         
     def conf_report_module_post_condition(self):
-        self.sys_switch_to_dep()
-        self.del_user_data_module([40])
+        self.user_quit()
+        self.login_sysadmin()
+        self.del_user_data_module([48])
         self.del_user_group([3])
         self.user_quit()
-#-----------------------------行为报表前置条件---------------------------------
-    def opt_report_module_prefix_condition(self):
-        self.login_and_switch_to_dep()
-        self.add_user_data_module([39])
-        self.add_resource_modele([18])
-        self.add_res_group([2])
-        self.add_user_group([2])        
-        self.user_quit()
-        self.login_and_switch_to_sys()
-        self.switch_to_moudle(u"报表管理", u"审计报表")
-        
-    def opt_report_module_post_condition(self):
-        self.sys_switch_to_dep()
-        self.del_user_data_module([39])
-        self.del_resource_modele([18])
-        self.del_res_group([2])
-        self.del_user_group([2])
 
-
-
-
-    
 #-----------------------------配置审计前置条件------------------------------
     def system_log_prefix_condition(self):
-        self.login_and_switch_to_sys()
-        self.add_user_data_module([41])
+        self.login_sysadmin()
+        self.add_user_data_module([49])
         self.switch_to_moudle(u"系统配置", u"关联服务")
         self.ntp.click_left_moudle(1)
         #填写syslog信息
@@ -1142,10 +1333,14 @@ class CommonSuiteData():
         self.syslog.set_ident("aa")
         self.syslog.save_button()
         self.cmf.click_login_msg_button()
+        self.user_quit()
+        self.login_sysaudit()
         self.switch_to_moudle(u"审计管理", u"配置审计")
     
     def system_log_post_condition(self):
-        self.del_user_data_module([41])
+        self.user_quit()
+        self.login_sysadmin()
+        self.del_user_data_module([49])
         self.user_quit()
 
 #-----------------------------运维审计前置条件------------------------------
@@ -1173,23 +1368,6 @@ class CommonSuiteData():
         self.del_user_data_module([43])
         self.user_quit()
 
-#-----------------------------数据库前置条件----------------------------------
-    def database_resource_prefix_condition(self):
-        self.login_and_switch_to_sys()
-        #添加应用发布
-        self.add_application([1])
-        self.user_quit()
-        self.login_and_switch_to_dep()
-        self.add_resource_modele([17])
-        self.switch_to_moudle(u"运维管理",u"资源")
-        
-    def database_resource_post_condition(self):
-        self.del_resource_modele([17])
-        self.user_quit()
-        self.login_and_switch_to_sys()
-        self.del_application([1])
-        self.user_quit()
-    
 #------------------------------命令单点登录前置条件----------------------------
     u'''单点登录前置条件'''
     def sso_prefix_condition(self):
@@ -1233,7 +1411,6 @@ class CommonSuiteData():
         self.del_user_data_module([42])
         self.del_resource_modele([8,7,2])
         self.user_quit()
-
         
 #------------------------------数据库单点登录前置条件-------------------------
     u'''数据库单点登录前置条件'''
@@ -1259,212 +1436,4 @@ class CommonSuiteData():
         self.dep_switch_to_sys()
         self.del_application([2])
         self.del_client_module([1,2])
-        self.user_quit()
-
-#------------------------------角色前置条件-----------------------------------
-    def role_module_prefix_condition(self):
-        #初始化用户登录
-        self.isomper_login()
-        #添加用户
-        self.add_user_data_module([2])
-        #切换到角色定义页面
-        self.switch_to_moudle(u"角色管理", u"角色定义")
-
-    def role_module_post_condition(self):
-        #用初始化用户登录删除用户
-        self.del_user_data_module([2])
-        #用户退出
-        self.user_quit()
-
-
-#------------------------------linux资源前置条件-----------------------------------
-    def linuxre_module_prefix_condition(self):
-        #使用公共的用户登录并切换至系统级角色
-        self.login_and_switch_to_sys()
-        #添加密码策略
-        self.add_strategy_data_module([1])
-        #切换至部门级角色
-        self.sys_switch_to_dep()
-        #切换到资源
-        self.switch_to_moudle(u"运维管理", u"资源")
-
-    def linuxre_module_post_condition(self):
-        #换至系统级角色
-        self.dep_switch_to_sys()
-        #删除密码策略
-        self.del_strategy_data_module([1])
-        self.user_quit()
-
-    #------------------------------windows资源前置条件-----------------------------------
-    def windowre_module_prefix_condition(self):
-        #使用公共的用户登录并切换至系统级角色
-        self.login_and_switch_to_sys()
-        #添加密码策略
-        self.add_strategy_data_module([2])
-        #切换至部门级角色
-        self.sys_switch_to_dep()
-        #切换到资源
-        self.switch_to_moudle(u"运维管理", u"资源")
-
-    def windowre_module_post_condition(self):
-        #换至系统级角色
-        self.dep_switch_to_sys()
-        #删除密码策略
-        self.del_strategy_data_module([2])
-        self.user_quit()
-
-#------------------------------network资源前置条件-----------------------------------
-    def networkre_module_prefix_condition(self):
-        #使用公共的用户登录并切换至部门级角色
-        self.login_and_switch_to_dep()
-        #切换到资源
-        self.switch_to_moudle(u"运维管理", u"资源")
-
-#------------------------------流程前置条件-----------------------------------
-    def process_module_prefix_condition(self):
-        #使用公共的用户登录并切换至系统级角色
-        self.login_and_switch_to_sys()
-        #添加用户
-        self.add_user_data_module([21,22,23,24])
-        #切换至部门级角色
-        self.sys_switch_to_dep()
-        #切换到资源
-        self.switch_to_moudle(u"运维管理", u"资源")
-        #添加资源
-        self.add_resource_modele([11,12])
-        #添加资源账号
-        self.add_res_account_module([15,16])
-        #切换到授权
-        self.switch_to_moudle(u'运维管理', u'授权')
-        self.add_authrization([1])
-
-    def process_module_post_condition(self):
-        #删除授权
-        self.del_authorization_module([7])
-        #删除资源
-        self.del_resource_modele([11,12])
-        #切换至系统级角色
-        self.dep_switch_to_sys()
-        #删除用户
-        self.del_user_data_module([21,22,23,24])
-        self.user_quit()
-
-#------------------------------双人授权前置条件-----------------------------------
-    def dualmandate_module_prefix_condition(self):
-        #使用公共的用户登录并切换至系统级角色
-        self.login_and_switch_to_sys()
-        #添加用户
-        self.add_user_data_module([25])
-        #切换至部门级角色
-        self.sys_switch_to_dep()
-        #切换到资源
-        self.switch_to_moudle(u"运维管理", u"资源")
-        #添加资源
-        self.add_resource_modele([13])
-        #添加资源账号
-        self.add_res_account_module([17])
-        #切换到授权
-        self.switch_to_moudle(u'运维管理', u'授权')
-        self.add_authrization([4])
-
-    def dualmandate_module_post_condition(self):
-        #删除授权
-        self.del_authorization_module([8])
-        #删除资源
-        self.del_resource_modele([13])
-        #切换至系统级角色
-        self.dep_switch_to_sys()
-        #删除用户
-        self.del_user_data_module([25])
-        self.user_quit()
-
-#------------------------------命令规则前置条件-----------------------------------
-    def commandrule_module_prefix_condition(self):
-        #使用公共的用户登录并切换至系统级角色
-        self.login_and_switch_to_sys()
-        #添加用户
-        self.add_user_data_module([7])
-        #切换至部门级角色
-        self.sys_switch_to_dep()
-        #切换到资源
-        self.switch_to_moudle(u"运维管理", u"资源")
-        #添加资源
-        self.add_resource_modele([3])
-        #添加资源账号
-        self.add_res_account_module([4])
-        #切换到授权
-        self.switch_to_moudle(u'运维管理', u'授权')
-        self.add_authorization_module([2])
-        #切换到规则定义
-        self.switch_to_moudle(u'运维管理', u'规则定义')
-        self.command.click_left_rule(0)
-
-    def commandrule_module_post_condition(self):
-        #删除授权
-        self.del_authorization_module([2])
-        #删除资源
-        self.del_resource_modele([3])
-        #删除用户
-        self.del_user_data_module([7])
-        self.user_quit()
-
-#------------------------------时间规则前置条件-----------------------------------
-    def timerule_module_prefix_condition(self):
-        #使用公共的用户登录并切换至系统级角色
-        self.login_and_switch_to_sys()
-        #添加用户
-        self.add_user_data_module([8,9,10,11,12])
-        #切换至部门级角色
-        self.sys_switch_to_dep()
-        #切换到规则定义
-        self.switch_to_moudle(u'运维管理', u'规则定义')
-        self.command.click_left_rule(1)
-
-    def timerule_module_post_condition(self):
-        #切换至系统级角色
-        self.dep_switch_to_sys()
-        #删除用户
-        self.del_user_data_module([8,9,10,11,12])
-        self.user_quit()
-
-#------------------------------地址规则前置条件-----------------------------------
-    def addressrule_module_prefix_condition(self):
-        #使用公共的用户登录并切换至系统级角色
-        self.login_and_switch_to_sys()
-        #添加用户
-        self.add_user_data_module([13,14,15,16,17,18,19,20])
-        #切换至部门级角色
-        self.sys_switch_to_dep()
-        #切换到规则定义
-        self.switch_to_moudle(u'运维管理', u'规则定义')
-        self.command.click_left_rule(2)
-
-    def addressrule_module_post_condition(self):
-        #切换至系统级角色
-        self.dep_switch_to_sys()
-        self.del_user_data_module([13,14,15,16,17,18,19,20])
-        self.user_quit()
-
-#------------------------------资源时间规则前置条件-----------------------------------
-    def retimerule_module_prefix_condition(self):
-        #使用添加的用户登录并切换至部门级角色
-        self.login_and_switch_to_dep()
-        #切换到资源
-        self.switch_to_moudle(u"运维管理", u"资源")
-        #添加资源
-        self.add_resource_modele([4, 5, 10])
-        #添加资源账号
-        self.add_res_account_module([5, 6, 14])
-        #切换到授权
-        self.switch_to_moudle(u'运维管理', u'授权')
-        self.add_authorization_module([6])
-        #切换到规则定义
-        self.switch_to_moudle(u'运维管理', u'规则定义')
-        self.command.click_left_rule(3)
-
-    def retimerule_module_post_condition(self):
-        #删除授权
-        self.del_authorization_module([6])
-        #删除资源
-        self.del_resource_modele([4, 5, 10])
         self.user_quit()

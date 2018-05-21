@@ -13,12 +13,12 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import unittest
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import initDriver
 from _icommon import commonFun
-sys.path.append("/testIsomp/testSuite/common_suite_file/")
+sys.path.append("/testIsompSecret/testSuite/common_suite_file/")
 from common_suite_file import setDriver,CommonSuiteData
-sys.path.append("/testIsomp/testCase/process/")
+sys.path.append("/testIsompSecret/testCase/process/")
 from test_double_license import testDobapproval
 
 class testDoubleSuite(unittest.TestCase):
@@ -53,8 +53,6 @@ class testDoubleSuite(unittest.TestCase):
 		self.double.double_query_apply_history_008()
 		u'''双人审批全部历史查询'''
 		self.double.double_query_all_history_009()
-		u'''双人审批部门历史查询'''
-		self.double.double_query_department_history_010()
 
 	def tearDown(self):
 		#双人授权后置条件

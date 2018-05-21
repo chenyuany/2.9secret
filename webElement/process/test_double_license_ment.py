@@ -73,19 +73,20 @@ class Dobapproval(object):
 	u'''校验图标
 	   parameters :
             - rename:资源名称
+            - react :资源账号
 	'''
-	def check_ico_len(self, rename):
+	def check_ico_len(self, rename, react):
 		self.frameElem.from_frame_to_otherFrame("rigthFrame")
 		time.sleep(3)
+		self.acproval.select_resoure_account(rename, react)
 		row = self.acproval.select_resoure_sso(rename)
 		self.acproval.click_refresh_icon(rename)
 		ico_xpath = "/html/body/div[1]/div[7]/div[2]/div[1]/table/tbody/tr[" + str(
-			row * 2) + "]/td/div/table/tbody/tr/td[2]"
+			row * 2) + "]/td/div/table/tbody/tr/td[2]/a/img"
 		time.sleep(2)
 		selem = self.getElem.find_element_with_wait_EC("xpath", ico_xpath)
-		selems = selem.find_elements_by_tag_name("a")
-		lengh = len(selems)
-		if lengh > 1:
+		selems = selem.get_attribute("alt")
+		if selems != u'双人授权':
 			self.log.log_detail(u"双人授权已同意申请，可以进行单点登录", True)
 		else:
 			self.log.log_detail(u"双人授权已拒绝申请，不可以进行单点登录", True)
@@ -320,6 +321,7 @@ class Dobapproval(object):
 				if dataRow != 0:
 					newbrowser = self.call_other_browsers()
 					self.user_remote_approval(newbrowser, data[1])
+					time.sleep(2)
 					self.click_menu(newbrowser, u"流程控制", u"流程任务")
 					self.click_remote_approval_by_number(newbrowser, number)
 					self.process_remote_is_agree_approval(newbrowser, data[2])
@@ -327,8 +329,9 @@ class Dobapproval(object):
 					self.click_remote_submit(newbrowser)
 					self.click_remote_msg_button(newbrowser)
 					self.remote_back(newbrowser)
-					self.driver.implicitly_wait(5)
+					time.sleep(3)
 					self.remote_quit(newbrowser)
+					time.sleep(2)
 					newbrowser.quit()
 			except Exception as e:
 				print ("expired_approvel fail:" + str(e))

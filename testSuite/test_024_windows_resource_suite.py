@@ -14,15 +14,15 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import unittest
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import initDriver
-sys.path.append("/testIsomp/testSuite/common_suite_file/")
+sys.path.append("/testIsompSecret/testSuite/common_suite_file/")
 from common_suite_file import setDriver,CommonSuiteData
-sys.path.append("/testIsomp/testCase/resource/")
+sys.path.append("/testIsompSecret/testCase/resource/")
 from test_linux_resource import testLinuxResource
 from test_resource_accountmgr import testResourceAccount
 from test_windows_resource import testWindowsResource
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 import _testDataPath
 
 class testWindowsResourceSuite(unittest.TestCase):
@@ -41,13 +41,13 @@ class testWindowsResourceSuite(unittest.TestCase):
 
 	def test_windows_resource(self):
 		#------------------------------windows资源-----------------------------------
-		# 添加windows资源
+		#添加windows资源
 		self.windows.add_windows_resource_001()
-		# 编辑windows资源
+		#编辑windows资源
 		self.windows.edit_windows_resource_002()
-		# 校验windows资源
+		#校验windows资源
 		self.windows.check_windows_resource_003()
-		# 添加和编辑windows资源账号
+		#添加和编辑windows资源账号
 		self.account.add_edit_resource_account_001(_testDataPath.WINDOWS_RESOURCE_TEST_DATA_URL, "add_windows_account")
 		#查询windows资源账号
 		self.account.query_resource_account_002(_testDataPath.WINDOWS_RESOURCE_TEST_DATA_URL, "query_windows_account")

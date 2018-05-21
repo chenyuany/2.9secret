@@ -14,9 +14,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
 import time
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
 sys.path.append("/testIsompSecret/common/")
@@ -177,7 +175,6 @@ class AuthorizationPage():
         try:
             self.getElem.find_element_with_wait_clickable_and_click("id",self.DELETE_BUTTON)
             time.sleep(1)
-            #self.click_button_common('id',self.DELETE_BUTTON)
         except Exception as e:
             print ("Delete button error: ") + str(e)
     
@@ -190,7 +187,6 @@ class AuthorizationPage():
                 check_all.click()
         except Exception as e:
             print("Click checkall button error: ") + str(e)
-
 
     '''点击检索按钮'''     
     def click_search_button(self):
@@ -222,7 +218,6 @@ class AuthorizationPage():
     u'''获取行数'''
     def get_rows(self):
         try:
-#            self.page_select_all()
             table_xpath = "//table[@id='content_table']"
             rows = self.tableElem.get_table_rows_count(table_xpath)
             return rows
@@ -280,7 +275,6 @@ class AuthorizationPage():
             self.auth_operate_list(name,"1")
         except Exception as e:
             print("Click authorization operation edit button fail") + str(e)
-
 
     u'''点击授权操作列对应的访问审批按钮
         parameters:
@@ -379,7 +373,6 @@ class AuthorizationPage():
         row = 0
         try:
             parent_table = self.getElem.find_element_with_wait_EC("id","content_table")
-            #text_list = parent_table.find_elements_by_name("fortAuthorizationName")
             trs = text_list = parent_table.find_elements_by_tag_name("tr")
             for i in range(len(trs)):
                 row = row + 1
@@ -388,51 +381,15 @@ class AuthorizationPage():
                 if self.getElem.is_element_exsit("xpath",path):
                     name_elem = self.getElem.find_element_with_wait_EC("xpath",path)
                     if name_elem.text == rename:
-                        print row
                         update_xpath = "//table[@id='content_table']/tbody/tr[" + str(row) + "]/td[1]/span[1]/input[1]"
                         time.sleep(1)
                         selem = self.getElem.find_element_with_wait_EC('xpath',update_xpath)
                         if selem.is_selected() == False:
                             selem.click()
-#                            self.del_button()
-#                            self.cmf.click_login_msg_button()
-#                            self.cmf.click_login_msg_button()
                             break
-                    
-#                for fortNameValue in text_list:
-#                    fortNameValue_text = fortNameValue.text
-#                    if fortNameValue_text == rename:
-#                        print row
-#                        update_xpath = "//table[@id='content_table']/tbody/tr[" + str(row) + "]/td[1]/span[1]/input[1]"
-#                        time.sleep(1)
-#                        selem = self.getElem.find_element_with_wait_EC('xpath',update_xpath)
-#                        if selem.is_selected() == False:
-#                            selem.click()
-#                            self.del_button()
-#                            self.cmf.click_login_msg_button()
-#                            self.cmf.click_login_msg_button()                        
-                        #break
+
         except Exception:
             print rename + "is not exsit."
-        #return row
-    
-#    u'''勾选授权对应的单选框
-#            parameters :
-#                name : 授权名称
-#    '''
-#    def click_auth_checkbox(self,name):
-#        self.frameElem.from_frame_to_otherFrame("mainFrame")
-#        rename = self.cnEnde.is_float(name)
-#        row = self.find_row(rename,"fortAuthorizationName")
-#        print row
-#        update_xpath = "//table[@id='content_table']/tbody/tr[" + str(row) + "]/td[1]/span[1]/input[1]"
-#        try:
-#            time.sleep(1)
-#            selem = self.getElem.find_element_with_wait_EC('xpath',update_xpath)
-#            if selem.is_selected() == False:
-#                selem.click()
-#        except Exception as e:
-#            print ("Click auth checkbox error: ") + str(e)
 
     u'''填写变量内容
         parameters:
@@ -624,7 +581,6 @@ class AuthorizationPage():
         except Exception as e:
             print ("Click user page back button error: ") + str(e)
     
-    
     u'''点击添加用户组按钮'''
     def click_add_user_group(self):
         self.frameElem.from_frame_to_otherFrame("mainFrame")
@@ -679,7 +635,6 @@ class AuthorizationPage():
     def click_add_res(self):
         self.frameElem.from_frame_to_otherFrame("mainFrame")
         try:
-#            self.click_button_common('id',self.ADD_RES_BUTTON)
             add_res = self.getElem.find_element_with_wait_EC('id',self.ADD_RES_BUTTON)
             if add_res.is_displayed():
                 time.sleep(1)
@@ -696,13 +651,11 @@ class AuthorizationPage():
             
         except Exception as e:
             print ("Click resource department button error : ") + str(e)
-        
     
     u'''勾选资源部门'''
     def select_res_depmt(self,resDepmt):
         self.click_res_show_arrow()
         self.click_depmt_tree_checkbox("treeDemoResource",resDepmt)
-    
     
     u'''设置选择资源页面IP检索条件
         parameters : 
@@ -727,7 +680,6 @@ class AuthorizationPage():
         except Exception as e:
             print ("Click resource or resAccount search button error : ") + str(e)
     
-    
     u'''资源or资源账号选择页面全选按钮'''
     def set_res_check_all_button(self):
         try:
@@ -742,7 +694,6 @@ class AuthorizationPage():
     def select_res_group(self,resGroupName):
         self.click_res_group_show_arrow()
         self.click_depmt_tree_checkbox("resourceGroup",resGroupName)
-    
     
     u'''点击添加资源组按钮'''
     def click_add_res_group(self):
@@ -780,7 +731,6 @@ class AuthorizationPage():
         self.frameElem.switch_to_artIframe()
         return self.set_common_func(resAccount,'id',self.RES_ACCOUNT_RES_ACCOUNT_SEARCH)
     
-    
     u'''点击删除资源按钮'''
     def click_del_res(self):
         self.frameElem.from_frame_to_otherFrame("mainFrame")
@@ -813,7 +763,6 @@ class AuthorizationPage():
     u'''勾选关联子节点'''
     def click_associate_child_node(self):
         self.click_checkbox(self.ASSOCIATE_CHILD_NODE)
-
 
     u'''通过检索条件获取行数
             parameters:
@@ -1036,7 +985,7 @@ class AuthorizationPage():
                 value : option的value值(2:全部,1:未关联,0:已关联)
     '''
     def select_status(self,value):
-        self.frameElem.switch_to_artIframe()
+        self.frameElem.from_frame_to_otherFrame("mainFrame")
         revalue = self.cnEnde.is_float(value)
         selem = self.getElem.find_element_with_wait_EC('id',self.RELATION_STATE)
         try:
@@ -1161,5 +1110,3 @@ class AuthorizationPage():
         
         except Exception as e:
             print ("Get access approvel value error: ") + str(e)
-        
-        

@@ -370,6 +370,11 @@ class Resource(object):
 		self.frameElem.from_frame_to_otherFrame("mainFrame")
 		self.getElem.find_element_wait_and_click_EC("id", "fort_resource")
 
+	u'''点击重置按钮'''
+	def click_reset(self):
+		self.frameElem.from_frame_to_otherFrame("mainFrame")
+		self.getElem.find_element_wait_and_click_EC("id", "resetting")
+
 	u'''部门查询
 	   parameter:
 	       - deptname:部门名称

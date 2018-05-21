@@ -14,15 +14,15 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import unittest
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import initDriver
-sys.path.append("/testIsomp/testSuite/")
+sys.path.append("/testIsompSecret/testSuite/")
 from common_suite_file import setDriver,CommonSuiteData
-sys.path.append("/testIsomp/testCase/resource/")
+sys.path.append("/testIsompSecret/testCase/resource/")
 from test_linux_resource import testLinuxResource
 from test_resource_accountmgr import testResourceAccount
 from test_database_resource import testDatabaseResource
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 import _testDataPath
 
 class testDatabaseResourceSuite(unittest.TestCase):
@@ -38,24 +38,21 @@ class testDatabaseResourceSuite(unittest.TestCase):
 		#添加数据库前置条件
 		self.comsuit.database_resource_prefix_condition()
 
-#		self.comsuit.login_and_switch_to_dep()
-#		self.comsuit.switch_to_moudle(u"运维管理", u"资源")
-
 	def test_database_resource(self):
 		#------------------------------windows资源-----------------------------------
-		# 添加database资源
+		#添加database资源
 		self.database.add_database_resource_001()
-		# 编辑database资源
+		#编辑database资源
 		self.database.edit_database_resource_002()
-		# 校验database资源
+		#校验database资源
 		self.database.check_database_resource_003()	
-		# 添加和编辑mysql资源账号
+		#添加和编辑mysql资源账号
 		self.account.add_edit_resource_account_001(_testDataPath.DATABASE_TEST_DATA_URL, "add_mysql_account")
-		# 添加和编辑oracle资源账号
+		#添加和编辑oracle资源账号
 		self.account.add_edit_resource_account_001(_testDataPath.DATABASE_TEST_DATA_URL, "add_oracle_account")
-		# 添加和编辑bs资源账号
+		#添加和编辑bs资源账号
 		self.account.add_edit_resource_account_001(_testDataPath.DATABASE_TEST_DATA_URL, "add_bs_account")
-		# 添加和编辑sql资源账号
+		#添加和编辑sql资源账号
 		self.account.add_edit_resource_account_001(_testDataPath.DATABASE_TEST_DATA_URL, "add_sql_account")		
 		#删除mysql资源账号
 		self.account.del_resource_account_004(_testDataPath.DATABASE_TEST_DATA_URL, "del_mysql_account")
@@ -63,11 +60,10 @@ class testDatabaseResourceSuite(unittest.TestCase):
 		self.linuxresource.query_resource_004(_testDataPath.DATABASE_TEST_DATA_URL, "query_database_resource")
 		#删除mysql资源
 		self.linuxresource.del_resource_005(_testDataPath.DATABASE_TEST_DATA_URL, "del_mysql_resource")
-#		#删除db2资源
-#		self.linuxresource.del_resource_005(_testDataPath.DATABASE_TEST_DATA_URL, "del_db2_resorce")
+		#删除db2资源
+		#self.linuxresource.del_resource_005(_testDataPath.DATABASE_TEST_DATA_URL, "del_db2_resorce")
 		#全选删除资源
 		#self.linuxresource.bulkdel_resource_006()
-		
 
 	def tearDown(self):
 		#数据库后置条件

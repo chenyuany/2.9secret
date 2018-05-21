@@ -77,13 +77,12 @@ class testDobapproval(object):
 					self.log.log_detail(u"添加双人授权成功", True)
 			except Exception as e:
 				print ("add_double_license fail: ") + str(e)
-
+		self.loginElem.quit()
 		self.log.log_end("add_double_license")
 
 	u'''双人审批同终端审批'''
 	def same_termina_approvel_002(self):
 
-		self.cmf.select_role_by_text(u"运维操作员")
 		#日志开始记录
 		self.log.log_start("same_termina_approvel")
 		#获取双人审批申请的数据
@@ -94,8 +93,10 @@ class testDobapproval(object):
 			try:
 				#如果是第1行,读取数据
 				if dataRow == 1:
+					self.acproval.user_login(data[6])
+					self.cmf.select_role_by_text(u"运维操作员")
 					self.double.send_double_license_applicant(data)
-					self.double.check_ico_len(data[1])
+					self.double.check_ico_len(data[1],data[2])
 					self.loginElem.quit()
 			except Exception as e:
 				print ("same_termina_approvel fail: ") + str(e)
@@ -104,7 +105,6 @@ class testDobapproval(object):
 	u'''双人审批申请人已下线审批过期'''
 	def termina_expired_approvel_003(self):
 
-		self.comsuit.use_new_user_login()
 		#日志开始记录
 		self.log.log_start("Expired_approvel")
 		#获取双人审批申请的数据
@@ -116,6 +116,7 @@ class testDobapproval(object):
 			try:
 				#如果不是第1行,读取数据
 				if dataRow == 2:
+					self.acproval.user_login(data[6])
 					self.double.send_double_license_applicant(data)
 					number = self.acproval.get_new_process_number()
 					self.loginElem.quit()
@@ -127,7 +128,6 @@ class testDobapproval(object):
 	u'''双人审批审批人拒绝申请'''
 	def termina_deny_approvel_004(self):
 
-		self.comsuit.use_new_user_login()
 		#日志开始记录
 		self.log.log_start("deny_double_approvel")
 		#获取双人审批申请的数据
@@ -139,11 +139,12 @@ class testDobapproval(object):
 			try:
 				#如果不是第1行,读取数据
 				if dataRow == 2:
+					self.acproval.user_login(data[6])
 					self.double.send_double_license_applicant(data)
 					number = self.acproval.get_new_process_number()
 					self.double.approver_remote_approval(expData, number)
 					self.cmf.select_menu(u"运维操作", u"SSO")
-					self.double.check_ico_len(data[1])
+					self.double.check_ico_len(data[1],data[2])
 					self.loginElem.quit()
 			except Exception as e:
 				print ("deny_double_approvel fail: ") + str(e)
@@ -152,7 +153,6 @@ class testDobapproval(object):
 	u'''双人审批审批人同意申请'''
 	def termina_agree_approvel_005(self):
 
-		self.comsuit.use_new_user_login()
 		#日志开始记录
 		self.log.log_start("agree_double_approvel")
 		#获取双人审批申请的数据
@@ -164,11 +164,12 @@ class testDobapproval(object):
 			try:
 				#如果不是第1行,读取数据
 				if dataRow == 2:
+					self.acproval.user_login(data[6])
 					self.double.send_double_license_applicant(data)
 					number = self.acproval.get_new_process_number()
 					self.double.approver_remote_approval(expData, number)
 					self.cmf.select_menu(u"运维操作", u"SSO")
-					self.double.check_ico_len(data[1])
+					self.double.check_ico_len(data[1],data[2])
 					self.loginElem.quit()
 			except Exception as e:
 				print ("agree_double_approvel fail: ") + str(e)
@@ -215,7 +216,6 @@ class testDobapproval(object):
 
 	u'''访问审批申请历史查询'''
 	def double_query_apply_history_008(self):
-		self.comsuit.use_new_user_login()
 		#日志开始记录
 		self.log.log_start("double_query_apply_history")
 		#获取申请历史查询的数据
@@ -226,15 +226,17 @@ class testDobapproval(object):
 			try:
 				#如果不是第1行,读取数据
 				if dataRow != 0:
+					if dataRow == 1:
+						self.acproval.user_login(data[9])
 					self.flow.query_apply_history(data)
 					self.log.log_detail(data[0], True)
 			except Exception as e:
 				print ("double_query_apply_history fail: ") + str(e)
+		self.loginElem.quit()
 		self.log.log_end("double_query_apply_history")
 
 	u'''访问审批全部历史查询'''
 	def double_query_all_history_009(self):
-		self.comsuit.dep_switch_to_sys()
 		#日志开始记录
 		self.log.log_start("double_query_all_history")
 		#获取全部历史查询的数据
@@ -245,27 +247,10 @@ class testDobapproval(object):
 			try:
 				#如果不是第1行,读取数据
 				if dataRow != 0:
+					if dataRow == 1:
+						self.acproval.user_login(data[12])
 					self.flow.query_all_history(data)
 					self.log.log_detail(data[0], True)
 			except Exception as e:
 				print ("double_query_all_history fail: ") + str(e)
 		self.log.log_end("double_query_all_history")
-
-	u'''访问审批部门历史查询'''
-	def double_query_department_history_010(self):
-		self.comsuit.sys_switch_to_dep()
-		#日志开始记录
-		self.log.log_start("double_query_department_history")
-		#获取流程任务查询的数据
-		deprtData = self.get_double_data("department_history")
-
-		for dataRow in range(len(deprtData)):
-			data = deprtData[dataRow]
-			try:
-				#如果不是第1行,读取数据
-				if dataRow != 0:
-					self.flow.query_department_history(data)
-					self.log.log_detail(data[0], True)
-			except Exception as e:
-				print ("double_query_department_history fail: ") + str(e)
-		self.log.log_end("double_query_department_history")

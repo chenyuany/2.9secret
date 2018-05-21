@@ -16,10 +16,6 @@ sys.setdefaultencoding('utf-8')
 sys.path.append("/testIsompSecret/common")
 from _icommon import commonFun,frameElement
 from _log import log
-sys.path.append("/testIsompSecret/testCase/role/")
-from test_role import testRole
-sys.path.append("/testIsompSecret/webElement/role/")
-from test_roledf import Role
 sys.path.append("/testIsompSecret/webElement/resource/")
 from test_resource_accountmgr_ment import Accountmgr
 from test_linux_ment import LinuxResource
@@ -33,11 +29,14 @@ class testResourceAccount(object):
 		self.log = log()
 		self.cmf = commonFun(driver)
 		self.frameElem = frameElement(driver)
-		self.testrole = testRole(driver)
 		self.linux = LinuxResource(driver)
 		self.account = Accountmgr(driver)
-		self.role = Role(driver)
 		self.data = dataFileName()
+
+	u'''提示内容框元素路径'''
+	def div_msg(self):
+		div_msg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
+		return div_msg
 
 	u'''添加和编辑资源账号'''
 	def add_edit_resource_account_001(self, dataPath, sheetName):
@@ -47,7 +46,7 @@ class testResourceAccount(object):
 		#获取添加资源账号测试数据
 		accountData = self.data.get_data(dataPath, sheetName)
 		#保存成功的弹出框
-		accountMsg = self.testrole.popup()
+		accountMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -92,7 +91,7 @@ class testResourceAccount(object):
 						self.account.query_name(data[2])
 						self.account.is_authorize(data[3])
 					self.account.click_account_query()
-					self.role.click_reset()
+					self.account.click_reset()
 					self.log.log_detail(data[0], True)
 			except Exception as e:
 				print ("query_resource_account fail:" + str(e))
@@ -108,7 +107,7 @@ class testResourceAccount(object):
 		#获取检验资源测试数据
 		resourceData = self.data.get_data(dataPath, sheetName)
 		#保存成功的弹出框
-		resourceMsg = self.testrole.popup()
+		resourceMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -141,7 +140,7 @@ class testResourceAccount(object):
 		#获取删除资源账号测试数据
 		accountData = self.data.get_data(dataPath, sheetName)
 		#保存成功的弹出框
-		accountMsg = self.testrole.popup()
+		accountMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -169,7 +168,7 @@ class testResourceAccount(object):
 		#获取全选删除资源账号测试数据
 		accountData = self.data.get_data(dataPath, sheetName)
 		#保存成功的弹出框
-		accountMsg = self.testrole.popup()
+		accountMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False

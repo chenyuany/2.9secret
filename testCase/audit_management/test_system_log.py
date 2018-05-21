@@ -3,9 +3,6 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
-import time
-
 sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
 from _icommon import getElement,selectElement,frameElement,commonFun,tableElement
@@ -22,9 +19,9 @@ sys.path.append("/testIsompSecret/webElement/user")
 from userElement import UserPage
 
 sys.path.append("/testIsompSecret/testSuite")
-from common_suite_file import CommonSuiteData,setDriver
+from common_suite_file import CommonSuiteData
 sys.path.append("/testIsompSecret/webElement/login/")
-from loginElement import *
+from loginElement import loginPage
 
 class testSystemLog():
 	def __init__(self,driver):
@@ -96,15 +93,3 @@ class testSystemLog():
 			except Exception as e:
 				print ("System Log query fail: ") + str(e)
 		self.log.log_end("SystemLogQuery_001")
-
-#if __name__ == "__main__":
-#	browser = setDriver().set_local_driver()
-#	commonSuite = CommonSuiteData(browser)
-#	adTest = testSystemLog(browser)
-##	commonSuite.system_log_prefix_condition()
-#	commonSuite.login_and_switch_to_sys()
-#	commonSuite.switch_to_moudle(u"审计管理", u"配置审计")
-#
-#	adTest.system_log_query_001()
-#	adTest.conf_report_check_002()
-#	adTest.conf_report_del_004()

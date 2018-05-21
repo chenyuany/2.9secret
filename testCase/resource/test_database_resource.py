@@ -19,13 +19,10 @@ from _testDataPath import dataFileName
 sys.path.append("/testIsompSecret/common")
 from _icommon import commonFun,frameElement,getElement
 from _log import log
-sys.path.append("/testIsompSecret/testCase/role/")
-from test_role import testRole
 sys.path.append("/testIsompSecret/webElement/resource/")
 from test_resource_common import Resource
 from databaseElement import DatabaseResource
 sys.path.append("/testIsompSecret/testSuite")
-from common_suite_file import CommonSuiteData,setDriver
 
 
 class testDatabaseResource(object):
@@ -36,9 +33,13 @@ class testDatabaseResource(object):
 		self.cmf = commonFun(driver)
 		self.getElem = getElement(driver)
 		self.frameElem = frameElement(driver)
-		self.testrole = testRole(driver)
 		self.resource = Resource(driver)
 		self.database = DatabaseResource(driver)
+
+	u'''提示内容框元素路径'''
+	def div_msg(self):
+		div_msg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
+		return div_msg
 
 	u'''获取测试数据
 	   Parameters:
@@ -59,7 +60,7 @@ class testDatabaseResource(object):
 		#获取添加windows资源测试数据
 		databaseData = self.get_database_table_data("add_database_resource")
 		#保存成功的弹出框
-		windowsMsg = self.testrole.popup()
+		windowsMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -89,7 +90,7 @@ class testDatabaseResource(object):
 		#获取编辑windows资源测试数据
 		databaseData = self.get_database_table_data("edit_database_resource")
 		#保存成功的弹出框
-		windowsMsg = self.testrole.popup()
+		windowsMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -104,7 +105,6 @@ class testDatabaseResource(object):
 					self.database.add_edit_database_resource(data)
 					self.frameElem.switch_to_content()
 					self.cmf.test_win_check_point("xpath", windowsMsg, data, flag)
-#					time.sleep(1)
 					self.cmf.back()
 			except Exception as e:
 				print ("edit_database_resource fail:" + str(e))
@@ -118,7 +118,7 @@ class testDatabaseResource(object):
 		#获取编辑windows资源测试数据
 		databaseData = self.get_database_table_data("check_database_resource")
 		#保存成功的弹出框
-		windowsMsg = self.testrole.popup()
+		windowsMsg = self.div_msg()
 		
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -151,18 +151,3 @@ class testDatabaseResource(object):
 		self.cmf.back()
 		self.database.is_pop_up()			
 		self.log.log_end("check_database_resource")
-		
-
-#if __name__ == "__main__":
-#	#调用驱动
-#	browser = setDriver().set_driver()
-#	
-#	comsuit = CommonSuiteData(browser)
-#	database = testDatabaseResource(browser)
-#	
-#	comsuit.login_and_switch_to_dep()
-#	comsuit.switch_to_moudle(u"运维管理", u"资源")
-#	database.check_database_resource_003()
-#	database.add_database_resource_001()
-#	database.edit_database_resource_002()
-	

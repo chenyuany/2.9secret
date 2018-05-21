@@ -13,11 +13,11 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import unittest
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import initDriver
-sys.path.append("/testIsomp/testSuite/common_suite_file/")
+sys.path.append("/testIsompSecret/testSuite/common_suite_file/")
 from common_suite_file import setDriver,CommonSuiteData
-sys.path.append("/testIsomp/testCase/process/")
+sys.path.append("/testIsompSecret/testCase/process/")
 from test_access_approval import testAccapproval
 
 class testAccapprovalSuite(unittest.TestCase):
@@ -48,12 +48,10 @@ class testAccapprovalSuite(unittest.TestCase):
 		self.accapproval.access_query_process_task_006()
 		u'''访问审批个人历史查询'''
 		self.accapproval.access_query_personal_history_007()
-		u'''访问审批申请历史查询'''
+		# u'''访问审批申请历史查询'''
 		self.accapproval.access_query_apply_history_008()
 		u'''访问审批全部历史查询'''
 		self.accapproval.access_query_all_history_009()
-		u'''访问审批部门历史查询'''
-		self.accapproval.access_query_department_history_010()
 
 	def tearDown(self):
 		#流程后置条件

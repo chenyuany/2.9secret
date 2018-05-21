@@ -21,12 +21,11 @@ from _log import log
 sys.path.append("/testIsomp/webElement/process/")
 from test_access_approval_ment import Accapproval
 from test_process_common import Flowcontrol
-sys.path.append("/testIsomp/testSuite/common_suite_file/")
-from common_suite_file import CommonSuiteData
 sys.path.append("/testIsomp/webElement/authorization")
 from authrizationElement import AuthorizationPage
 sys.path.append("/testIsomp/webElement/login/")
 from loginElement import loginPage
+
 
 class testAccapproval(object):
 
@@ -36,7 +35,6 @@ class testAccapproval(object):
 		self.data = dataFileName()
 		self.cmf = commonFun(driver)
 		self.acproval = Accapproval(driver)
-		self.comsuit = CommonSuiteData(self.driver)
 		self.loginElem = loginPage(self.driver)
 		self.authElem = AuthorizationPage(self.driver)
 		self.flow = Flowcontrol(self.driver)
@@ -88,8 +86,6 @@ class testAccapproval(object):
 
 	u'''访问审批通过流程控制拒绝审批'''
 	def access_deny_approvel_002(self):
-
-		self.cmf.select_role_by_text(u"运维操作员")
 		#日志开始记录
 		self.log.log_start("access_deny_approvel")
 		#获取访问审批申请的数据
@@ -102,6 +98,10 @@ class testAccapproval(object):
 			try:
 				#如果不是第1行,读取数据
 				if dataRow != 0:
+					list = [data[9],data[10],data[11],data[12],data[13]]
+					self.loginElem.quit()
+					self.loginElem.login(list)
+					self.cmf.select_role_by_text(u"运维操作员")
 					self.acproval.send_access_approval_applicant(data)
 					number = self.acproval.get_new_process_number()
 					self.loginElem.quit()
@@ -112,8 +112,6 @@ class testAccapproval(object):
 
 	u'''访问审批通过流程控制同意审批'''
 	def access_agree_approvel_003(self):
-
-		self.comsuit.use_new_user_login()
 		#日志开始记录
 		self.log.log_start("access_agree_approvel")
 		#获取访问审批申请的数据
@@ -126,6 +124,9 @@ class testAccapproval(object):
 			try:
 				#如果不是第1行,读取数据
 				if dataRow != 0:
+					list = [data[9],data[10],data[11],data[12],data[13]]
+					self.loginElem.login(list)
+					self.cmf.select_role_by_text(u"运维操作员")
 					self.acproval.send_access_approval_applicant(data)
 					number = self.acproval.get_new_process_number()
 					self.loginElem.quit()
@@ -136,8 +137,6 @@ class testAccapproval(object):
 
 	u'''紧急运维通过流程控制拒绝审批'''
 	def urgent_deny_approvel_004(self):
-
-		self.comsuit.use_new_user_login()
 		#日志开始记录
 		self.log.log_start("urgent_deny_approvel")
 		#获取访问审批申请的数据
@@ -150,6 +149,9 @@ class testAccapproval(object):
 			try:
 				#如果不是第1行,读取数据
 				if dataRow != 0:
+					list = [data[4],data[5],data[6],data[7],data[8]]
+					self.loginElem.login(list)
+					self.cmf.select_role_by_text(u"运维操作员")
 					self.acproval.send_urgent_operation_applicant(data)
 					number = self.acproval.get_new_process_number()
 					self.loginElem.quit()
@@ -161,7 +163,6 @@ class testAccapproval(object):
 	u'''紧急运维通过流程控制同意审批'''
 	def urgent_agree_approvel_005(self):
 
-		self.comsuit.use_new_user_login()
 		#日志开始记录
 		self.log.log_start("urgent_agree_approvel")
 		#获取访问审批申请的数据
@@ -174,6 +175,9 @@ class testAccapproval(object):
 			try:
 				#如果不是第1行,读取数据
 				if dataRow != 0:
+					list = [data[4],data[5],data[6],data[7],data[8]]
+					self.loginElem.login(list)
+					self.cmf.select_role_by_text(u"运维操作员")
 					self.acproval.send_urgent_operation_applicant(data)
 					number = self.acproval.get_new_process_number()
 					self.loginElem.quit()
@@ -223,7 +227,6 @@ class testAccapproval(object):
 
 	u'''访问审批申请历史查询'''
 	def access_query_apply_history_008(self):
-		self.comsuit.use_new_user_login()
 		#日志开始记录
 		self.log.log_start("access_query_apply_history")
 		#获取申请历史查询的数据
@@ -234,15 +237,17 @@ class testAccapproval(object):
 			try:
 				#如果不是第1行,读取数据
 				if dataRow != 0:
+					if dataRow == 1:
+						self.acproval.user_login(data[9])
 					self.flow.query_apply_history(data)
 					self.log.log_detail(data[0], True)
 			except Exception as e:
 				print ("access_query_apply_history fail: ") + str(e)
+		self.loginElem.quit()
 		self.log.log_end("access_query_apply_history")
 
 	u'''访问审批全部历史查询'''
 	def access_query_all_history_009(self):
-		self.comsuit.dep_switch_to_sys()
 		#日志开始记录
 		self.log.log_start("access_query_all_history")
 		#获取全部历史查询的数据
@@ -253,27 +258,10 @@ class testAccapproval(object):
 			try:
 				#如果不是第1行,读取数据
 				if dataRow != 0:
+					if dataRow ==1:
+						self.acproval.user_login(data[1])
 					self.flow.query_all_history(data)
 					self.log.log_detail(data[0], True)
 			except Exception as e:
 				print ("access_query_all_history fail: ") + str(e)
 		self.log.log_end("access_query_all_history")
-
-	u'''访问审批部门历史查询'''
-	def access_query_department_history_010(self):
-		self.comsuit.sys_switch_to_dep()
-		#日志开始记录
-		self.log.log_start("access_query_department_history")
-		#获取流程任务查询的数据
-		deprtData = self.get_accapproval_data("department_history")
-
-		for dataRow in range(len(deprtData)):
-			data = deprtData[dataRow]
-			try:
-				#如果不是第1行,读取数据
-				if dataRow != 0:
-					self.flow.query_department_history(data)
-					self.log.log_detail(data[0], True)
-			except Exception as e:
-				print ("access_query_department_history fail: ") + str(e)
-		self.log.log_end("access_query_department_history")

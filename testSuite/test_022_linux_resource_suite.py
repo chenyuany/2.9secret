@@ -14,14 +14,14 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 import unittest
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import initDriver
-sys.path.append("/testIsomp/testSuite/common_suite_file/")
+sys.path.append("/testIsompSecret/testSuite/common_suite_file/")
 from common_suite_file import setDriver,CommonSuiteData
-sys.path.append("/testIsomp/testCase/resource/")
+sys.path.append("/testIsompSecret/testCase/resource/")
 from test_linux_resource import testLinuxResource
 from test_resource_accountmgr import testResourceAccount
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 import _testDataPath
 
 
@@ -40,7 +40,7 @@ class testLinuxResourceSuite(unittest.TestCase):
 
 	def test_linux_resource(self):
 		#------------------------------linux资源-----------------------------------
-		# 添加linux资源
+		#添加linux资源
 		self.linuxresource.add_linux_resource_001()
 		#编辑linux资源
 		self.linuxresource.edit_linux_resource_002()
@@ -54,9 +54,9 @@ class testLinuxResourceSuite(unittest.TestCase):
 		self.account.check_resource_account_003(_testDataPath.LINUX_RESOURCE_TEST_DATA_URL, "check_linux_account")
 		#删除linux资源账号
 		self.account.del_resource_account_004(_testDataPath.LINUX_RESOURCE_TEST_DATA_URL, "del_linux_account")
-		# #全选删除linux资源账号
+		#全选删除linux资源账号
 		self.account.bulkdel_resource_account_005(_testDataPath.LINUX_RESOURCE_TEST_DATA_URL, "bulkdel_linux_account")
-		# 查询linux资源
+		#查询linux资源
 		self.linuxresource.query_resource_004(_testDataPath.LINUX_RESOURCE_TEST_DATA_URL, "query_linux_resource")
 		#删除linux资源
 		self.linuxresource.del_resource_005(_testDataPath.LINUX_RESOURCE_TEST_DATA_URL, "del_linux_resource")

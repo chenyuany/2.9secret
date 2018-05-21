@@ -41,9 +41,9 @@ class Accapproval(object):
 		self.authElem = AuthorizationPage(self.driver)
 
 	u'''点击授权操作列访问审批按钮
-        parameters:
-            name : 授权名称
-    '''
+		parameters:
+			name : 授权名称
+	'''
 	def click_access_approval_button(self, name):
 		self.frameElem.from_frame_to_otherFrame("mainFrame")
 		self.authElem.operate_access_approval(name)
@@ -75,10 +75,10 @@ class Accapproval(object):
 					break
 
 	u'''设置级别中的审批人个数
-            parameters :
-                level : 级别
-                value : option的value值
-    '''
+		parameters :
+		    level : 级别
+		    value : option的value值
+	'''
 	def select_approval_num(self, level, value):
 		self.frameElem.from_frame_to_otherFrame("mainFrame")
 		relevel = self.cnEn.is_float(level)
@@ -88,10 +88,10 @@ class Accapproval(object):
 		self.selectElem.select_element_by_value(selem, revalue)
 
 	u'''选择进行单点登录的资源并且返回该资源位于第几行
-            parameters :
-                rename : 资源名称
-            return: row代表资源名称位于第几行
-    '''
+		parameters :
+		    rename : 资源名称
+		return: row代表资源名称位于第几行
+	'''
 	def select_resoure_sso(self, rename):
 		rname = self.cnEn.is_float(rename)
 		self.frameElem.from_frame_to_otherFrame("rigthFrame")
@@ -101,10 +101,10 @@ class Accapproval(object):
 		return row
 
 	u'''点击访问审批或紧急运维图标
-            parameters :
-                rename : 资源名称
-                statu : 1代表访问审批，2代表紧急运维
-    '''
+		parameters :
+		    rename : 资源名称
+		    statu : 1代表访问审批，2代表紧急运维
+	'''
 	def click_access_approval_icon(self, rename, statu):
 		self.frameElem.from_frame_to_otherFrame("rigthFrame")
 		rname = self.cnEn.is_float(rename)
@@ -115,12 +115,11 @@ class Accapproval(object):
 		time.sleep(2)
 		self.getElem.find_element_wait_and_click_EC("xpath", xpath)
 
-
 	u'''选择进行资源账号
-            parameters :
-                rename : 资源名称
-                reactname : 资源账号名称
-    '''
+		parameters :
+		    rename : 资源名称
+		    reactname : 资源账号名称
+	'''
 	def select_resoure_account(self, rename, reactname):
 		rname = self.cnEn.is_float(rename)
 		actname = self.cnEn.is_float(reactname)
@@ -131,11 +130,11 @@ class Accapproval(object):
 		self.selectElem.select_element_by_visible_text(selem, actname)
 
 	u'''判断名称是否存在
-       Parameters:
-          - namevalue:传入的要被查询名称
-          - name:表格列的name属性
-       return：true代表存在，false代表不存在
-    '''
+		Parameters:
+			- namevalue:传入的要被查询名称
+			- name:表格列的name属性
+		return：true代表存在，false代表不存在
+	'''
 	def namevalue_is_exsit(self, namevalue, name):
 		nameval = self.cnEn.is_float(namevalue)
 		namesex = self.cnEn.is_float(name)
@@ -149,11 +148,11 @@ class Accapproval(object):
 		return isExsit
 
 	u'''查询已存在名称位于第几行
-       Parameters:
-          - namevalue:传入的要被查询名称
-          - name:表格列的name属性
-       return：定位该名称位于第几行
-    '''
+		Parameters:
+			- namevalue:传入的要被查询名称
+			- name:表格列的name属性
+		return：定位该名称位于第几行
+	'''
 	def find_name_by_row(self, namevalue, name):
 		nameval = self.cnEn.is_float(namevalue)
 		namesex = self.cnEn.is_float(name)
@@ -168,8 +167,8 @@ class Accapproval(object):
 		return row
 
 	u'''填写审批的描述
-	   Parameters:
-          - description:描述内容
+		Parameters:
+			- description:描述内容
 	'''
 	def set_operation_description(self, description):
 		descri = self.cnEn.is_float(description)
@@ -188,8 +187,8 @@ class Accapproval(object):
 		self.getElem.find_element_wait_and_click_EC("id", "save_process_approval")
 
 	u'''用户登录
-	   Parameters:
-          - listuser:用户登录集
+		Parameters:
+			- listuser:用户登录集
 	'''
 	def user_login(self, listuser):
 		users = listuser.split()
@@ -211,8 +210,8 @@ class Accapproval(object):
 		self.getElem.find_element_wait_and_click_EC("xpath", "/html/body/div[3]/div/div/div[1]/a")
 
 	u'''通过申请时间点击要审批的信息
-	   Parameters:
-          - applytime:申请时间
+		Parameters:
+			- applytime:申请时间
 	'''
 	def click_approval_by_message(self, applytime):
 		self.frameElem.from_frame_to_otherFrame('mainFrame')
@@ -221,8 +220,8 @@ class Accapproval(object):
 		self.getElem.find_element_wait_and_click_EC("xpath", xpath)
 
 	u'''通过流程号点击要审批的信息
-	   Parameters:
-          - number:流程号
+		Parameters:
+			- number:流程号
 	'''
 	def click_approval_by_number(self, number):
 		self.frameElem.from_frame_to_otherFrame('mainFrame')
@@ -231,24 +230,24 @@ class Accapproval(object):
 		self.getElem.find_element_wait_and_click_EC("xpath", xpath)
 
 	u'''消息弹框是否同意审批
-	   Parameters:
-          - status:1代表同意审批，2代表拒绝审批
+		Parameters:
+			- status:1代表同意审批，2代表拒绝审批
 	'''
 	def message_is_agree_approval(self, status):
 		self.frameElem.from_frame_to_otherFrame('artIframe')
 		self.is_agree_common(status)
 
 	u'''流程控制是否同意审批
-	   Parameters:
-          - status:1代表同意审批，2代表拒绝审批
+		Parameters:
+			- status:1代表同意审批，2代表拒绝审批
 	'''
 	def process_is_agree_approval(self, status):
 		self.frameElem.from_frame_to_otherFrame('mainFrame')
 		self.is_agree_common(status)
 
 	u'''是否同意审批公共方法
-	   Parameters:
-          - status:1代表同意审批，2代表拒绝审批
+		Parameters:
+			- status:1代表同意审批，2代表拒绝审批
 	'''
 	def is_agree_common(self, status):
 		statu = self.cnEn.is_float(status)
@@ -258,24 +257,24 @@ class Accapproval(object):
 			self.getElem.find_element_wait_and_click_EC("id", "no")
 
 	u'''填写消息中审批申请单的描述
-	   Parameters:
-          - description:描述内容
+		Parameters:
+			- description:描述内容
 	'''
 	def set_message_apply_description(self, description):
 		self.frameElem.from_frame_to_otherFrame("artIframe")
 		self.set_apply_description_common(description)
 
 	u'''填写流程控制中审批申请单的描述
-	   Parameters:
-          - description:描述内容
+		Parameters:
+			- description:描述内容
 	'''
 	def set_process_apply_description(self, description):
 		self.frameElem.from_frame_to_otherFrame("mainFrame")
 		self.set_apply_description_common(description)
 
 	u'''填写消息中审批申请单的描述公共方法
-	   Parameters:
-          - description:描述内容
+		Parameters:
+			- description:描述内容
 	'''
 	def set_apply_description_common(self, description):
 		descri = self.cnEn.is_float(description)
@@ -320,9 +319,9 @@ class Accapproval(object):
 		self.frame_public_method(u"提示", u"提示×保存成功！确定")
 
 	u'''弹窗的公用方法
-	   Parameters:
-	      - pagetext：页面弹框的title文本
-	      - tabletext：表格文本
+		Parameters:
+			- pagetext：页面弹框的title文本
+			- tabletext：表格文本
 	'''
 	def frame_public_method(self, pagetext, tabletext):
 
@@ -350,8 +349,8 @@ class Accapproval(object):
 				break
 
 	u'''勾选审批人
-	   Parameters:
-	      - approvers：审批者集合
+		Parameters:
+			- approvers：审批者集合
 	'''
 	def check_the_approver(self, approvers):
 		self.frameElem.from_frame_to_otherFrame("artIframe")
@@ -376,9 +375,9 @@ class Accapproval(object):
 			input.click()
 
 	u'''点击刷新图标
-            parameters :
-                rename : 资源名称
-    '''
+		parameters :
+			rename : 资源名称
+	'''
 	def click_refresh_icon(self, rename):
 		self.frameElem.from_frame_to_otherFrame("rigthFrame")
 		rname = self.cnEn.is_float(rename)
@@ -391,8 +390,8 @@ class Accapproval(object):
 			self.getElem.find_element_wait_and_click_EC("xpath", xpath)
 
 	u'''校验图标
-	   parameters :
-            - rename:资源名称
+		parameters :
+			- rename:资源名称
 	'''
 	def check_access_ico_len(self, rename):
 		self.frameElem.from_frame_to_otherFrame("rigthFrame")
@@ -410,8 +409,8 @@ class Accapproval(object):
 			self.log.log_detail(u"访问审批已拒绝申请，不可进行单点登录操作", True)
 
 	u'''申请人发送访问审批申请
-	   Parameters:
-          - data:excel中的一行数据
+		Parameters:
+			- data:excel中的一行数据
 	'''
 	def send_access_approval_applicant(self, data):
 		# 时间控件的fram的xpath
@@ -436,9 +435,9 @@ class Accapproval(object):
 		self.click_message_button()
 
 	u'''审批人通过消息进行审批
-	   Parameters:
-          - acpData:审批人进行审批的数据
-          - applytime:申请时间
+		Parameters:
+			- acpData:审批人进行审批的数据
+			- applytime:申请时间
 	'''
 	def approval_by_message_approver(self, acpData, applytime):
 		for dataRow in range(len(acpData)):
@@ -461,9 +460,9 @@ class Accapproval(object):
 				self.loginElem.quit()
 
 	u'''审批人通过流程控制进行审批
-	   Parameters:
-          - acpData:审批人进行审批的数据
-          - number:流程号
+		Parameters:
+			- acpData:审批人进行审批的数据
+			- number:流程号
 	'''
 	def approval_by_approver(self, acpData, number):
 		for dataRow in range(len(acpData)):
@@ -497,8 +496,8 @@ class Accapproval(object):
 				self.back_quit_common()
 
 	u'''申请人发送紧急运维申请
-	   Parameters:
-          - data:excel中的一行数据
+		Parameters:
+			- data:excel中的一行数据
 	'''
 	def send_urgent_operation_applicant(self, data):
 

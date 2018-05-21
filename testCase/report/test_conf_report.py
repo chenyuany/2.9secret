@@ -3,25 +3,22 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
-import time
-
-sys.path.append("/testIsomp/common/")
+sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
 from _icommon import getElement,selectElement,frameElement,commonFun,tableElement
 from _cnEncode import cnEncode
 from _log import log
 
-sys.path.append("/testIsomp/testData/")
+sys.path.append("/testIsompSecret/testData/")
 from _testDataPath import dataFileName
 
-sys.path.append("/testIsomp/webElement/report")
+sys.path.append("/testIsompSecret/webElement/report")
 from confReportElement import ConfReportPage
 
-sys.path.append("/testIsomp/testSuite")
-from common_suite_file import CommonSuiteData,setDriver
-sys.path.append("/testIsomp/webElement/login/")
-from loginElement import *
+sys.path.append("/testIsompSecret/testSuite")
+from common_suite_file import CommonSuiteData
+sys.path.append("/testIsompSecret/webElement/login/")
+from loginElement import loginPage
 
 class testConfReport():
 	def __init__(self,driver):
@@ -139,15 +136,3 @@ class testConfReport():
 			except Exception as e:
 				print ("Conf Report del fail: ") + str(e)
 		self.log.log_end("ConfReportDel_004")
-
-#if __name__ == "__main__":
-#	browser = setDriver().set_local_driver()
-#	commonSuite = CommonSuiteData(browser)
-#	adTest = testConfReport(browser)
-#	#commonSuite.conf_report_module_prefix_condition()
-#	commonSuite.login_and_switch_to_sys()
-#	commonSuite.switch_to_moudle(u"报表管理", u"审计报表")
-
-#	adTest.add_conf_report_001()
-#	adTest.conf_report_check_002()
-#	adTest.conf_report_del_004()

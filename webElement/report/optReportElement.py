@@ -218,4 +218,4 @@ class OptReportPage():
                     break
             return isExsit
         except Exception:
-            print ("Check report is exist error ") + list_text
+            print ("Check report is exist error ")

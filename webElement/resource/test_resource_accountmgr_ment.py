@@ -116,6 +116,11 @@ class Accountmgr(object):
 		self.getElem.find_element_wait_and_clear("id", "fortAccountName")
 		self.getElem.find_element_wait_and_sendkeys("id", "fortAccountName", actname)
 
+	u'''点击重置按钮'''
+	def click_reset(self):
+		self.frameElem.from_frame_to_otherFrame("mainFrame")
+		self.getElem.find_element_wait_and_click_EC("id", "resetting")
+
 	u'''查询是否授权
 	   Parameters:
 	      - value:select选项中的value属性值

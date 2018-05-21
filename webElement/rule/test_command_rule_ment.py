@@ -35,7 +35,7 @@ class CommandRule(object):
 
 	u'''左边框点击规则
 	   Parameters:
-            - statu:左边框点击，0代表点击命令规则，1代表点击时间规则，2代表点击地址规则，3代表点击资源时间规则
+	   - statu:左边框点击，0代表点击命令规则，1代表点击时间规则，2代表点击地址规则，3代表点击资源时间规则
 	'''
 	def click_left_rule(self, statu):
 		self.frameElem.from_frame_to_otherFrame("leftFrame")
@@ -106,7 +106,7 @@ class CommandRule(object):
 
 	u'''测试命令
 	   Parameters:
-            - command:命令内容
+	   - command:命令内容
 	'''
 	def set_test_command(self, command):
 		comm = self.cnEn.is_float(command)
@@ -200,7 +200,7 @@ class CommandRule(object):
 
 	u'''填写插入行数
 	   Parameters:
-            - row:行数
+	   - row:行数
 	'''
 	def set_row_command(self, row):
 		rows = self.cnEn.is_float(row)
@@ -371,7 +371,7 @@ class CommandRule(object):
 
 	u'''填写口令
 	   Parameters:
-            - pwd:口令
+		- pwd:口令
 	'''
 	def set_passwd(self, pwd):
 		passwd = self.cnEn.is_float(pwd)
@@ -381,7 +381,7 @@ class CommandRule(object):
 
 	u'''填写备注信息
 	   Parameters:
-            - descrip:备注信息
+		- descrip:备注信息
 	'''
 	def set_descrip(self, descrip):
 		description = self.cnEn.is_float(descrip)
@@ -391,9 +391,9 @@ class CommandRule(object):
 
 	u'''通过消息进行命令审批
 	   Parameters:
-            - user:用户名称
-            - pwd:密码
-            - descrip:备注信息
+		- user:用
+		- pwd:密码
+		- descrip:备注信息
 	'''
 	def command_by_message_approval(self, user, pwd, descrip):
 		self.frameElem.switch_to_content()
@@ -409,9 +409,9 @@ class CommandRule(object):
 
 	u'''通过流程控制进行命令审批
 	   Parameters:
-            - user:用户名称
-            - pwd:密码
-            - descrip:备注信息
+		- user:用户名称
+		- pwd:密码
+		- descrip:备注信息
 	'''
 	def command_by_flow_approval(self, user, pwd, descrip):
 		#获取流程号

@@ -18,8 +18,6 @@ from _testDataPath import dataFileName
 sys.path.append("/testIsompSecret/common")
 from _icommon import commonFun,frameElement,getElement
 from _log import log
-sys.path.append("/testIsompSecret/testCase/role/")
-from test_role import testRole
 sys.path.append("/testIsompSecret/webElement/rule")
 from test_command_rule_ment import CommandRule
 from test_time_rule_ment import TimeRule
@@ -35,12 +33,16 @@ class testTime(object):
 		self.log = log()
 		self.cmf = commonFun(driver)
 		self.frameElem = frameElement(driver)
-		self.testrole = testRole(driver)
 		self.command = CommandRule(driver)
 		self.comsuit = CommonSuiteData(driver)
 		self.timerule = TimeRule(driver)
 		self.getElem = getElement(driver)
 		self.loginElem = loginPage(self.driver)
+
+	u'''提示内容框元素路径'''
+	def div_msg(self):
+		div_msg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
+		return div_msg
 
 	u'''获取测试数据
 	   Parameters:
@@ -61,7 +63,7 @@ class testTime(object):
 		#获取添加时间规则测试数据
 		timerulData = self.get_table_data("add_time_rule")
 		#保存成功的弹出框
-		comrulMsg = self.testrole.popup()
+		comrulMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -100,7 +102,7 @@ class testTime(object):
 		#获取添加时间规则测试数据
 		timerulData = self.get_table_data("add_time_rule")
 		#保存成功的弹出框
-		comrulMsg = self.testrole.popup()
+		comrulMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -120,7 +122,7 @@ class testTime(object):
 					self.cmf.test_win_check_point("xpath", comrulMsg, list, flag)
 			except Exception as e:
 				print ("add_time_rule_result fail:" + str(e))
-		self.comsuit.login_and_switch_to_dep()
+		self.comsuit.login_secadmin()
 		self.comsuit.switch_to_moudle(u'运维管理', u'规则定义')
 		self.command.click_left_rule(1)
 		self.log.log_end("add_time_rule_result")
@@ -132,7 +134,7 @@ class testTime(object):
 		#获取编辑时间规则测试数据
 		timerulData = self.get_table_data("mod_time_rule")
 		#保存成功的弹出框
-		comrulMsg = self.testrole.popup()
+		comrulMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -164,7 +166,8 @@ class testTime(object):
 		#获取校验时间规则测试数据
 		timerulData = self.get_table_data("check_time_rule")
 		#保存成功的弹出框
-		comrulMsg = self.testrole.popup()
+		comrulMsg = self.div_msg()
+
 		self.command.click_add_button()
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -221,7 +224,7 @@ class testTime(object):
 		#获取删除时间规则测试数据
 		timerulData = self.get_table_data("del_time_rule")
 		#保存成功的弹出框
-		comrulMsg = self.testrole.popup()
+		comrulMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False

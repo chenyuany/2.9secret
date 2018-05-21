@@ -18,8 +18,6 @@ from _testDataPath import dataFileName
 sys.path.append("/testIsompSecret/common")
 from _icommon import commonFun,frameElement,getElement
 from _log import log
-sys.path.append("/testIsompSecret/testCase/role/")
-from test_role import testRole
 sys.path.append("/testIsompSecret/webElement/rule")
 from test_command_rule_ment import CommandRule
 from test_time_rule_ment import TimeRule
@@ -36,13 +34,17 @@ class testAddress(object):
 		self.log = log()
 		self.cmf = commonFun(driver)
 		self.frameElem = frameElement(driver)
-		self.testrole = testRole(driver)
 		self.command = CommandRule(driver)
 		self.comsuit = CommonSuiteData(driver)
 		self.timerule = TimeRule(driver)
 		self.getElem = getElement(driver)
 		self.loginElem = loginPage(driver)
 		self.adrerule = AddressRule(driver)
+
+	u'''提示内容框元素路径'''
+	def div_msg(self):
+		div_msg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
+		return div_msg
 
 	u'''获取测试数据
 		Parameters:
@@ -63,7 +65,7 @@ class testAddress(object):
 		#获取添加地址规则测试数据
 		adreruleData = self.get_table_data("add_address_rule")
 		#保存成功的弹出框
-		comrulMsg = self.testrole.popup()
+		comrulMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -110,7 +112,7 @@ class testAddress(object):
 		#获取添加地址规则测试数据
 		adreruleData = self.get_table_data("add_address_rule")
 		#保存成功的弹出框
-		comrulMsg = self.testrole.popup()
+		comrulMsg = self.div_msg()
 
 		for dataRow in range(len(adreruleData)):
 			data = adreruleData[dataRow]
@@ -126,7 +128,7 @@ class testAddress(object):
 					self.cmf.test_win_check_point("xpath", comrulMsg, list, flag)
 			except Exception as e:
 				print ("add_address_rule_result fail:" + str(e))
-		self.comsuit.login_and_switch_to_dep()
+		self.comsuit.login_secadmin()
 		self.comsuit.switch_to_moudle(u'运维管理', u'规则定义')
 		self.command.click_left_rule(2)
 		self.log.log_end("add_address_rule_result")
@@ -138,7 +140,7 @@ class testAddress(object):
 		#获取编辑地址规则测试数据
 		adreruleData = self.get_table_data("mod_address_rule")
 		#保存成功的弹出框
-		comrulMsg = self.testrole.popup()
+		comrulMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -171,7 +173,7 @@ class testAddress(object):
 		#获取校验地址规则测试数据
 		adreruleData = self.get_table_data("check_address_rule")
 		#保存成功的弹出框
-		comrulMsg = self.testrole.popup()
+		comrulMsg = self.div_msg()
 		self.command.click_add_button()
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -224,7 +226,7 @@ class testAddress(object):
 		#获取删除地址规则测试数据
 		adrerulData = self.get_table_data("del_address_rule")
 		#保存成功的弹出框
-		comrulMsg = self.testrole.popup()
+		comrulMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False

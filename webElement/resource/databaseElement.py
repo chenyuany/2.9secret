@@ -40,7 +40,7 @@ class DatabaseResource(object):
 	#口令属性
 	PWD_ATTRIBUTE = "fortBsPasswordAttribute"
 	#表单提交方式
-	SUBMIT_METHOD = "fortBsFormSubmitMethod"
+	SUBMIT_METHOD = "submitType"
 	#登录URL
 	LOGIN_URL = "fortBsLoginUrl"
 	#连接端口
@@ -57,7 +57,6 @@ class DatabaseResource(object):
 	SYSTEM_OK_BUTTON = "okButton"
 	#取消按钮
 	SYSTEM_QUIT_BUTTON = "cancelButton"
-	
 
 	def __init__(self, driver):
 		self.driver = driver
@@ -95,9 +94,10 @@ class DatabaseResource(object):
 		#账号属性
 		if data[9] != "":
 			self.set_account_attribute(data[9])
+			self.set_submit_method(data[12])
 			self.set_form_name(data[10])
 			self.set_pwd_attribute(data[11])
-			self.set_submit_method(data[12])
+			time.sleep(1)
 			self.set_login_url(data[13])
 		#选择客户端
 		if data[14] != "":
@@ -169,7 +169,6 @@ class DatabaseResource(object):
 			serviceName.send_keys(reName)
 		except Exception as e:
 			print "ServiceName is error :" + str(e)
-	
 	
 	u'''点击添加到应用发布到右侧'''
 	def add_application(self):
@@ -254,8 +253,8 @@ class DatabaseResource(object):
 		reMethod = self.cnEn.is_float(submitMethod)
 		try:
 			smtMethod = self.getElem.find_element_with_wait_EC('id', self.SUBMIT_METHOD)
-			smtMethod.clear()
-			smtMethod.send_keys(reMethod)
+			time.sleep(2)
+			self.selectElem.select_element_by_value(smtMethod, reMethod)
 		except Exception as e:
 			print "Set BS submit method error :" + str(e)
 	
@@ -314,6 +313,7 @@ class DatabaseResource(object):
 		flag = self.getElem.find_element_wait_and_compare_text("xpath", xpath, [0, "ip可用性校验失败！"])
 		if flag:
 			self.cmf.click_login_msg_button()
+
 #--------------------------windows资源-----------------------------------------
 	u'''填写windows域名
 	   parameter:
@@ -340,4 +340,3 @@ class DatabaseResource(object):
 			self.getElem.find_element_wait_and_sendkeys('id', "window_host_name", host)
 		except Exception as e:
 			print "window_host_name is error :" + str(e)
-	

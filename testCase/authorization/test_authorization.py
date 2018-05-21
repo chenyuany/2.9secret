@@ -3,9 +3,6 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import os
-import time
-
 sys.path.append("/testIsompSecret/common/")
 from _initDriver import *
 from _icommon import getElement,selectElement,frameElement,commonFun,tableElement
@@ -17,9 +14,6 @@ from _testDataPath import dataFileName
 
 sys.path.append("/testIsompSecret/webElement/authorization")
 from authrizationElement import AuthorizationPage
-
-#sys.path.append("/testIsomp/testSuite")
-#from common_suite_file import CommonSuiteData,setDriver
 
 class testAuthorization():
 	def __init__(self,driver):
@@ -78,14 +72,12 @@ class testAuthorization():
 		self.authElem.set_select_res_search_button()
 		self.authElem.set_res_check_all_button()
 		self.authElem.set_ok_button()
-		
-	
+
 	u'''添加资源组'''
 	def add_res_group(self,data):
 		self.authElem.click_add_res_group()
 		self.authElem.select_res_group(data[7])
 		self.authElem.set_ok_button()
-		
 	
 	u'''添加资源账号'''
 	def add_res_account(self,data):
@@ -94,8 +86,7 @@ class testAuthorization():
 		self.authElem.set_select_res_search_button()
 		self.authElem.set_res_check_all_button()
 		self.authElem.set_ok_button()
-		
-	
+
 	u'''校验有弹出框类型用例是否通过
 			parameters: 
 				data : 检查点
@@ -129,7 +120,6 @@ class testAuthorization():
 			self.cmf.test_win_check_point("","",data,True)
 		else:
 			self.cmf.test_win_check_point("","",data,False)
-	
 
 	u'''重置'''	
 	def reset(self):
@@ -163,11 +153,6 @@ class testAuthorization():
 					#清空标识状态
 					flag = False
 					self.authElem.back_button()
-#					self.switch_to_auth_module()
-#					self.authElem.back_by_key()
-#					self.cmf.back()
-					if self.cmf.is_namevalue_exsit(data[2],"fortAuthorizationName"):
-						print ("add Authorization success")
 			except Exception as e:
 				print ("Authorization 001 add fail: ") + str(e)
 		self.log.log_end("addAuthorization_001")
@@ -198,12 +183,7 @@ class testAuthorization():
 					
 					#清空标识状态
 					flag = False
-#					self.authElem.back_by_key()
-#					self.switch_to_auth_module()
 					self.authElem.back_button()
-#					self.cmf.back()
-					if self.cmf.is_namevalue_exsit(data[2],"fortAuthorizationName"):
-						print ("add Authorization success")
 			except Exception as e:
 				print ("Authorization 002 add fail: ") + str(e)
 		self.log.log_end("addAuthorization_002")
@@ -234,12 +214,7 @@ class testAuthorization():
 					
 					#清空标识状态
 					flag = False
-					
-#					self.cmf.back()
-#					self.switch_to_auth_module()
 					self.authElem.back_button()
-					if self.cmf.is_namevalue_exsit(data[2],"fortAuthorizationName"):
-						print ("add Authorization success")
 			except Exception as e:
 				print ("Authorization 003 add fail: ") + str(e)
 		self.log.log_end("addAuthorization_003")
@@ -270,12 +245,7 @@ class testAuthorization():
 					
 					#清空标识状态
 					flag = False
-					
-#					self.cmf.back()
-#					self.switch_to_auth_module()
 					self.authElem.back_button()
-					if self.cmf.is_namevalue_exsit(data[2],"fortAuthorizationName"):
-						print ("add Authorization success")
 			except Exception as e:
 				print ("Authorization 004 add fail: ") + str(e)
 		self.log.log_end("addAuthorization_004")
@@ -306,17 +276,11 @@ class testAuthorization():
 					
 					#清空标识状态
 					flag = False
-					
-#					self.cmf.back()
-#					self.switch_to_auth_module()
 					self.authElem.back_button()
-					if self.cmf.is_namevalue_exsit(data[2],"fortAuthorizationName"):
-						print ("add Authorization success")
 			except Exception as e:
 				print ("Authorization 005 add fail: ") + str(e)
 		self.log.log_end("addAuthorization_005")
-	
-	
+
 	u'''添加用户组和资源账号类型的授权'''
 	def add_user_group_and_res_account_auth_006(self):		
 		#日志开始记录
@@ -341,15 +305,10 @@ class testAuthorization():
 					#判断测试项是否通过
 					self.check_with_pop_up(data,flag)
 					
-					
 					#清空标识状态
 					flag = False
-					
-#					self.cmf.back()
-#					self.switch_to_auth_module()
+
 					self.authElem.back_button()
-					if self.cmf.is_namevalue_exsit(data[2],"fortAuthorizationName"):
-						print ("add Authorization success")
 			except Exception as e:
 				print ("Authorization 006 add fail: ") + str(e)
 		self.log.log_end("addAuthorization_006")
@@ -381,8 +340,6 @@ class testAuthorization():
 					#清空标识状态
 					flag = False
 					self.authElem.back_button()
-					if self.cmf.is_namevalue_exsit(data[3],"fortAuthorizationName"):
-						print ("Edit authorization success")
 				
 			except Exception as e:
 				print ("Edit uuthorization fail: ") + str(e)
@@ -446,11 +403,6 @@ class testAuthorization():
 
 					self.authElem.click_search_button()
 					self.log.log_detail(data[0], True)
-#					search_row = self.authElem.get_rows()
-#					row = self.authElem.set_query_name(data[2],data[4])
-#					
-#					#判断测试项是否通过
-#					self.check_with_condition_equal(search_row,row,data)
 					
 					#清空标识状态
 					flag = False
@@ -475,11 +427,8 @@ class testAuthorization():
 				if  dataRow != 0:
 					self.frameElem.from_frame_to_otherFrame("mainFrame")
 					#如果是第一行，删除单条授权
-					#if dataRow == 1:
 					self.authElem.click_auth_checkbox(data[2])
 					#如果是第二行删除全部授权
-#					if dataRow == 2:
-#						self.authElem.check_all()
 					self.authElem.del_button()
 					self.cmf.click_login_msg_button()
 					#判断测试项是否通过
@@ -560,7 +509,7 @@ class testAuthorization():
 			data = auth_data[dataRow]
 			try:
 				
-				if  dataRow != 0:
+				if dataRow != 0:
 					self.frameElem.from_frame_to_otherFrame("mainFrame")
 					self.authElem.operate_double_approval(data[2])
 					#添加双人审批
@@ -590,39 +539,3 @@ class testAuthorization():
 				print ("Add double approvel fail: ") + str(e)
 		
 		self.log.log_end("AddDoubleApprovel_012")
-
-#if __name__ == "__main__":
-#	browser = setDriver().set_local_driver()
-#	commonSuite = CommonSuiteData(browser)
-	
-	#commonSuite.authori_module_prefix_condition()
-	
-#	commonSuite.isomper_login()
-#	commonSuite.add_sys_role()
-#	commonSuite.add_dep_role()
-#	commonSuite.add_user_with_role()
-#	commonSuite.add_authorization_user()
-#	commonSuite.user_quit()
-
-#	commonSuite.login_and_switch_to_dep()
-#	cmf = commonFun(browser)
-#	commonSuite.switch_to_moudle(u'运维管理',u'授权')
-#	authElem = AuthorizationPage(browser)
-#	authTest = testAuthorization(browser)
-#
-#
-#
-#	authTest.add_user_and_res_auth_001()
-#	authTest.add_user_and_res_group_auth_002()
-#	authTest.add_user_and_res_account_auth_003()
-#	authTest.add_user_group_and_res_auth_004()
-#	authTest.add_user_group_and_res_group_auth_005()
-#	authTest.add_user_group_and_res_account_auth_006()
-#	authTest.edit_auth_name_007()
-#	authTest.auth_checkout_008()
-#	
-#	authTest.auth_query_009()
-#	
-#	authTest.Opt_access_approvel_011()
-#	authTest.add_double_approvel_012()
-#	authTest.auth_del_010()

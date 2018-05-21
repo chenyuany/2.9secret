@@ -18,14 +18,14 @@ from _testDataPath import dataFileName
 sys.path.append("/testIsompSecret/common")
 from _icommon import commonFun,frameElement
 from _log import log
-sys.path.append("/testIsompSecret/testCase/role/")
-from test_role import testRole
 sys.path.append("/testIsompSecret/webElement/rule")
 from test_command_rule_ment import CommandRule
 from test_time_rule_ment import TimeRule
 from test_resource_time_rule_ment import RetimeRule
 sys.path.append("/testIsompSecret/testSuite/common_suite_file/")
 from common_suite_file import CommonSuiteData
+sys.path.append("/testIsompSecret/webElement/login/")
+from loginElement import loginPage
 
 class testRetime(object):
 
@@ -34,11 +34,16 @@ class testRetime(object):
 		self.log = log()
 		self.cmf = commonFun(driver)
 		self.frameElem = frameElement(driver)
-		self.testrole = testRole(driver)
 		self.command = CommandRule(driver)
 		self.comsuit = CommonSuiteData(driver)
 		self.timerule = TimeRule(driver)
 		self.retime = RetimeRule(driver)
+		self.loginElem = loginPage(driver)
+
+	u'''提示内容框元素路径'''
+	def div_msg(self):
+		div_msg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
+		return div_msg
 
 	u'''获取测试数据
 		Parameters:
@@ -59,7 +64,7 @@ class testRetime(object):
 		#获取添加资源时间规则测试数据
 		retruleData = self.get_table_data("add_retime_rule")
 		#保存成功的弹出框
-		comrulMsg = self.testrole.popup()
+		comrulMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -100,7 +105,7 @@ class testRetime(object):
 		#获取编辑资源时间规则测试数据
 		retruleData = self.get_table_data("mod_retime_rule")
 		#保存成功的弹出框
-		comrulMsg = self.testrole.popup()
+		comrulMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -122,8 +127,7 @@ class testRetime(object):
 
 	u'''资源时间规则结果'''
 	def add_retime_rule_result_003(self):
-		self.frameElem.from_frame_to_otherFrame("topFrame")
-		self.cmf.select_role_by_text(u"运维操作员")
+
 		#日志开始记录
 		self.log.log_start("add_retime_rule_result")
 		#获取资源时间审批测试数据
@@ -133,14 +137,21 @@ class testRetime(object):
 			try:
 				#如果不是第一行标题，则读取数据
 				if dataRow != 0:
+					if dataRow == 1:
+						self.comsuit.user_quit()
+						self.loginElem.login(data)
+						self.frameElem.from_frame_to_otherFrame("topFrame")
+						self.cmf.select_role_by_text(u"运维操作员")
 					self.retime.check_resource_time_rule(data)
 			except Exception as e:
 				print ("add_retime_rule_result fail:" + str(e))
+
+		self.comsuit.user_quit()
 		self.log.log_end("add_retime_rule_result")
 
 	u'''操作资源时间规则'''
 	def option_retime_rule_004(self):
-		self.comsuit.sys_switch_to_dep()
+		self.comsuit.login_secadmin()
 		self.comsuit.switch_to_moudle(u"运维管理", u"规则定义")
 		self.command.click_left_rule(3)
 
@@ -149,7 +160,7 @@ class testRetime(object):
 		#获取操作资源时间规则测试数据
 		retruleData = self.get_table_data("option_retime_rule")
 		#保存成功的弹出框
-		comrulMsg = self.testrole.popup()
+		comrulMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -187,7 +198,7 @@ class testRetime(object):
 		#获取校验资源时间规则测试数据
 		retruleData = self.get_table_data("check_retime_rule")
 		#保存成功的弹出框
-		comrulMsg = self.testrole.popup()
+		comrulMsg = self.div_msg()
 		self.command.click_add_button()
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -232,7 +243,7 @@ class testRetime(object):
 		#获取删除资源时间规则测试数据
 		retruleData = self.get_table_data("del_retime_rule")
 		#保存成功的弹出框
-		comrulMsg = self.testrole.popup()
+		comrulMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False

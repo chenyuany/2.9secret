@@ -25,7 +25,7 @@ from authrizationElement import AuthorizationPage
 sys.path.append("/testIsompSecret/testSuite")
 from common_suite_file import CommonSuiteData,setDriver
 sys.path.append("/testIsompSecret/webElement/login/")
-from loginElement import *
+from loginElement import loginPage
 
 class testOptReport():
 	def __init__(self,driver):
@@ -163,7 +163,6 @@ class testOptReport():
 				print ("Add plan report fail: ") + str(e)
 		self.optReport.click_back()
 		self.log.log_end("AddPlanReport_003")
-	
 
 	u'''删除行为审计报表'''
 	def opt_report_del_004(self):
@@ -190,17 +189,4 @@ class testOptReport():
 			except Exception as e:
 				print ("Opt Report del fail: ") + str(e)
 		self.log.log_end("OptReportDel_004")
-
-#if __name__ == "__main__":
-#	browser = setDriver().set_local_driver()
-#	commonSuite = CommonSuiteData(browser)
-#	adTest = testOptReport(browser)
-#	#commonSuite.opt_report_module_prefix_condition()
-#	commonSuite.login_and_switch_to_sys()
-#	commonSuite.switch_to_moudle(u"报表管理", u"审计报表")
-#
-#	adTest.add_opt_report_001()
-#	adTest.opt_report_check_002()
-#	adTest.add_plan_report_003()
-#	adTest.opt_report_del_004()
 

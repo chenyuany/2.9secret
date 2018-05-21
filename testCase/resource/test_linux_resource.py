@@ -18,10 +18,6 @@ from _testDataPath import dataFileName
 sys.path.append("/testIsompSecret/common")
 from _icommon import commonFun,frameElement
 from _log import log
-sys.path.append("/testIsompSecret/testCase/role/")
-from test_role import testRole
-sys.path.append("/testIsompSecret/webElement/role/")
-from test_roledf import Role
 sys.path.append("/testIsompSecret/webElement/resource/")
 from test_resource_common import Resource
 from test_linux_ment import LinuxResource
@@ -33,11 +29,14 @@ class testLinuxResource(object):
 		self.log = log()
 		self.cmf = commonFun(driver)
 		self.frameElem = frameElement(driver)
-		self.testrole = testRole(driver)
 		self.resource = Resource(driver)
 		self.linux = LinuxResource(driver)
-		self.role = Role(driver)
 		self.data = dataFileName()
+
+	u'''提示内容框元素路径'''
+	def div_msg(self):
+		div_msg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
+		return div_msg
 
 	u'''获取测试数据
 	   Parameters:
@@ -58,7 +57,7 @@ class testLinuxResource(object):
 		#获取添加资源测试数据
 		resourceData = self.get_resource_table_data("add_linux_resource")
 		#保存成功的弹出框
-		resourceMsg = self.testrole.popup()
+		resourceMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -87,7 +86,7 @@ class testLinuxResource(object):
 		#获取添加资源测试数据
 		resourceData = self.get_resource_table_data("edit_linux_resource")
 		#保存成功的弹出框
-		resourceMsg = self.testrole.popup()
+		resourceMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -115,7 +114,7 @@ class testLinuxResource(object):
 		#获取检验资源测试数据
 		resourceData = self.get_resource_table_data("check_linux_resource")
 		#保存成功的弹出框
-		resourceMsg = self.testrole.popup()
+		resourceMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -166,7 +165,7 @@ class testLinuxResource(object):
 						self.resource.query_type(data[2], data[3], data[4])
 						self.resource.query_ip_rename(data[5])
 					self.resource.click_resource_query()
-					self.role.click_reset()
+					self.resource.click_reset()
 					self.log.log_detail(data[0], True)
 			except Exception as e:
 				print ("query_resource fail:" + str(e))
@@ -181,7 +180,7 @@ class testLinuxResource(object):
 		#获取添加资源测试数据
 		resourceData = self.data.get_data(dataPath, sheetName)
 		#保存成功的弹出框
-		resourceMsg = self.testrole.popup()
+		resourceMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -208,7 +207,7 @@ class testLinuxResource(object):
 		#获取添加资源测试数据
 		resourceData = self.get_resource_table_data("bulkdel_resource")
 		#保存成功的弹出框
-		resourceMsg = self.testrole.popup()
+		resourceMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False

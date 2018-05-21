@@ -18,8 +18,6 @@ from _testDataPath import dataFileName
 sys.path.append("/testIsompSecret/common")
 from _icommon import commonFun,frameElement
 from _log import log
-sys.path.append("/testIsompSecret/testCase/role/")
-from test_role import testRole
 sys.path.append("/testIsompSecret/webElement/resource/")
 from test_resource_common import Resource
 from test_windows_ment import WindowsResource
@@ -31,9 +29,13 @@ class testWindowsResource(object):
 		self.log = log()
 		self.cmf = commonFun(driver)
 		self.frameElem = frameElement(driver)
-		self.testrole = testRole(driver)
 		self.resource = Resource(driver)
 		self.window = WindowsResource(driver)
+
+	u'''提示内容框元素路径'''
+	def div_msg(self):
+		div_msg = "html/body/div[1]/div/table/tbody/tr[2]/td[2]/div/table/tbody/tr[2]/td[2]/div"
+		return div_msg
 
 	u'''获取测试数据
 	   Parameters:
@@ -54,7 +56,7 @@ class testWindowsResource(object):
 		#获取添加windows资源测试数据
 		windowsData = self.get_windows_table_data("add_windows_resource")
 		#保存成功的弹出框
-		windowsMsg = self.testrole.popup()
+		windowsMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -83,7 +85,7 @@ class testWindowsResource(object):
 		#获取编辑windows资源测试数据
 		windowsData = self.get_windows_table_data("edit_windows_resource")
 		#保存成功的弹出框
-		windowsMsg = self.testrole.popup()
+		windowsMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
@@ -111,7 +113,7 @@ class testWindowsResource(object):
 		#获取校验windows资源测试数据
 		windowsData = self.get_windows_table_data("check_windows_resource")
 		#保存成功的弹出框
-		windowsMsg = self.testrole.popup()
+		windowsMsg = self.div_msg()
 
 		#无检查点的测试项标识，如果为True说明通过
 		flag = False
