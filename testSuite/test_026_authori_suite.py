@@ -45,9 +45,9 @@ class testAuthSuite(unittest.TestCase):
         #授权检索
         self.authCase.auth_query_009()
         #添加访问审批
-        self.authCase.Opt_access_approvel_011()
+        # self.authCase.Opt_access_approvel_011()
         #双人授权
-        self.authCase.add_double_approvel_012()
+        # self.authCase.add_double_approvel_012()
         #删除授权
         self.authCase.auth_del_010()
     

@@ -316,6 +316,7 @@ class Backuprestore(object):
 			- port:端口
 	'''
 	def set_syslog(self, port, ip='no'):
+		time.sleep(3)
 		self.comsuit.switch_to_moudle(u'系统配置', u'关联服务')
 		self.command.click_left_rule(1)
 		if ip != 'no':

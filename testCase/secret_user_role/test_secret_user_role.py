@@ -246,7 +246,7 @@ class testSecretUserRole(object):
 			try:
 				#如果不是第一行标题，则读取数据
 				if dataRow != 0 and dataRow < 4:
-					self.role.add_sercret_user(data[1], data[3], data[4], data[9])
+					self.role.add_sercret_user(data[3], data[1], data[4], data[9])
 					self.log.log_detail(data[0], True)
 
 			except Exception as e:
